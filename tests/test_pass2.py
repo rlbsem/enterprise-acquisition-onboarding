@@ -227,10 +227,13 @@ def test_lost_ack_history_reconciliation_does_not_require_new_write_authority(st
 def test_unavailable_receiver_before_commit_exhausts_bounded_budget(stack):
     effect = valid_handoff(stack)
     set_fault(stack, effect, ["unavailable"] * 3)
-    for _ in range(3):
+    for attempt in range(1, 4):
         assert step(stack.sender_config, effect, respect_due=False) == "uncertain"
         # Ordinary calls respect the persisted backoff; the finite test loop alone accelerates it.
-        assert step(stack.sender_config, effect) == "uncertain"
+        # After attempt three, exhaustion takes precedence over waiting for another due time.
+        assert step(stack.sender_config, effect) == ("uncertain" if attempt < 3 else "exhausted")
+        with connect(stack.dsn) as c:
+            assert c.execute("SELECT attempts FROM outbound").fetchone()["attempts"] == attempt
     assert step(stack.sender_config, effect, respect_due=False) == "exhausted"
     assert step(stack.sender_config, effect, respect_due=False) == "exhausted"
     with connect(stack.dsn) as c:
