@@ -73,7 +73,7 @@ On Windows, set `PG_BIN` with `$env:PG_BIN='C:/path/to/PostgreSQL/bin'`. On macO
 
 ## Executed evidence and boundaries
 
-The original [Pass 1 acceptance](docs/evidence/pass1/README.md) preserves its **23 passing tests** and standalone PostgreSQL/HTTP demonstration byte for byte. [Pass 2 acceptance](docs/evidence/pass2/README.md) adds governed review, resnapshot and independently receipted execution. Each record pins its actual implementation revision and source hashes. GitHub CI checks the archived artifacts and reruns local acceptance without vendor credentials.
+The original [Pass 1 acceptance](docs/evidence/pass1/README.md) preserves its **23 passing tests** and standalone PostgreSQL/HTTP demonstration byte for byte. [Pass 2 acceptance](docs/evidence/pass2/README.md) records **39 passing tests**, governed review, resnapshot and independently receipted execution. Each record pins its actual implementation revision and source hashes. GitHub CI checks the archived artifacts and reruns local acceptance without vendor credentials.
 
 Pass 1 includes identity ambiguity, legal-entity rejection, source ownership, lifecycle normalization, replay, concurrent duplicate delivery, source coverage, mapping versions, immutable evidence and reconciliation-based admission. The source identity can ingest only its own company/system; the sponsor identity is read-only; a separate controller identity may request the computed admission check. The ingestion database role cannot change registry identity, mappings, baselines or crosswalks.
 

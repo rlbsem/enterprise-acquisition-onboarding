@@ -5,7 +5,7 @@ Work remains on `feat/acquisition-admission`, draft PR #1. No merge or deploymen
 | Roadmap pass | Verified scope |
 |---|---|
 | 1: Repeatable brand admission | Registry, three local source domains per company, scoped identity, reviewed mappings, immutable raw intake, quarantine, exact coverage and source-linked portfolio projection. Original 23-test acceptance pins `e10c676401c0e7afb503afb5fc6f638f90a9b09f`; published checkpoint `606dee249c1d71330f0e82f67a352b1986d1a624` remains preserved. |
-| 2: Source authority and safe execution | Scoped review proposals/decisions, source correction, mapping resnapshot/history, separate opportunity/work-order/finance-account contracts, durable bounded outbox, separate PostgreSQL/HTTP receiver, commit-then-lost-response recovery and genuine worker interruption. See the source-pinned acceptance record below. |
+| 2: Source authority and safe execution | Scoped review proposals/decisions, source correction, mapping resnapshot/history, separate opportunity/work-order/finance-account contracts, durable bounded outbox, separate PostgreSQL/HTTP receiver, commit-then-lost-response recovery and genuine worker interruption. 39 passing tests and two standalone demos pin implementation `32c4e7475b12bf42898a51e697bd853db8159d10`; see the acceptance record below. |
 | 3: Portfolio reconciliation | Not started: financial grains, SQL/dbt, independent financial oracle, elimination rules and versioned restatements. |
 | 4: Sponsor/acquisition console | Not started: authenticated operating-company/sponsor browser views and per-brand access controls. |
 | 5: Independent adversarial review | Not performed; remains a separate acceptance activity. |
