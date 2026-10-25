@@ -1,6 +1,6 @@
 # Verified scope and continuation
 
-Pass 1 implementation is on `feat/acquisition-admission`. The initial `main` contains only GitHub's README initialization. Local PostgreSQL/HTTP tests and the standalone demo are the acceptance lanes; exact execution evidence is checkpointed separately.
+Pass 1 implementation is on `feat/acquisition-admission`. The initial `main` contains only GitHub's README initialization. Implementation checkpoint: `e10c676401c0e7afb503afb5fc6f638f90a9b09f`. Local PostgreSQL/HTTP acceptance passed 23 tests with zero failures/errors/skips and a separate standalone demo. [Recorded evidence](evidence/pass1/README.md) pins that implementation and its source hashes. GitHub CI remains independently observable in the draft PR; this ledger does not turn local success into a hosted-CI claim.
 
 | Roadmap pass | This delivery |
 |---|---|

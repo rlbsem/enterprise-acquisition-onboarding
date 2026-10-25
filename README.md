@@ -64,7 +64,7 @@ On Windows, set `PG_BIN` with `$env:PG_BIN='C:/path/to/PostgreSQL/bin'`. On macO
 
 ## Pass 1 evidence and boundaries
 
-The verification command runs actual PostgreSQL/HTTP positive and negative tests plus a standalone demonstration. Recorded results are added separately with exact execution revision, source hashes and expected-versus-observed outcomes. GitHub CI verifies original evidence and repeats the local acceptance without vendor credentials.
+**23 tests passed with zero failures, errors or skips**, followed by a standalone real HTTP/PostgreSQL demonstration. [Recorded acceptance](docs/evidence/pass1/README.md) includes the exact implementation revision, source hashes and expected-versus-observed outcomes. GitHub CI verifies original evidence and repeats the local acceptance without vendor credentials.
 
 Pass 1 includes identity ambiguity, legal-entity rejection, source ownership, lifecycle normalization, replay, concurrent duplicate delivery, source coverage, mapping versions, immutable evidence and reconciliation-based admission. The source identity can ingest only its own company/system; the sponsor identity is read-only; a separate controller identity may request the computed admission check. The ingestion database role cannot change registry identity, mappings, baselines or crosswalks.
 
