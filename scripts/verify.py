@@ -42,7 +42,11 @@ def main():
             result = subprocess.run(
                 [sys.executable, *args],
                 cwd=ROOT,
-                env={**os.environ, "PYTHONUTF8": "1"},
+                env={
+                    **os.environ,
+                    "PYTHONUTF8": "1",
+                    "ONBOARDING_TEST_EVIDENCE": str(out),
+                },
                 stdout=log,
                 stderr=subprocess.STDOUT,
             )
@@ -75,6 +79,17 @@ def main():
             str(out / "demo.json"),
         ],
     )
+    run(
+        "pass2-demo",
+        [
+            "-m",
+            "onboarding.pass2_demo",
+            "--workspace",
+            str(work / "pass2-demo"),
+            "--output",
+            str(out / "pass2.json"),
+        ],
+    )
     if start != source_hashes():
         raise ValueError("source_changed_during_acceptance")
     report = {
@@ -91,7 +106,7 @@ def main():
         ],
         "native_vendor_execution": False,
         "cloud_resources": False,
-        "scope": "Pass 1 only; no independent final audit or later-pass acceptance",
+        "scope": "Passes 1 and 2; finite local acceptance, no independent final audit or later-pass acceptance",
     }
     (out / "verification.json").write_bytes((json.dumps(report, indent=2) + "\n").encode())
     manifest = {

@@ -7,6 +7,62 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def digest(value):
+    return hashlib.sha256(
+        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    ).hexdigest()
+
+
+def check_pass2(folder):
+    p = json.loads((folder / "pass2.json").read_bytes())
+    assert not p["A_identity"]["before_passed"] and p["A_identity"]["after_passed"]
+    assert not p["B_wrong_entity"]["admission_passed"]
+    assert p["B_wrong_entity"]["source_correction"]["status"] == "accepted"
+    gate = p["C_resnapshot"]["final_gate"]
+    assert gate["passed"] and gate["mapping_version"] == 2
+    delivery = p["D_E_delivery"]
+    assert delivery["uncertain"] == "uncertain" and delivery["recovered"] == "confirmed"
+    assert delivery["independently_observed_effects_before_recovery"] == 1
+    assert delivery["duplicate_plan"] and delivery["conflicting_payload_http_status"] == 409
+    assert len(p["receiver"]["effects"]) == len(p["receiver"]["records"]) == 1
+    intent = p["control"]["outbound"][0]
+    remote = p["receiver"]["effects"][0]
+    record = p["receiver"]["records"][0]
+    assert intent["state"] == "confirmed" and intent["attempts"] == 1
+    assert intent["effect_id"] == remote["id"] == delivery["effect_id"]
+    assert intent["payload"] == remote["payload"] == intent["proof"]["payload"]
+    assert digest(intent["payload"]) == remote["hash"] == intent["hash"]
+    assert record["body"] == remote["receipt"]["record"] == intent["proof"]["record"]
+    assert digest(record["body"]) == remote["receipt"]["record_hash"]
+    assert sum(row["operation"] == "apply" for row in p["receiver"]["requests"]) == 1
+    assert {row["version"] for row in p["control"]["mapping_versions"]} == {1, 2}
+    assert {row["body"]["version"] for row in p["control"]["source_record_history"]} == {1, 2}
+    assert len(p["control"]["quarantine"]) == len(p["control"]["quarantine_resolutions"]) == 3
+    original = [m for m in p["control"]["messages"] if m["source"] == "legacy-crm"]
+    assert len(original) == 1 and original[0]["status"] == "quarantined"
+    decisions = {d["review_id"]: d for d in p["control"]["review_decisions"]}
+    assert decisions[p["A_identity"]["rejected_review"]]["result"] == "rejected"
+    assert decisions[p["A_identity"]["approved_review"]]["result"] == "approved"
+    for change in ["admission", "mapping", "business", "source_revision"]:
+        check = json.loads((folder / ("authorization-" + change + ".json")).read_bytes())
+        assert (
+            check["expected"] == check["observed"] == {"state": "blocked", "effects": 0, "posts": 0}
+        )
+    exhausted = json.loads((folder / "exhaustion.json").read_bytes())
+    assert (
+        exhausted["expected"]
+        == exhausted["observed"]
+        == {"state": "exhausted", "attempts": 3, "effects": 0}
+    )
+    killed = json.loads((folder / "process-death.json").read_bytes())
+    assert killed["actual_process_terminated"] and killed["child_exit_code"] != 0
+    assert killed["confirmed_after_restart"] and killed["competing_worker"] == "busy"
+    assert killed["receiver_effects"] == killed["receiver_posts"] == 1
+    assert p["native_vendor_calls"] == 0 and p["owned_resources_cleaned"]
+
+
 count = 0
 for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
     inventory = json.loads(mf.read_bytes())
@@ -45,6 +101,8 @@ for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
     for c in d["portfolio"]["companies"]:
         for source in c["source_records"]:
             assert source["raw"] and source["normalized"] and source["source_id"] == "100"
+    if "pass2.json" in inventory:
+        check_pass2(mf.parent)
 links = 0
 for doc in [ROOT / "README.md", *(ROOT / "docs").rglob("*.md")]:
     for target in re.findall(r"\]\(([^)]+)\)", doc.read_text(encoding="utf-8")):

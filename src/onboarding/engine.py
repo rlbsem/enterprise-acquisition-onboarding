@@ -7,7 +7,9 @@ from .db import connect, lock
 
 
 class Refused(ValueError):
-    pass
+    def __init__(self, reason, detail=None):
+        super().__init__(reason)
+        self.detail = detail or {}
 
 
 def require(condition, reason):
@@ -54,6 +56,113 @@ def quarantine(c, message, identifier, reason, detail=None):
         "UPDATE companies SET status='held',gate_hash=NULL WHERE id=%s", (message["company"],)
     )
     audit(c, message["company"], "quarantined", identifier, {"reason": reason})
+
+
+def apply_record(c, opco, message, identifier, allow_remap=False):
+    company, source = message["company"], message["source"]
+    changed = False
+    mapping = c.execute(
+        "SELECT * FROM mapping_versions WHERE company=%s AND version=%s",
+        (company, message["mapping_version"]),
+    ).fetchone()
+    require(
+        mapping is not None and opco["active_mapping"] == message["mapping_version"],
+        "unapproved_or_inactive_mapping",
+    )
+    require(digest(mapping["body"]) == mapping["hash"], "mapping_content_conflict")
+    rule = validate_contract(mapping["body"])["sources"].get(source)
+    require(rule is not None, "source_not_in_approved_contract")
+    identity, revision, values = normalize(message["data"], rule, opco["legal_entity"])
+    links = c.execute(
+        "SELECT * FROM crosswalks WHERE company=%s AND legal_entity=%s AND source=%s AND source_id=%s AND version=%s",
+        (company, opco["legal_entity"], source, identity, message["mapping_version"]),
+    ).fetchall()
+    if len(links) != 1:
+        name = values.get("display_name", "")
+        candidates = [
+            str(r["id"])
+            for r in c.execute(
+                "SELECT id FROM customers WHERE company=%s AND lower(name)=lower(%s)",
+                (company, name),
+            )
+        ]
+        raise Refused(
+            "ambiguous_identity" if len(candidates) > 1 else "unmapped_identity",
+            {"candidate_ids": candidates},
+        )
+    canonical = links[0]["canonical"]
+    current = c.execute(
+        "SELECT * FROM source_records WHERE company=%s AND source=%s AND source_id=%s",
+        (company, source, identity),
+    ).fetchone()
+    replay = (
+        current
+        and revision == current["revision"]
+        and current["raw"] == message["data"]
+        and current["version"] == message["mapping_version"]
+    )
+    remap = bool(
+        current
+        and allow_remap
+        and revision == current["revision"]
+        and current["raw"] == message["data"]
+    )
+    if current and not replay and not remap:
+        require(revision > current["revision"], "stale_or_conflicting_source_revision")
+        require(revision == current["revision"] + 1, "source_revision_gap")
+        require(
+            datetime.fromisoformat(message["observed_at"]) >= current["observed_at"],
+            "source_observation_regression",
+        )
+        require(current["canonical"] == canonical, "identity_reassignment_requires_migration")
+    if not replay:
+        for field, value in values.items():
+            old = c.execute(
+                "SELECT * FROM customer_fields WHERE company=%s AND canonical=%s AND field=%s",
+                (company, canonical, field),
+            ).fetchone()
+            if old:
+                require(
+                    (old["source"], old["source_id"]) == (source, identity),
+                    "conflicting_source_identity",
+                )
+                if field in TRANSITIONS and old["value"] != value:
+                    require(
+                        value in TRANSITIONS[field].get(old["value"], []),
+                        "unsupported_lifecycle_transition",
+                    )
+        c.execute(
+            "INSERT INTO source_records(company,source,source_id,canonical,revision,version,message_id,raw,raw_hash,normalized,observed_at) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(company,source,source_id) DO UPDATE SET revision=excluded.revision,version=excluded.version,message_id=excluded.message_id,raw=excluded.raw,raw_hash=excluded.raw_hash,normalized=excluded.normalized,observed_at=excluded.observed_at",
+            (
+                company,
+                source,
+                identity,
+                canonical,
+                revision,
+                message["mapping_version"],
+                identifier,
+                Jsonb(message["data"]),
+                digest(message["data"]),
+                Jsonb(values),
+                message["observed_at"],
+            ),
+        )
+        for field, value in values.items():
+            c.execute(
+                "INSERT INTO customer_fields VALUES(%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(company,canonical,field) DO UPDATE SET value=excluded.value,source=excluded.source,source_id=excluded.source_id,revision=excluded.revision,message_id=excluded.message_id",
+                (
+                    company,
+                    canonical,
+                    field,
+                    Jsonb(value),
+                    source,
+                    identity,
+                    revision,
+                    identifier,
+                ),
+            )
+        changed = True
+    return changed, "same_record_replay" if replay else "validated_against_reviewed_mapping"
 
 
 def intake(dsn, document):
@@ -116,109 +225,12 @@ def intake(dsn, document):
         ).fetchone()
         identifier = row["id"]
         changed = False
-        candidates = []
         try:
-            mapping = c.execute(
-                "SELECT * FROM mapping_versions WHERE company=%s AND version=%s",
-                (company, message["mapping_version"]),
-            ).fetchone()
-            require(
-                mapping is not None and opco["active_mapping"] == message["mapping_version"],
-                "unapproved_or_inactive_mapping",
-            )
-            require(digest(mapping["body"]) == mapping["hash"], "mapping_content_conflict")
-            rule = validate_contract(mapping["body"])["sources"].get(source)
-            require(rule is not None, "source_not_in_approved_contract")
-            identity, revision, values = normalize(message["data"], rule, opco["legal_entity"])
-            links = c.execute(
-                "SELECT * FROM crosswalks WHERE company=%s AND legal_entity=%s AND source=%s AND source_id=%s AND version=%s",
-                (company, opco["legal_entity"], source, identity, message["mapping_version"]),
-            ).fetchall()
-            if len(links) != 1:
-                name = values.get("display_name", "")
-                candidates = [
-                    str(r["id"])
-                    for r in c.execute(
-                        "SELECT id FROM customers WHERE company=%s AND lower(name)=lower(%s)",
-                        (company, name),
-                    )
-                ]
-                raise Refused("ambiguous_identity" if len(candidates) > 1 else "unmapped_identity")
-            canonical = links[0]["canonical"]
-            current = c.execute(
-                "SELECT * FROM source_records WHERE company=%s AND source=%s AND source_id=%s",
-                (company, source, identity),
-            ).fetchone()
-            replay = (
-                current
-                and revision == current["revision"]
-                and current["raw"] == message["data"]
-                and current["version"] == message["mapping_version"]
-            )
-            if current and not replay:
-                require(revision > current["revision"], "stale_or_conflicting_source_revision")
-                require(revision == current["revision"] + 1, "source_revision_gap")
-                require(
-                    datetime.fromisoformat(message["observed_at"]) >= current["observed_at"],
-                    "source_observation_regression",
-                )
-                require(
-                    current["canonical"] == canonical, "identity_reassignment_requires_migration"
-                )
-            if not replay:
-                for field, value in values.items():
-                    old = c.execute(
-                        "SELECT * FROM customer_fields WHERE company=%s AND canonical=%s AND field=%s",
-                        (company, canonical, field),
-                    ).fetchone()
-                    if old:
-                        require(
-                            (old["source"], old["source_id"]) == (source, identity),
-                            "conflicting_source_identity",
-                        )
-                        if field in TRANSITIONS and old["value"] != value:
-                            require(
-                                value in TRANSITIONS[field].get(old["value"], []),
-                                "unsupported_lifecycle_transition",
-                            )
-                c.execute(
-                    "INSERT INTO source_records(company,source,source_id,canonical,revision,version,message_id,raw,raw_hash,normalized,observed_at) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(company,source,source_id) DO UPDATE SET revision=excluded.revision,version=excluded.version,message_id=excluded.message_id,raw=excluded.raw,raw_hash=excluded.raw_hash,normalized=excluded.normalized,observed_at=excluded.observed_at",
-                    (
-                        company,
-                        source,
-                        identity,
-                        canonical,
-                        revision,
-                        message["mapping_version"],
-                        identifier,
-                        Jsonb(message["data"]),
-                        digest(message["data"]),
-                        Jsonb(values),
-                        message["observed_at"],
-                    ),
-                )
-                for field, value in values.items():
-                    c.execute(
-                        "INSERT INTO customer_fields VALUES(%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(company,canonical,field) DO UPDATE SET value=excluded.value,source=excluded.source,source_id=excluded.source_id,revision=excluded.revision,message_id=excluded.message_id",
-                        (
-                            company,
-                            canonical,
-                            field,
-                            Jsonb(value),
-                            source,
-                            identity,
-                            revision,
-                            identifier,
-                        ),
-                    )
-                changed = True
-            status, reason = (
-                "accepted",
-                "same_record_replay" if replay else "validated_against_reviewed_mapping",
-            )
+            changed, reason = apply_record(c, opco, message, identifier)
+            status = "accepted"
         except Refused as exc:
             status, reason = "quarantined", str(exc)
-            quarantine(c, message, identifier, reason, {"candidate_ids": candidates})
+            quarantine(c, message, identifier, reason, exc.detail)
         c.execute(
             "UPDATE messages SET status=%s,reason=%s WHERE id=%s", (status, reason, identifier)
         )
@@ -252,7 +264,8 @@ def inspect_gate(c, company):
         "SELECT * FROM source_records WHERE company=%s ORDER BY source,source_id", (company,)
     ).fetchall()
     quarantined = c.execute(
-        "SELECT id,reason,message_id FROM quarantine WHERE company=%s ORDER BY id", (company,)
+        "SELECT q.id,q.reason,q.message_id FROM quarantine q LEFT JOIN quarantine_resolutions r ON r.quarantine_id=q.id WHERE q.company=%s AND r.quarantine_id IS NULL ORDER BY q.id",
+        (company,),
     ).fetchall()
     if quarantined:
         issues.append("unresolved_quarantine")
