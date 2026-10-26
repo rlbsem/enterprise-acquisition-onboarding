@@ -6,6 +6,22 @@ A parent platform needs to attach acquired companies to shared infrastructure wh
 
 Three fictional companies use different local CRM, operations and finance contracts. All data is synthetic. HubSpot, Salesforce, LMN, Aspire, QuickBooks and NetSuite names identify limited representative contracts; **no native vendor API, client system or cloud resource is used**.
 
+## Quick start with Docker
+
+With Docker Engine 28+ and Compose V2, run from this repository:
+
+```text
+docker compose up --build
+```
+
+Wait for `ready`, then open **http://127.0.0.1:8592/console**. Retrieve your fresh private sponsor login in a separate terminal:
+
+```text
+docker compose exec demo python -m onboarding.portable credentials --user sponsor
+```
+
+Startup runs real PostgreSQL, independent HTTP contracts and validated original/restated dbt publications. The console is host-loopback only; databases and internal APIs are not published. Use `docker compose down --volumes --remove-orphans` to remove this disposable demo. Each subsequent startup creates fresh data and credentials. [Guided walkthrough, security boundaries and packaging verification](docs/portable-demo.md).
+
 ## Inspect the operations console
 
 The authenticated local console lets sponsors inspect the portfolio, company leaders see only their company, and a scoped reviewer make actual identity/mapping decisions. Financial drilldowns read validated publications, never working dbt tables. Current admission and historical financial inclusion remain visibly separate.
