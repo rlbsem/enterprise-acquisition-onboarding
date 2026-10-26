@@ -45,6 +45,7 @@ def source_hashes():
             ".dockerignore",
             "compose.yaml",
             "compose.acceptance.yaml",
+            "compose.annual.yaml",
             "requirements.lock",
             "pyproject.toml",
         }
@@ -52,7 +53,8 @@ def source_hashes():
 
 
 class Lane:
-    def __init__(self, workspace, native=False):
+    def __init__(self, workspace, native=False, scenario="correctness"):
+        self.scenario = scenario
         self.work, self.native = workspace, native
         self.state = workspace / "state"
         self.port = free_port()
@@ -68,6 +70,8 @@ class Lane:
         files = ["-f", str(ROOT / "compose.yaml")]
         if self.acceptance:
             files += ["-f", str(ROOT / "compose.acceptance.yaml")]
+        if self.scenario == "annual":
+            files += ["-f", str(ROOT / "compose.annual.yaml")]
         return ["docker", "compose", "-p", self.project, *files, *args]
 
     def run(self, command, name, timeout=900):
@@ -99,16 +103,20 @@ class Lane:
         self.acceptance = acceptance
         if self.native:
             self.log = (self.work / "runtime-private.log").open("ab")
-            command = [
-                sys.executable,
-                "-m",
-                "onboarding.portable",
-                "serve",
-                "--state",
-                str(self.state),
-                "--port",
-                str(self.port),
-            ] + (["--acceptance"] if acceptance else [])
+            command = (
+                [
+                    sys.executable,
+                    "-m",
+                    "onboarding.portable",
+                    "serve",
+                    "--state",
+                    str(self.state),
+                    "--port",
+                    str(self.port),
+                ]
+                + (["--acceptance"] if acceptance else [])
+                + ["--scenario", self.scenario]
+            )
             extra = {
                 "PYTHONPATH": str(ROOT / "src"),
                 "PG_BIN": os.environ.get("PG_BIN", ""),

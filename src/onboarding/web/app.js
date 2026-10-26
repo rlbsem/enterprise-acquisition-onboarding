@@ -127,6 +127,18 @@ function companyTable() {
     ),
   );
 }
+function scenarioContext() {
+  const annual = state.report.scenario.id === "annual-2026";
+  const profiles = Object.entries(state.report.scenario.profiles);
+  return panel(
+    annual ? "Annual source scenario · January–December 2026" : "Selected-period correctness scenario",
+    annual
+      ? "Twelve source months, not twelve months of portfolio ownership. Totals include admitted companies only, from each acquisition date."
+      : "January, February and October 2026 are a bounded correctness fixture. These bookings are not annual portfolio revenue.",
+    `<p>Three representative operating companies illustrate integration into a larger platform. A 50+ brand platform with $5M–$20M annual operating profiles is business context, not a claim about this dataset or customer deployments.</p>` +
+    (annual ? `<div class="scenario-profiles">${profiles.map(([id, amount]) => `<div><strong>${E(state.overview.companies.find(c => c.id === id)?.name || id)}</strong><span>${money(amount)} / year</span><small>Assumed gross billing profile · ${state.report.control[id].admitted ? "admitted, acquisition dates apply" : "held; excluded from published totals"}</small></div>`).join("")}</div><p class="fine">One compressed monthly anchor-contract bundle per company, not a customer census. Profiles are assumptions; bookings, invoicing, postings and cash below are separately calculated source facts. No recognized revenue is modeled.</p>` : `<p class="fine">Use the optional annual demo to inspect twelve-month source economics without changing this verified fixture.</p>`),
+  );
+}
 function portfolio() {
   const companies = state.overview.companies;
   return (
@@ -137,6 +149,7 @@ function portfolio() {
         : "Your operating company, in context.",
       "Current admission is separate from historical financial inclusion. Every figure below comes from a validated, immutable publication.",
     ) +
+    scenarioContext() +
     metrics() +
     panel(
       "Acquisition readiness",
@@ -449,7 +462,7 @@ async function refresh(focus = false) {
     active.setAttribute("aria-current", "page");
     $("#route-label").textContent = labels[state.route];
     $("#publication-note").textContent =
-      `${state.report.currency} · Selected months, not YTD · Source cutoff ${date(state.report.cutoff)}`;
+      `${state.report.currency} · ${state.report.scenario.id === "annual-2026" ? "2026 source year · acquisition scope applies" : "Selected months, not YTD"} · Source cutoff ${date(state.report.cutoff)}`;
     if (["company", "governance"].includes(state.route)) {
       const data = await api(
         "/companies/" + encodeURIComponent(currentCompany()),

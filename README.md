@@ -6,6 +6,8 @@ A parent platform needs to attach acquired companies to shared infrastructure wh
 
 Three fictional companies use different local CRM, operations and finance contracts. All data is synthetic. HubSpot, Salesforce, LMN, Aspire, QuickBooks and NetSuite names identify limited representative contracts; **no native vendor API, client system or cloud resource is used**.
 
+**Two deliberately separate scenarios:** the default selected-month correctness fixture preserves its USD $550,000 bookings and verified exceptions. The optional [annual operating scenario](docs/annual-scenario.md) generates twelve months for the same three companies, with assumed gross billing profiles of $8.4M, $12.6M and $6.3M. Neither scenario claims recognized annual revenue. Acquisition-effective exclusions and held companies prevent unsupported portfolio reporting.
+
 ## Quick start with Docker
 
 With Docker Engine 28+ and Compose V2, run from this repository:

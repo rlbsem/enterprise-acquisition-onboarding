@@ -14,6 +14,22 @@
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
 }
+.scenario-profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.scenario-profiles > div {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel2);
+}
+.scenario-profiles span { font-size: 1.5rem; color: var(--lavender); font-weight: 650; }
+.scenario-profiles small { color: var(--muted); }
 * {
   box-sizing: border-box;
 }
