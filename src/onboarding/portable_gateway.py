@@ -56,6 +56,21 @@ class Handler(BaseHTTPRequestHandler):
 
     def forward(self):
         self.connection.settimeout(10)
+        lengths = self.headers.get_all("Content-Length", [])
+        try:
+            size = int(lengths[0]) if lengths else 0
+        except ValueError:
+            size = -1
+        if len(lengths) > 1 or self.headers.get("Transfer-Encoding") or not 0 <= size <= MAX_BODY:
+            return self.reject(413, "bounded_body_required")
+        # Drain only a valid, bounded body before rejecting a route. Closing with
+        # unread bytes can reset the TCP connection and hide the rejection status.
+        try:
+            body = self.rfile.read(size)
+        except OSError:
+            return self.reject(400, "incomplete_body")
+        if len(body) != size:
+            return self.reject(400, "incomplete_body")
         hosts = self.headers.get_all("Host", [])
         try:
             host = urlsplit("//" + hosts[0])
@@ -91,20 +106,10 @@ class Handler(BaseHTTPRequestHandler):
             return self.reject(405, "method_not_allowed")
         if not (path == "/console" or path.startswith("/console/")):
             return self.reject(404, "console_only")
-        lengths = self.headers.get_all("Content-Length", [])
-        try:
-            size = int(lengths[0]) if lengths else 0
-        except ValueError:
-            size = -1
-        if len(lengths) > 1 or self.headers.get("Transfer-Encoding") or not 0 <= size <= MAX_BODY:
-            return self.reject(413, "bounded_body_required")
         if self.command == "GET" and size:
             return self.reject(400, "unexpected_body")
         if not self.server.ready.is_set():
             return self.reject(503, "not_ready")
-        body = self.rfile.read(size)
-        if len(body) != size:
-            return self.reject(400, "incomplete_body")
         headers = {k: v for k, v in self.headers.items() if k.lower() in REQUEST_HEADERS}
         # Preserve the browser's exact origin/Host relationship. Never trust forwarded headers.
         headers["Host"] = hosts[0]

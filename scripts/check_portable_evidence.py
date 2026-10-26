@@ -91,7 +91,7 @@ def check(folder, failed=False, working_tree=False):
     assert summary["original"]["consolidated_invoice_minor"] == 36800000
     assert summary["restated"]["consolidated_invoice_minor"] == 38800000
     assert summary["restated"]["allocated_cash_minor"] == 23000000
-    assert summary["restated"]["supported_elimination_minor"] == 2000000
+    assert summary["restated"]["elimination_minor"] == 2000000
     assert summary["original_report_unchanged"] and not summary["blocked_candidate_published"]
     assert {(r["code"], r["amount_minor"]) for r in summary["open_variances"]} == {
         ("erp_posting_difference", 500000),

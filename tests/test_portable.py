@@ -85,7 +85,8 @@ def test_gateway_preserves_browser_authority_and_response_controls(gateway):
 )
 def test_gateway_never_exposes_nonconsole_services(gateway, path):
     client, received, *_ = gateway
-    assert client.post(path, json={}).status_code == 404
+    for _ in range(3):
+        assert client.post(path, json={"synthetic": "rejected body"}).status_code == 404
     assert received == []
 
 
