@@ -22,7 +22,7 @@ The source contract is `financial-fact.v1`. It preserves source ID, authenticate
 
 A report freezes current reconciled admission state and mapping versions from the existing control layer, together with exact financial source-ID coverage. Unknown or unreviewed coverage blocks the candidate. Cedar and Meridian are admitted; Summit remains held. Meridian's January invoice is outside its February 1 acquisition boundary. Summit's October invoice is held despite its October 1 acquisition date. Related documents outside the eligible parent perimeter remain excluded explicitly. No pre-acquisition receivable carry-forward is modeled.
 
-The cutoff is a **synthetic source-observation as-of date**, distinct from actual database capture/publication time. The finite imported data does not prove that a live connector knew these facts at a historical wall-clock instant. Frozen event IDs and original body hashes preserve exactly what the reporting version used. A later mapping/source change cannot rewrite an old report. Publication rechecks control state and cutoff-selected source records after dbt execution.
+The cutoff is a **synthetic source-observation as-of date**, distinct from actual database capture/publication time. The finite imported data does not prove that a live connector knew these facts at a historical wall-clock instant. Frozen event IDs and original body hashes preserve exactly what the reporting version used. PostgreSQL permits input insertion only in the snapshot-creation transaction; later appends, edits and deletes fail. Publication verifies the frozen manifest again. A later mapping/source change cannot rewrite an old report. Publication rechecks control state and cutoff-selected source records after dbt execution.
 
 ## Consolidation and reconciliation
 
@@ -34,7 +34,7 @@ Elimination requires one eligible seller charge and one independently sourced bu
 
 The Python oracle starts from frozen original source bodies and performs its own integer selection, grouping and arithmetic. It does not query dbt outputs. Seven financial result sets are compared by exact row content and hashes, including invoice, cash, entity, parent, elimination, variance and temporal grains. Zero oracle differences means the two implementations agree; it does **not** mean open source discrepancies have disappeared. Successful reports retain status `reconciled_with_open_variances` where appropriate.
 
-Invoice-line imbalance or excess allocation fails real dbt data tests and blocks publication. A missing/different ERP posting remains an explicit source-linked variance, never a forced balance. Immutable publication rows contain the complete result, comparison and bridge. Rebuildable dbt tables are the current projection; they do not replace archived reporting versions.
+Invoice-line imbalance or excess allocation fails real dbt data tests and blocks publication. A missing/different ERP posting remains an explicit source-linked variance, never a forced balance. Immutable publication rows contain the complete result, comparison and bridge. Rebuildable dbt tables are working projections; they do not replace archived reporting versions. A failed build may leave an unpublished candidate in that working schema. Consumers must use the validated immutable publication, not infer publication from an analytics table existing.
 
 ## Executed financial bridge
 

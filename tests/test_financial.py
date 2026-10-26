@@ -109,6 +109,9 @@ def test_immutable_snapshots_and_restricted_warehouse(stack):
     with pytest.raises(psycopg.errors.RaiseException, match="immutable"):
         with connect(stack.admin_dsn) as c:
             c.execute("UPDATE financial_snapshots SET input_hash='changed'")
+    with pytest.raises(psycopg.errors.RaiseException, match="financial_snapshot_closed"):
+        with connect(stack.reviewer_dsn) as c:
+            c.execute("INSERT INTO financial_inputs SELECT * FROM financial_inputs LIMIT 1")
     with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with connect(stack.dsn) as c:
             c.execute("INSERT INTO financial_publications VALUES('frozen','{}','{}','{}',now())")

@@ -6,7 +6,7 @@ import secrets
 import re
 import subprocess
 import sys
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
 import psycopg
@@ -111,6 +111,7 @@ def freeze(dsn, report, version, cutoff, previous=None):
     require(re.fullmatch(r"[a-z0-9_-]{1,64}", report), "bounded_report_identifier_required")
     cutoff_time = datetime.fromisoformat(cutoff)
     require(cutoff_time.utcoffset() is not None, "aware_reporting_cutoff_required")
+    cutoff = cutoff_time.astimezone(UTC).isoformat()
     with connect(dsn) as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ")
         policy = c.execute(
@@ -350,6 +351,18 @@ def build(stack, report, work, expect_success=True):
         require(
             sorted_rows(current) == sorted_rows(original),
             "reporting_sources_changed_before_publication",
+        )
+        require(
+            snapshot["input_hash"]
+            == digest(
+                {
+                    "control": snapshot["control"],
+                    "policy": policy,
+                    "cutoff": snapshot["cutoff"].astimezone(UTC).isoformat(),
+                    "inputs": current,
+                }
+            ),
+            "financial_frozen_manifest_mismatch",
         )
         c.execute(
             "INSERT INTO financial_publications(report_id,results,comparisons,bridge) VALUES(%s,%s,%s,%s)",
