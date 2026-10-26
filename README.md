@@ -28,7 +28,9 @@ Startup runs real PostgreSQL, independent HTTP contracts and validated original/
 
 The authenticated local console lets sponsors inspect the portfolio, company leaders see only their company, and a scoped reviewer make actual identity/mapping decisions. Financial drilldowns read validated publications, never working dbt tables. Current admission and historical financial inclusion remain visibly separate.
 
-![Actual authenticated portfolio console](docs/evidence/pass4/run01/portfolio-desktop.png)
+The screenshot shows the optional annual scenario: **USD $22.42M bookings, $20.06M consolidated net invoicing and $15.61M allocated cash**, calculated from synthetic source records after reporting exclusions. The default Docker command above still opens the selected-period correctness fixture. [Annual launch and exact figures](docs/annual-scenario.md) · [Executed annual evidence](docs/evidence/annual/README.md).
+
+![Actual annual-scenario sponsor console](docs/evidence/annual/run01/annual-desktop.png)
 
 [Run and inspect the console](docs/operations-console.md) · [Browser evidence and screenshots](docs/evidence/pass4/README.md)
 

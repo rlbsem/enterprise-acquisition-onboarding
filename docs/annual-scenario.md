@@ -72,3 +72,5 @@ python scripts/check_annual_evidence.py .local/annual-review-evidence
 ```
 
 The default lane executes the actual Compose image and tests it from a host browser. `--native` uses the existing local PostgreSQL/loopback fallback and does not establish container isolation. Each run records source events, exact implementation hashes, dbt nodes, independent oracle comparisons, negative observations, actual rendered screenshots and cleanup.
+
+[Recorded execution, source lineage and desktop/mobile screenshots](evidence/annual/README.md).

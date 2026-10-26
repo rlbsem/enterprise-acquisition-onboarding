@@ -26,6 +26,7 @@ jobs:
         with:
           python-version: '3.12.14'
       - run: python -m pip install -r requirements.lock
+      - run: python scripts/check_annual_evidence.py docs/evidence/annual/run01
       # The hosted Ubuntu image includes Chrome's Linux libraries. Install the
       # pinned Playwright browser without an unrelated apt upgrade transaction.
       - run: python -m playwright install chromium

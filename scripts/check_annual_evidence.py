@@ -30,6 +30,7 @@ def check(folder):
                 r"postgresql?://|-----BEGIN .*PRIVATE KEY|(?:AKIA|ASIA)[A-Z0-9]{16}", raw.decode()
             )
     report = json.loads((folder / "annual.json").read_bytes())
+    assert re.fullmatch(r"[a-f0-9]{40}", report["source_commit"])
     assert (
         report["status"] == "passed"
         and report["native_vendor_calls"] == 0
@@ -98,12 +99,19 @@ def check(folder):
         for model, rows in expected.items():
             assert canonical(rows) == canonical(observed["results"][model]), model
         assert observed["dbt"]["return_code"] == 0
+        assert sum(n["id"].startswith("model.") for n in observed["dbt"]["results"]) == 9
+        assert sum(n["id"].startswith("test.") for n in observed["dbt"]["results"]) == 9
         assert len(observed["dbt"]["results"]) == 18 and all(
             n["status"] in ["success", "pass"] for n in observed["dbt"]["results"]
         )
         assert len(observed["comparisons"]) == 7 and all(
-            r["row_differences"] == 0 for r in observed["comparisons"]
+            r["row_differences"] == 0
+            and r["exact_content_match"]
+            and r["sha256"] == r["observed_sha256"]
+            for r in observed["comparisons"]
         )
+        summary = financial["totals_before" if name == "original" else "totals_after"]
+        assert summary == {k: sum(r[k] for r in expected["portfolio_totals"]) for k in summary}
         inputs = [
             r["body"] for r in financial["records"]["financial_inputs"] if r["report_id"] == name
         ]
@@ -121,9 +129,15 @@ def check(folder):
         financial["original_report_unchanged"] and not financial["blocked_candidate"]["published"]
     )
     assert financial["blocked_candidate"]["dbt"]["return_code"] != 0
+    assert any(
+        n["status"] == "fail" and "financial_amount_controls" in n["id"]
+        for n in financial["blocked_candidate"]["dbt"]["results"]
+    )
     assert all(r["response"]["status"] == "rejected" for r in financial["rejected_updates"])
     assert financial["downstream_effects"] == financial["downstream_posts"] == 1
     b = report["browser"]
+    assert b["engine"]["name"] == "chromium" and b["engine"]["version"]
+    assert b["engine"]["playwright"] == "1.64.1"
     assert len(b["checks"]) >= 20 and all(
         c["passed"] and c["expected"] == c["observed"] for c in b["checks"]
     )
@@ -131,6 +145,15 @@ def check(folder):
     assert all(not s["violations"] and not s["incomplete"] for s in b["accessibility"])
     for shot in b["screenshots"]:
         assert shot["capture"] == "real_chromium_page_screenshot"
+        assert shot["observed_route"] == shot["route"] and shot["role"] == "sponsor"
+        assert (
+            shot["rendered_heading"]
+            == {
+                "portfolio": "Which acquisitions are ready to report?",
+                "finance": "Financial reconciliation",
+            }[shot["route"]]
+        )
+        assert shot["captured_at"]
         assert hashlib.sha256((folder / shot["file"]).read_bytes()).hexdigest() == shot["sha256"]
     return dict(
         status="passed",
