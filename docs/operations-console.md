@@ -41,7 +41,7 @@ python -m onboarding.console_demo --workspace .local/console-01 --serve
 
 After actual financial preparation, the command prints the loopback URL and path to `console-credentials-private.json`. Open that private JSON locally for the generated `sponsor`, company-leader or `reviewer` credentials. Never commit it. Stop with Ctrl+C to close the owned API/receiver processes and databases. A fresh workspace is required; do not point this harness at a client or production database.
 
-Browser acceptance additionally needs Chromium:
+Browser acceptance additionally needs Chromium in the workspace browser directory. Before installation, set `PLAYWRIGHT_BROWSERS_PATH` to the checkout's `.local/browsers` folder: PowerShell `$env:PLAYWRIGHT_BROWSERS_PATH="$PWD/.local/browsers"`, or macOS/Linux `export PLAYWRIGHT_BROWSERS_PATH="$PWD/.local/browsers"`. Keep that setting for verification; CI sets the same path.
 
 ```text
 python -m playwright install chromium

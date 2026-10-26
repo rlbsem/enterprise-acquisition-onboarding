@@ -110,6 +110,6 @@ After the pinned setup above:
 python -m onboarding.console_demo --workspace .local/console-01 --serve
 ```
 
-The command prepares real source/financial records and prints a loopback URL plus the generated private credentials-file path. Sign in with the corresponding sponsor, company-leader or reviewer credentials; stop with Ctrl+C to clean up. No shared password or credential is embedded in the UI. Chromium is required only for automated browser acceptance (`python -m playwright install chromium`).
+The command prepares real source/financial records and prints a loopback URL plus the generated private credentials-file path. Sign in with the corresponding sponsor, company-leader or reviewer credentials; stop with Ctrl+C to clean up. No shared password or credential is embedded in the UI. Chromium is required only for automated browser acceptance; follow the [workspace-path installation instructions](docs/operations-console.md).
 
 **Current acceptance: 57 regression tests, 52 real-browser checks, seven accessibility scans with no violations or unresolved checks, and seven genuine screenshots.** [Pass 4 acceptance](docs/evidence/pass4/README.md) covers browser roles, tenant negatives, actual review/audit operations, financial history, keyboard behavior, accessibility and mobile layouts. This remains a local synthetic application, not a public Internet deployment or independent Pass 5 audit.
