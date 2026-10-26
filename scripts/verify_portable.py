@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import socket
 import subprocess
 import sys
@@ -58,6 +59,7 @@ class Lane:
         self.url = f"http://127.0.0.1:{self.port}"
         self.project = "acqportable" + uuid4().hex[:10]
         self.process = self.log = None
+        self.owned_ports = []
         self.acceptance = False
         self.work.mkdir(parents=True)
         self.env = {**os.environ, "ACQUISITION_DEMO_PORT": str(self.port)}
@@ -141,7 +143,9 @@ class Lane:
         return json.loads(self.cli("credentials", "--user", user))
 
     def inspect(self):
-        return json.loads(self.cli("inspect"))
+        result = json.loads(self.cli("inspect"))
+        self.owned_ports = result.pop("owned_ports")
+        return result
 
     def stop(self):
         if self.native:
@@ -161,10 +165,18 @@ class Lane:
             )
             info = json.loads(self.run(["docker", "inspect", cid], "stopped_inspection"))[0]
             assert not info["State"]["Running"] and info["State"]["ExitCode"] == 0
+            assert info["State"]["Pid"] == 0
             target = self.work / "shutdown.json"
             self.run(["docker", "cp", cid + ":/state/shutdown.json", str(target)], "shutdown_copy")
             result = json.loads(target.read_text())
         assert result["owned_database_and_http_processes_stopped"]
+        if self.native:
+            for port in self.owned_ports:
+                with socket.socket() as connection:
+                    connection.settimeout(2)
+                    assert connection.connect_ex(("127.0.0.1", port)) != 0, (
+                        "owned_listener_survived_shutdown"
+                    )
         with httpx.Client(timeout=2, trust_env=False) as client:
             try:
                 r = client.get(self.url + "/health")
@@ -172,7 +184,11 @@ class Lane:
                 pass
             else:
                 assert r.status_code != 200, "stopped_console_still_ready"
-        return {"clean_exit": True, "owned_services_stopped": True}
+        return {
+            "clean_exit": True,
+            "owned_services_stopped": True,
+            "independent_listener_or_container_pid_check": True,
+        }
 
     def browser(self, output):
         if self.native:
@@ -226,7 +242,13 @@ class Lane:
             json.loads(self.run(["docker", "network", "inspect", n], "network_inspection"))[0]
             for n in c["NetworkSettings"]["Networks"]
         ]
-        assert all(n["Internal"] for n in networks)
+        assert h["PidMode"] != "host" and h["NetworkMode"] != "host"
+        assert all(
+            n["Driver"] == "bridge"
+            and n["Options"].get("com.docker.network.bridge.host_binding_ipv4") == "127.0.0.1"
+            and n["Options"].get("com.docker.network.bridge.enable_icc") == "false"
+            for n in networks
+        )
         assert h["PidsLimit"] == 256 and h["Memory"] == 1536 * 1024**2
         return {
             "user": c["Config"]["User"],
@@ -234,7 +256,9 @@ class Lane:
             "all_capabilities_dropped": True,
             "no_new_privileges": True,
             "loopback_console_only": True,
-            "internal_network": True,
+            "dedicated_bridge_loopback_default": True,
+            "intercontainer_communication_disabled": True,
+            "runtime_egress_firewall": False,
             "no_database_published": True,
             "memory_limit_bytes": h["Memory"],
             "pids_limit": h["PidsLimit"],
@@ -351,6 +375,8 @@ def main():
         lanes.append(normal)
         normal.start()
         initial, credential, cookie = probe(normal)
+        if not a.native:
+            assert all(v == "0o600" for v in initial["private_modes"].values())
         report["phases"].append(
             {"name": "normal_image", "inspection": initial, "isolation": normal.isolation()}
         )
@@ -361,7 +387,8 @@ def main():
             initial["run_id"] != fresh["run_id"]
             and credential["password"] != fresh_credential["password"]
         )
-        assert initial["financial"] == fresh["financial"]
+        for key in ["original", "restated"]:
+            assert initial["financial"][key] == fresh["financial"][key]
         with httpx.Client(
             base_url=normal.url, trust_env=False, headers={"Origin": normal.url}
         ) as client:
@@ -418,6 +445,8 @@ def main():
     except Exception as error:
         report["status"] = "failed"
         report["error_type"] = type(error).__name__
+        if re.fullmatch(r"[A-Za-z0-9_]+", str(error)):
+            report["error_code"] = str(error)
         raise
     finally:
         for lane in lanes:

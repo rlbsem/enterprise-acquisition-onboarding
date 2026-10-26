@@ -8,7 +8,7 @@ Install Docker Engine 28 or newer with Docker Compose V2 (Docker Desktop with Li
 docker compose up --build
 ```
 
-Wait for the `ready` message, then open **http://127.0.0.1:8592/console**. Initial startup installs isolated synthetic sources and executes real PostgreSQL dbt builds plus independent financial comparisons. It is not an HTML-only preview. Build dependencies require network access; the running application uses an internal Docker network.
+Wait for the `ready` message, then open **http://127.0.0.1:8592/console**. Initial startup installs isolated synthetic sources and executes real PostgreSQL dbt builds plus independent financial comparisons. It is not an HTML-only preview. Build dependencies require network access; runtime uses a dedicated Docker bridge with loopback-only port publication.
 
 In a separate terminal, display only the selected user's fresh local credential:
 
@@ -48,7 +48,9 @@ One non-root container runs the existing installer, PostgreSQL, application and 
 
 The gateway preserves exact Origin/Host checks, CSRF, opaque sessions, cookie attributes and response security headers. Non-console paths, external Host headers, ambiguous body framing and oversized requests are rejected. Root filesystem is read-only, all Linux capabilities are dropped, privilege escalation is disabled, and runtime state is confined to a private named volume and temporary mounts. Native vendor configuration is refused by the portable entrypoint.
 
-Docker documents that localhost-published ports in versions before Engine 28 could be reachable from the same network segment. Use a current Engine and host firewall; this remains local HTTP, not production SSO/TLS or hostile multi-tenant isolation. [Docker port-publishing guidance](https://docs.docker.com/engine/network/port-publishing/) and [internal network semantics](https://docs.docker.com/reference/compose-file/networks/) explain the relevant host boundary.
+The first actual container trial reached healthy status on an internal-only network but could not serve the host-published console. The dedicated bridge supports that host connection, defaults published addresses to loopback and disables inter-container communication. It does **not** provide an outbound network firewall. The demo workflow uses only its local contracts; the host and Docker daemon remain trusted. [Docker's bridge documentation](https://docs.docker.com/engine/network/drivers/bridge/) describes these networking properties.
+
+Docker documents that localhost-published ports in versions before Engine 28 could be reachable from the same network segment. Use a current Engine and host firewall; this remains local HTTP, not production SSO/TLS or hostile multi-tenant isolation. [Docker port-publishing guidance](https://docs.docker.com/engine/network/port-publishing/) explains the relevant host boundary.
 
 ## Reproduce packaging acceptance
 

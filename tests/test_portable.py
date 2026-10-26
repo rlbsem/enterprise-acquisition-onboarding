@@ -151,6 +151,10 @@ def test_compose_boundary_and_build_context_are_explicit():
     assert len(compose["services"]) == 1
     assert service["ports"] == ["127.0.0.1:${ACQUISITION_DEMO_PORT:-8592}:8080"]
     assert service["user"] == "10001:10001" and service["read_only"]
-    assert service["cap_drop"] == ["ALL"] and compose["networks"]["default"]["internal"]
+    assert service["cap_drop"] == ["ALL"]
+    network = compose["networks"]["default"]
+    assert network["driver"] == "bridge"
+    assert network["driver_opts"]["com.docker.network.bridge.host_binding_ipv4"] == "127.0.0.1"
+    assert network["driver_opts"]["com.docker.network.bridge.enable_icc"] == "false"
     assert service["restart"] == "no" and "network_mode" not in service
     assert "**\n!Dockerfile" in (root / ".dockerignore").read_text()

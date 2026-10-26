@@ -26,6 +26,7 @@ jobs:
           python-version: '3.12.14'
       - run: python -m pip install -r requirements.lock
       - run: python scripts/verify_portable.py --workspace .local/compose-ci --output .local/compose-evidence
+      - run: python scripts/check_portable_evidence.py .local/compose-evidence --working-tree
       - name: Safe failure summary
         if: failure()
         run: |

@@ -17,7 +17,7 @@ from urllib.parse import urlsplit
 import httpx
 import psycopg
 from psycopg import sql
-from psycopg.conninfo import make_conninfo
+from psycopg.conninfo import make_conninfo, conninfo_to_dict
 
 from .db import connect
 from .financial_demo import execute
@@ -119,6 +119,12 @@ def inspect(state):
         "postgres": version,
         "python": platform.python_version(),
         "source_sha256": sources,
+        "owned_ports": [
+            int(conninfo_to_dict(config["dsn"])["port"]),
+            urlsplit(record["url"]).port,
+            urlsplit(config["receiver"]["url"]).port,
+            record["upstream_port"],
+        ],
         "financial": json.loads((run / "financial-summary.json").read_text()),
         "private_modes": {
             p.name: oct(p.stat().st_mode & 0o777)
@@ -187,6 +193,7 @@ def serve(state, port, container=False, acceptance=False):
     try:
         with state_lock(state):
             pointer.unlink(missing_ok=True)
+            (state / "shutdown.json").unlink(missing_ok=True)
             run_id = "run-" + secrets.token_hex(8)
             with ExitStack() as scope:
                 stack = scope.enter_context(Sandbox(state / run_id))
@@ -210,11 +217,27 @@ def serve(state, port, container=False, acceptance=False):
                         "restated": financial["totals_after"],
                         "original_report_unchanged": financial["original_report_unchanged"],
                         "blocked_candidate_published": financial["blocked_candidate"]["published"],
+                        "builds": {
+                            name: {
+                                "dbt": financial[name]["dbt"],
+                                "comparisons": financial[name]["comparisons"],
+                            }
+                            for name in ["original", "restated"]
+                        },
+                        "open_variances": financial["restated"]["results"][
+                            "reconciliation_variances"
+                        ],
                     },
                 )
                 ready.set()
                 private_json(
-                    pointer, {"run": run_id, "url": stack.gateway_url, "acceptance": acceptance}
+                    pointer,
+                    {
+                        "run": run_id,
+                        "url": stack.gateway_url,
+                        "acceptance": acceptance,
+                        "upstream_port": upstream.port,
+                    },
                 )
                 thread = threading.Thread(target=gateway.serve_forever, daemon=True)
                 thread.start()
