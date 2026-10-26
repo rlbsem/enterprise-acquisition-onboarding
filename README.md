@@ -16,7 +16,7 @@ Three fictional companies use different local CRM, operations and finance contra
 
 All companies deliberately reuse local ID `100` and the same customer trade name. Scoped, explicitly reviewed crosswalks keep their customer accounts distinct. Name similarity never creates a link or merges finance accounts.
 
-The consolidated projection includes only currently admitted companies and retains each held company's exceptions, local definitions and source lineage. Its metric is a **count of scoped customer accounts**, not deduplicated global parties, financial consolidation, revenue or cash. CRM Won maps to a qualified commercial state and proves none of those financial outcomes.
+The admission projection includes only currently admitted companies and retains each held company's exceptions, local definitions and source lineage. Its metric is a **count of scoped customer accounts**, not deduplicated global parties, financial consolidation, revenue or cash. CRM Won maps to a qualified commercial state and proves none of those financial outcomes. Pass 3 supplies separate source-linked financial reports under an explicit reporting policy.
 
 ## Architecture
 
@@ -92,4 +92,4 @@ Initial fixture mappings are installed by the trusted local harness. Subsequent 
 
 A late January source correction yields a new reporting version with **USD 388,000 consolidated net invoicing and USD 383,000 postings**; cash remains unchanged. The original report and source revisions survive. A deliberately unbalanced candidate fails real dbt data tests and cannot publish. Reports use source-observation cutoffs plus captured admission state; no recognized revenue or commercial outcome is claimed.
 
-[Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.
+**Current local acceptance: 49 passing tests, both validated dbt builds and all three standalone demos.** [Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.
