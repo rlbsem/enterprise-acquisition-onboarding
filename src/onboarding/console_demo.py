@@ -54,8 +54,37 @@ def browser_acceptance(stack, out):
         progress(name)
         page.evaluate(axe_source)
         result = page.evaluate(
-            """async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {version:r.testEngine.version,violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),incomplete:r.incomplete.map(v=>({id:v.id,nodes:v.nodes.length}))};}"""
+            """async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {version:r.testEngine.version,violations:r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),incomplete:r.incomplete.map(v=>({id:v.id,nodes:v.nodes.length})),obscured:r.incomplete.filter(v=>v.id==='color-contrast').flatMap(v=>v.nodes.map(n=>({target:n.target,only_obscured:n.any.length>0&&n.any.every(a=>a.data?.messageKey==='elmPartiallyObscured')})))};}"""
         )
+        result["initial_incomplete"] = result["incomplete"].copy()
+        result["scroll_checks"] = []
+        # Horizontal table cells outside the viewport are inconclusive to axe.
+        # Move each obscured node into view and require an explicit contrast pass
+        # for that same node. Other incomplete rules still fail acceptance.
+        obscured = result.pop("obscured")
+        if result["incomplete"] and all(r["id"] == "color-contrast" for r in result["incomplete"]):
+            assert len(obscured) == sum(r["nodes"] for r in result["incomplete"])
+            for node in obscured:
+                assert node["only_obscured"] and len(node["target"]) == 1
+                selector = node["target"][0]
+                page.locator(selector).evaluate(
+                    "e=>e.scrollIntoView({block:'center',inline:'center'})"
+                )
+                observed = page.evaluate(
+                    """async(selector)=>{const r=await axe.run({include:[[selector]]},{runOnly:{type:'rule',values:['color-contrast']}});return {target:selector,violations:r.violations.map(v=>v.id),incomplete:r.incomplete.map(v=>v.id),explicit_pass:r.passes.some(v=>v.id==='color-contrast'&&v.nodes.some(n=>n.target.length===1&&n.target[0]===selector))};}""",
+                    selector,
+                )
+                result["scroll_checks"].append(observed)
+                progress(name, result)
+                assert (
+                    observed["explicit_pass"]
+                    and not observed["violations"]
+                    and not observed["incomplete"]
+                ), ("contrast_followup_not_passed", name, observed)
+            result["incomplete"] = []
+            page.evaluate(
+                "()=>{document.querySelectorAll('.table-wrap').forEach(e=>e.scrollLeft=0);window.scrollTo(0,0);}"
+            )
         progress(name, result)
         assert not result["violations"], (name, result)
         assert not result["incomplete"], ("unresolved_accessibility_check", name, result)

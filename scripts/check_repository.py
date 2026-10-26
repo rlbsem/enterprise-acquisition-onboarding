@@ -181,6 +181,17 @@ def check_pass4(folder):
         not a["violations"] and not a["incomplete"] and a["version"] == "4.11.0"
         for a in p["accessibility"]
     )
+    for scan in p["accessibility"]:
+        initial = scan.get("initial_incomplete", [])
+        if initial:
+            assert all(r["id"] == "color-contrast" for r in initial)
+            followups = scan["scroll_checks"]
+            assert len(followups) == sum(r["nodes"] for r in initial)
+            assert len({r["target"] for r in followups}) == len(followups)
+            assert all(
+                r["explicit_pass"] and not r["violations"] and not r["incomplete"]
+                for r in followups
+            )
     assert len(p["screenshots"]) == 7
     for shot in p["screenshots"]:
         if "I_mobile_finance_route_rendered" in checks:
