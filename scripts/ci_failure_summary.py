@@ -35,3 +35,7 @@ for result in Path(".local/ci").glob("pass3-demo/warehouse-runs/*/target/run_res
                     }
                 )
             )
+
+progress = Path(".local/ci/pass4-demo/browser-progress-private.json")
+if progress.exists():
+    print(json.dumps({"browser_progress": json.loads(progress.read_text(encoding="utf-8"))}))

@@ -6,6 +6,14 @@ A parent platform needs to attach acquired companies to shared infrastructure wh
 
 Three fictional companies use different local CRM, operations and finance contracts. All data is synthetic. HubSpot, Salesforce, LMN, Aspire, QuickBooks and NetSuite names identify limited representative contracts; **no native vendor API, client system or cloud resource is used**.
 
+## Inspect the operations console
+
+The authenticated local console lets sponsors inspect the portfolio, company leaders see only their company, and a scoped reviewer make actual identity/mapping decisions. Financial drilldowns read validated publications, never working dbt tables. Current admission and historical financial inclusion remain visibly separate.
+
+![Actual authenticated portfolio console](docs/evidence/pass4/run01/portfolio-desktop.png)
+
+[Run and inspect the console](docs/operations-console.md) · [Browser evidence and screenshots](docs/evidence/pass4/README.md)
+
 ## Follow the admission decision
 
 | Synthetic company | Source structures | Demonstrated result |
@@ -84,7 +92,7 @@ The outbox freezes content and idempotency identity, persists at most three disp
 
 **Opportunity won, work-order completion and finance-account verification are distinct facts. None establishes revenue, invoice settlement or cash.** The receiver creates an internal synthetic onboarding handoff, not a vendor job or financial transaction. Pass 3 adds actual financial source contracts and reconciliation; the handoff itself supplies none of those financial facts.
 
-Initial fixture mappings are installed by the trusted local harness. Subsequent decisions use a separately authenticated synthetic reviewer, not a claimed independent human approval. The controller cannot override failed checks. Tokens, role separation and loopback HTTP are demonstration controls, not production SSO/TLS, per-brand database RLS or protection against a compromised host administrator. Native connectors, CDC continuity, statutory consolidation and an operator browser remain outside this delivery.
+Initial fixture mappings are installed by the trusted local harness. Subsequent decisions use a separately authenticated synthetic reviewer, not a claimed independent human approval. The controller cannot override failed checks. Tokens, role separation and loopback HTTP are demonstration controls, not production SSO/TLS, per-brand database RLS or protection against a compromised host administrator. Native connectors, CDC continuity, statutory consolidation and production SSO/RLS remain outside this delivery.
 
 ## Financial reporting and restatement
 
@@ -92,4 +100,16 @@ Initial fixture mappings are installed by the trusted local harness. Subsequent 
 
 A late January source correction yields a new reporting version with **USD 388,000 consolidated net invoicing and USD 383,000 postings**; cash remains unchanged. The original report and source revisions survive. A deliberately unbalanced candidate fails real dbt data tests and cannot publish. Reports use source-observation cutoffs plus captured admission state; no recognized revenue or commercial outcome is claimed.
 
-**Current local acceptance: 50 passing tests, both validated dbt builds and all three standalone demos.** [Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/run02/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.
+**Preserved Pass 3 acceptance: 50 passing tests, both validated dbt builds and all three standalone demos.** [Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/run02/README.md). The same financial publications now back the role-scoped browser console. Browsing, changing reporting versions and reviewing admission do not dispatch business-system writes.
+
+## Open the local application
+
+After the pinned setup above:
+
+```text
+python -m onboarding.console_demo --workspace .local/console-01 --serve
+```
+
+The command prepares real source/financial records and prints a loopback URL plus the generated private credentials-file path. Sign in with the corresponding sponsor, company-leader or reviewer credentials; stop with Ctrl+C to clean up. No shared password or credential is embedded in the UI. Chromium is required only for automated browser acceptance (`python -m playwright install chromium`).
+
+[Pass 4 acceptance](docs/evidence/pass4/README.md) covers browser roles, tenant negatives, actual review/audit operations, financial history, keyboard behavior, accessibility and mobile layouts. This remains a local synthetic application, not a public Internet deployment or independent Pass 5 audit.

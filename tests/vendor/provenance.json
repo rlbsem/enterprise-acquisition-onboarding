@@ -1,0 +1,10 @@
+{
+  "package": "axe-core",
+  "version": "4.11.0",
+  "source": "https://registry.npmjs.org/axe-core/-/axe-core-4.11.0.tgz",
+  "package_integrity": "sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==",
+  "sha256": {
+    "AXE-LICENSE": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+    "axe.min.js": "e9e5863c33a874f09bc01acd9234b7e3c871479f5eef8802fa582544465e6d01"
+  }
+}

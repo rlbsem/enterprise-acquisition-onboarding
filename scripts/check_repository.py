@@ -148,6 +148,73 @@ def check_pass3(folder):
     assert p["native_vendor_calls"] == 0 and p["owned_resources_cleaned"]
 
 
+def check_pass4(folder):
+    import struct
+
+    p = json.loads((folder / "pass4.json").read_bytes())
+    assert p["browser"]["name"] == "chromium" and p["browser"]["playwright"] == "1.64.1"
+    checks = {r["case"]: r for r in p["checks"]}
+    assert len(checks) >= 51 and all(
+        r["passed"] and r["expected"] == r["observed"] for r in checks.values()
+    )
+    for key in [
+        "A_sponsor_company_scope",
+        "B_operator_single_scope",
+        "B_cross_company_source_denied",
+        "C_sponsor_write_denied",
+        "C_operator_write_denied",
+        "D_actual_decision_results",
+        "E_original_january_usd",
+        "E_restated_january_usd",
+        "F_variance_categories",
+        "G_held_and_effective_exclusions",
+        "H_no_new_business_posts",
+        "I_mobile_no_page_overflow",
+        "session_expiration_browser_redirect",
+        "logout_revokes_browser_session",
+    ]:
+        assert key in checks, key
+    assert len(p["accessibility"]) == 7
+    assert all(
+        not a["violations"] and not a["incomplete"] and a["version"] == "4.11.0"
+        for a in p["accessibility"]
+    )
+    assert len(p["screenshots"]) == 7
+    for shot in p["screenshots"]:
+        data = (folder / shot["file"]).read_bytes()
+        assert data[:8] == b"\x89PNG\r\n\x1a\n"
+        width, height = struct.unpack(">II", data[16:24])
+        assert width == shot["viewport"]["width"] and height >= shot["viewport"]["height"]
+        assert shot["full_page"] and shot["capture"] == "real_chromium_page_screenshot"
+        assert (
+            shot["role"] in ["sponsor", "operator", "reviewer"]
+            and shot["publication"] == "restated"
+        )
+    assert [d["result"] for d in p["review_decisions"]] == ["rejected", "approved", "approved"]
+    assert all(
+        d["company"] == "summit" and d["actor"] == "acquisition-reviewer" and d["reason"]
+        for d in p["review_decisions"]
+    )
+    assert {d["review_id"] for d in p["review_decisions"]} == set(p["review_ids"].values())
+    assert any(
+        a["action"] == "review_approved" and a["detail"]["actor"] == "acquisition-reviewer"
+        for a in p["audit"]
+    )
+    f = json.loads((folder / "pass3.json").read_bytes())
+    for name in ["totals_before", "totals_after"]:
+        assert p["financial_publication_checks"][name] == f[name]
+    for report in ["original", "restated"]:
+        r = p["financial_execution"][report]
+        assert r["dbt"]["return_code"] == 0 and all(
+            n["status"] in ["success", "pass"] for n in r["dbt"]["results"]
+        )
+        assert len(r["comparisons"]) == 7 and all(
+            c["row_differences"] == 0 for c in r["comparisons"]
+        )
+    assert p["downstream_posts_before"] == p["downstream_posts_after"] == p["receiver_effects"] == 1
+    assert p["owned_resources_cleaned"] and p["native_vendor_calls"] == 0
+
+
 count = 0
 for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
     inventory = json.loads(mf.read_bytes())
@@ -190,6 +257,8 @@ for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
         check_pass2(mf.parent)
     if "pass3.json" in inventory:
         check_pass3(mf.parent)
+    if "pass4.json" in inventory:
+        check_pass4(mf.parent)
 links = 0
 for doc in [ROOT / "README.md", *(ROOT / "docs").rglob("*.md")]:
     for target in re.findall(r"\]\(([^)]+)\)", doc.read_text(encoding="utf-8")):

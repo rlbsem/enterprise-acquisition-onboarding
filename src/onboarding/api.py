@@ -192,6 +192,10 @@ def create_app(config):
             raise HTTPException(403, "admission_controller_required")
         return {"state": execution.step(config, str(identifier))}
 
+    if "console" in config:
+        from .console import register
+
+        register(app, config)
     return app
 
 

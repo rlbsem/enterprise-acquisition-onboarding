@@ -164,6 +164,9 @@ class Sandbox:
                 sql.SQL("GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO {}").format(role)
             )
         self._receiver_and_reviewer()
+        from .console_setup import setup as console_setup
+
+        self.console = console_setup(self)
         self.messages = seed(self.admin_dsn)
         self.identities = [
             {
@@ -191,6 +194,7 @@ class Sandbox:
             "identities": self.identities,
             "reviewer_dsn": self.reviewer_dsn,
             "receiver": self.receiver,
+            "console": self.console,
         }
         self.config = config
         self.sender_config = {"dsn": self.dsn, "receiver": self.receiver}
@@ -249,6 +253,7 @@ class Sandbox:
 
     def reset(self):
         with connect(self.admin_dsn) as c:
+            c.execute("TRUNCATE console_sessions,console_login_attempts")
             c.execute(
                 "TRUNCATE financial_publications,financial_inputs,financial_snapshots,financial_policies"
             )
@@ -417,6 +422,8 @@ class Sandbox:
                             sql.Identifier(self.warehouse_role)
                         )
                     )
+                for role in getattr(self, "console_roles", []):
+                    c.execute(sql.SQL("DROP ROLE IF EXISTS {}").format(sql.Identifier(role)))
         if self.own:
             subprocess.run(
                 [self.pg_ctl, "-D", str(self.path / "pgdata"), "-m", "fast", "-w", "stop"],

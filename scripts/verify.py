@@ -15,10 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def source_hashes():
-    files = [ROOT / "pyproject.toml", ROOT / "requirements.lock"]
+    files = [ROOT / "pyproject.toml", ROOT / "requirements.lock", ROOT / "tests/vendor/AXE-LICENSE"]
     for folder in ["src", "tests", "scripts", "warehouse"]:
         files += [
-            p for p in (ROOT / folder).rglob("*") if p.suffix in [".py", ".sql", ".yml", ".yaml"]
+            p
+            for p in (ROOT / folder).rglob("*")
+            if p.suffix in [".py", ".sql", ".yml", ".yaml", ".html", ".css", ".js", ".json"]
         ]
     return {
         p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -103,6 +105,17 @@ def main():
             str(out / "pass3.json"),
         ],
     )
+    run(
+        "pass4-demo",
+        [
+            "-m",
+            "onboarding.console_demo",
+            "--workspace",
+            str(work / "pass4-demo"),
+            "--output",
+            str(out / "pass4.json"),
+        ],
+    )
     if start != source_hashes():
         raise ValueError("source_changed_during_acceptance")
     report = {
@@ -119,7 +132,7 @@ def main():
         ],
         "native_vendor_execution": False,
         "cloud_resources": False,
-        "scope": "Passes 1, 2 and 3; local PostgreSQL/HTTP and dbt, including an intentionally blocked financial candidate; no independent final audit or later-pass acceptance",
+        "scope": "Passes 1–4; local PostgreSQL/HTTP/dbt and real Chromium console acceptance; no independent final audit or Pass 5 acceptance",
     }
     (out / "verification.json").write_bytes((json.dumps(report, indent=2) + "\n").encode())
     manifest = {
