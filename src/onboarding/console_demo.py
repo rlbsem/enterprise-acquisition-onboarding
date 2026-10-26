@@ -285,7 +285,7 @@ def browser_acceptance(stack, out):
             mobile.locator('nav a[href="#finance"]').click()
             ready(mobile, "Financial reconciliation")
             expect(
-                mobile.get_by_role("table", name="Invoice reconciliation", exact=True)
+                mobile.get_by_role("region", name="Invoice reconciliation", exact=True)
             ).to_be_visible()
             check(
                 "I_mobile_finance_route_rendered",
