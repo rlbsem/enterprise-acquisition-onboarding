@@ -183,6 +183,19 @@ def check_pass4(folder):
     )
     assert len(p["screenshots"]) == 7
     for shot in p["screenshots"]:
+        if "I_mobile_finance_route_rendered" in checks:
+            expected_route = shot["route"].split("#")[-1]
+            assert shot["observed_route"] == expected_route
+            assert (
+                shot["rendered_heading"]
+                == {
+                    "portfolio": "Which acquisitions are ready to report?",
+                    "finance": "Financial reconciliation",
+                    "history": "What changed, and what did not.",
+                    "company": "Cedar Services",
+                    "governance": "Admission & exceptions",
+                }[expected_route]
+            )
         data = (folder / shot["file"]).read_bytes()
         assert data[:8] == b"\x89PNG\r\n\x1a\n"
         width, height = struct.unpack(">II", data[16:24])

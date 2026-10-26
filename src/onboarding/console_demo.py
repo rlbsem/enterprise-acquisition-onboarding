@@ -44,8 +44,10 @@ def browser_acceptance(stack, out):
 
     axe_source = (ROOT / "tests/vendor/axe.min.js").read_text(encoding="utf-8")
 
-    def ready(page):
+    def ready(page, heading=None):
         expect(page.locator("#main h1")).to_be_visible()
+        if heading is not None:
+            expect(page.locator("#main h1")).to_have_text(heading)
         expect(page.locator("#main")).to_have_attribute("aria-busy", "false")
 
     def axe(page, name):
@@ -60,6 +62,17 @@ def browser_acceptance(stack, out):
         accessibility.append({"view": name, **result})
 
     def screenshot(page, name, route):
+        expected_route = route.split("#")[-1]
+        expected_heading = {
+            "portfolio": "Which acquisitions are ready to report?",
+            "finance": "Financial reconciliation",
+            "history": "What changed, and what did not.",
+            "company": "Cedar Services",
+            "governance": "Admission & exceptions",
+        }[expected_route]
+        ready(page, expected_heading)
+        observed_route = page.url.split("#", 1)[1] if "#" in page.url else "portfolio"
+        assert observed_route == expected_route, (name, page.url, route)
         page.evaluate("window.scrollTo(0,0)")
         page.evaluate("() => new Promise(requestAnimationFrame)")
         page.screenshot(path=str(out / name), full_page=True, animations="disabled")
@@ -67,6 +80,8 @@ def browser_acceptance(stack, out):
             {
                 "file": name,
                 "route": route,
+                "observed_route": observed_route,
+                "rendered_heading": page.locator("#main h1").inner_text(),
                 "viewport": page.viewport_size,
                 "capture": "real_chromium_page_screenshot",
                 "synthetic": True,
@@ -194,7 +209,7 @@ def browser_acceptance(stack, out):
             )
             sponsor.locator('nav a[href="#finance"]').focus()
             sponsor.keyboard.press("Enter")
-            ready(sponsor)
+            ready(sponsor, "Financial reconciliation")
             expect(sponsor.get_by_text("$5,000", exact=True).first).to_be_visible()
             expect(sponsor.get_by_text("$8,000", exact=True).first).to_be_visible()
             result = request(sponsor, "/reports/restated")["data"]
@@ -222,7 +237,7 @@ def browser_acceptance(stack, out):
             axe(sponsor, "financial_reconciliation_desktop")
             screenshot(sponsor, "financial-desktop.png", "/console/#finance")
             sponsor.locator('nav a[href="#history"]').click()
-            ready(sponsor)
+            ready(sponsor, "What changed, and what did not.")
             exclusions = request(sponsor, "/reports/restated")["data"]["exclusions"]
             check(
                 "G_held_and_effective_exclusions",
@@ -268,7 +283,15 @@ def browser_acceptance(stack, out):
             axe(mobile, "sponsor_portfolio_mobile")
             screenshot(mobile, "portfolio-mobile.png", "/console/#portfolio")
             mobile.locator('nav a[href="#finance"]').click()
-            ready(mobile)
+            ready(mobile, "Financial reconciliation")
+            expect(
+                mobile.get_by_role("table", name="Invoice reconciliation", exact=True)
+            ).to_be_visible()
+            check(
+                "I_mobile_finance_route_rendered",
+                "Financial reconciliation",
+                mobile.locator("#main h1").inner_text(),
+            )
             check(
                 "I_mobile_finance_no_page_overflow",
                 True,
@@ -318,7 +341,7 @@ def browser_acceptance(stack, out):
                 )["status"],
             )
             operator.locator('nav a[href="#company"]').click()
-            ready(operator)
+            ready(operator, "Cedar Services")
             expect(operator.get_by_text("confirmed", exact=True)).to_be_visible()
             check(
                 "recorded_recovery_visible",
