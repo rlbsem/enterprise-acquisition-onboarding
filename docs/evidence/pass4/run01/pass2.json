@@ -1,0 +1,2279 @@
+{
+  "lane": "actual_local_postgresql_http_review_resnapshot_and_receiver",
+  "synthetic": true,
+  "native_vendor_calls": 0,
+  "A_identity": {
+    "before_passed": false,
+    "after_passed": true,
+    "rejected_review": "c8a832a0-fb9b-4561-92f2-b4fe02ecd475",
+    "rejected_replay": {
+      "detail": "review_already_decided"
+    },
+    "approved_review": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+    "decision": {
+      "review_id": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+      "result": "approved",
+      "admitted": false
+    }
+  },
+  "B_wrong_entity": {
+    "identity_approval_denied": {
+      "detail": "identity_resolution_not_applicable"
+    },
+    "admission_passed": false,
+    "source_correction": {
+      "message_id": 11,
+      "status": "accepted",
+      "duplicate": false,
+      "reason": "validated_against_reviewed_mapping"
+    }
+  },
+  "C_resnapshot": {
+    "incomplete_rejected": {
+      "detail": "reviewed_coverage_mismatch"
+    },
+    "decision": {
+      "review_id": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+      "result": "approved",
+      "admitted": false
+    },
+    "final_gate": {
+      "company": "summit",
+      "mapping_version": 2,
+      "passed": true,
+      "issues": [],
+      "coverage": [
+        {
+          "source": "legacy-crm",
+          "domain": "crm",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+        },
+        {
+          "source": "legacy-finance",
+          "domain": "finance",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+        },
+        {
+          "source": "legacy-ops",
+          "domain": "operations",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+        }
+      ],
+      "quarantine": [],
+      "reconciled_customer_accounts": 1,
+      "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9"
+    }
+  },
+  "D_E_delivery": {
+    "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+    "uncertain": "uncertain",
+    "independently_observed_effects_before_recovery": 1,
+    "recovered": "confirmed",
+    "duplicate_plan": true,
+    "conflicting_payload_http_status": 409,
+    "final_effects": 1
+  },
+  "control": {
+    "reviews": [
+      {
+        "id": "c8a832a0-fb9b-4561-92f2-b4fe02ecd475",
+        "company": "summit",
+        "kind": "identity",
+        "actor": "synthetic-reviewer",
+        "reason": "Reviewed scoped customer references; preserve the second candidate as a separate account.",
+        "context_hash": "47e4eefbe427a9dd7ab455e521f7a008e3ff99605d6f2415a16ff0730ef4871f",
+        "payload": {
+          "candidate": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "message_id": 7,
+          "message_hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+          "quarantine_id": 1,
+          "mapping_version": 1
+        },
+        "created_at": "2026-10-25 23:41:32.051584-04:00"
+      },
+      {
+        "id": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+        "company": "summit",
+        "kind": "identity",
+        "actor": "synthetic-reviewer",
+        "reason": "Reviewed scoped customer references; preserve the second candidate as a separate account.",
+        "context_hash": "47e4eefbe427a9dd7ab455e521f7a008e3ff99605d6f2415a16ff0730ef4871f",
+        "payload": {
+          "candidate": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "message_id": 7,
+          "message_hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+          "quarantine_id": 1,
+          "mapping_version": 1
+        },
+        "created_at": "2026-10-25 23:41:32.200451-04:00"
+      },
+      {
+        "id": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "company": "summit",
+        "kind": "mapping",
+        "actor": "synthetic-reviewer",
+        "reason": "Explicit source inventory and closed-state normalization reviewed.",
+        "context_hash": "b59983a17fee3908fbd5b2b33193878cec015fe387d99505c96d37a2a8e96cbf",
+        "payload": {
+          "version": 2,
+          "contract": {
+            "sources": {
+              "legacy-crm": {
+                "id": "legacy_id",
+                "domain": "crm",
+                "entity": "legal_entity",
+                "fields": {
+                  "status": "sales_state",
+                  "legacy_name": "display_name"
+                },
+                "states": {
+                  "status": {
+                    "won": "qualified",
+                    "lead": "prospect"
+                  }
+                },
+                "revision": "revision"
+              },
+              "legacy-ops": {
+                "id": "customer_key",
+                "domain": "operations",
+                "entity": "entity",
+                "fields": {
+                  "work_status": "operations_state"
+                },
+                "states": {
+                  "work_status": {
+                    "done": "complete",
+                    "closed": "complete",
+                    "working": "active",
+                    "scheduled": "scheduled"
+                  }
+                },
+                "revision": "version"
+              },
+              "legacy-finance": {
+                "id": "account_id",
+                "domain": "finance",
+                "entity": "entity",
+                "fields": {
+                  "verification": "finance_state"
+                },
+                "states": {
+                  "verification": {
+                    "checked": "verified",
+                    "unreviewed": "pending"
+                  }
+                },
+                "revision": "version"
+              }
+            },
+            "schema_version": "admission-mapping.v1"
+          },
+          "coverage": {
+            "legacy-crm": {
+              "100": {
+                "hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+                "revision": 1
+              }
+            },
+            "legacy-ops": {
+              "100": {
+                "hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+                "revision": 3
+              }
+            },
+            "legacy-finance": {
+              "100": {
+                "hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+                "revision": 1
+              }
+            }
+          },
+          "message_ids": [
+            7,
+            12,
+            9
+          ],
+          "previous_version": 1
+        },
+        "created_at": "2026-10-25 23:41:32.811160-04:00"
+      }
+    ],
+    "review_decisions": [
+      {
+        "review_id": "c8a832a0-fb9b-4561-92f2-b4fe02ecd475",
+        "company": "summit",
+        "actor": "synthetic-reviewer",
+        "result": "rejected",
+        "reason": "Original source references require another explicit review.",
+        "decided_at": "2026-10-25 23:41:32.104060-04:00"
+      },
+      {
+        "review_id": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+        "company": "summit",
+        "actor": "synthetic-reviewer",
+        "result": "approved",
+        "reason": "Selected the existing scoped canonical account; no customer merge.",
+        "decided_at": "2026-10-25 23:41:32.229052-04:00"
+      },
+      {
+        "review_id": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "company": "summit",
+        "actor": "synthetic-reviewer",
+        "result": "approved",
+        "reason": "Re-evaluate every current source with complete reviewed coverage.",
+        "decided_at": "2026-10-25 23:41:32.872980-04:00"
+      }
+    ],
+    "quarantine_resolutions": [
+      {
+        "quarantine_id": 1,
+        "company": "summit",
+        "review_id": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+        "kind": "identity_approved",
+        "actor": "synthetic-reviewer",
+        "reason": "Selected the existing scoped canonical account; no customer merge.",
+        "source_message_id": 7,
+        "detail": {
+          "candidate": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "message_hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+          "source_revision": 1
+        },
+        "resolved_at": "2026-10-25 23:41:32.232277-04:00"
+      },
+      {
+        "quarantine_id": 2,
+        "company": "summit",
+        "review_id": null,
+        "kind": "source_corrected",
+        "actor": "synthetic-reviewer",
+        "reason": "New version from the authorized operations source corrects entity scope.",
+        "source_message_id": 11,
+        "detail": {
+          "revision": 2,
+          "original_message_id": 10
+        },
+        "resolved_at": "2026-10-25 23:41:32.612902-04:00"
+      },
+      {
+        "quarantine_id": 3,
+        "company": "summit",
+        "review_id": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "kind": "mapping_revalidated",
+        "actor": "synthetic-reviewer",
+        "reason": "Re-evaluate every current source with complete reviewed coverage.",
+        "source_message_id": 12,
+        "detail": {
+          "mapping_version": 2
+        },
+        "resolved_at": "2026-10-25 23:41:32.877891-04:00"
+      }
+    ],
+    "source_record_history": [
+      {
+        "id": 7,
+        "company": "summit",
+        "message_id": 8,
+        "body": {
+          "raw": {
+            "entity": "LE-CA-03",
+            "version": 1,
+            "work_status": "working",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "version": 1,
+          "raw_hash": "b4cdbfe6b196b887b19b51337d764ccd2e43376586416431833c462ee51c2619",
+          "revision": 1,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 8,
+          "normalized": {
+            "operations_state": "active"
+          },
+          "observed_at": "2026-10-01T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:31.810602-04:00"
+      },
+      {
+        "id": 8,
+        "company": "summit",
+        "message_id": 9,
+        "body": {
+          "raw": {
+            "entity": "LE-CA-03",
+            "version": 1,
+            "account_id": "100",
+            "verification": "checked"
+          },
+          "source": "legacy-finance",
+          "company": "summit",
+          "version": 1,
+          "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+          "revision": 1,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 9,
+          "normalized": {
+            "finance_state": "verified"
+          },
+          "observed_at": "2026-10-01T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:31.866922-04:00"
+      },
+      {
+        "id": 9,
+        "company": "summit",
+        "message_id": 7,
+        "body": {
+          "raw": {
+            "status": "won",
+            "revision": 1,
+            "legacy_id": "100",
+            "legacy_name": "Common Property Group",
+            "legal_entity": "LE-CA-03"
+          },
+          "source": "legacy-crm",
+          "company": "summit",
+          "version": 1,
+          "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+          "revision": 1,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 7,
+          "normalized": {
+            "sales_state": "qualified",
+            "display_name": "Common Property Group"
+          },
+          "observed_at": "2026-10-01T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:32.231566-04:00"
+      },
+      {
+        "id": 10,
+        "company": "summit",
+        "message_id": 11,
+        "body": {
+          "raw": {
+            "entity": "LE-CA-03",
+            "version": 2,
+            "work_status": "working",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "version": 1,
+          "raw_hash": "ae1f06b9b37de11576c4268b908c9f88a0217e972ffec52175c8f77bc4e871fc",
+          "revision": 2,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 11,
+          "normalized": {
+            "operations_state": "active"
+          },
+          "observed_at": "2026-10-02T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:32.559673-04:00"
+      },
+      {
+        "id": 11,
+        "company": "summit",
+        "message_id": 7,
+        "body": {
+          "raw": {
+            "status": "won",
+            "revision": 1,
+            "legacy_id": "100",
+            "legacy_name": "Common Property Group",
+            "legal_entity": "LE-CA-03"
+          },
+          "source": "legacy-crm",
+          "company": "summit",
+          "version": 2,
+          "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+          "revision": 1,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 7,
+          "normalized": {
+            "sales_state": "qualified",
+            "display_name": "Common Property Group"
+          },
+          "observed_at": "2026-10-01T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:32.876438-04:00"
+      },
+      {
+        "id": 12,
+        "company": "summit",
+        "message_id": 12,
+        "body": {
+          "raw": {
+            "entity": "LE-CA-03",
+            "version": 3,
+            "work_status": "closed",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "version": 2,
+          "raw_hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+          "revision": 3,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 12,
+          "normalized": {
+            "operations_state": "complete"
+          },
+          "observed_at": "2026-10-03T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:32.877569-04:00"
+      },
+      {
+        "id": 13,
+        "company": "summit",
+        "message_id": 9,
+        "body": {
+          "raw": {
+            "entity": "LE-CA-03",
+            "version": 1,
+            "account_id": "100",
+            "verification": "checked"
+          },
+          "source": "legacy-finance",
+          "company": "summit",
+          "version": 2,
+          "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+          "revision": 1,
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "source_id": "100",
+          "message_id": 9,
+          "normalized": {
+            "finance_state": "verified"
+          },
+          "observed_at": "2026-10-01T08:00:00-04:00"
+        },
+        "recorded_at": "2026-10-25 23:41:32.878482-04:00"
+      }
+    ],
+    "business_events": [
+      {
+        "id": 1,
+        "company": "summit",
+        "source": "legacy-crm",
+        "event_id": "summit-opportunity-v1",
+        "payload": {
+          "kind": "opportunity",
+          "state": "won",
+          "source": "legacy-crm",
+          "company": "summit",
+          "event_id": "summit-opportunity-v1",
+          "revision": 1,
+          "record_id": "summit-opportunity",
+          "legal_entity": "LE-CA-03",
+          "schema_version": "business-fact.v1",
+          "mapping_version": 2,
+          "source_customer_id": "100",
+          "commercial_reference": null
+        },
+        "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+        "status": "accepted",
+        "reason": "source_owned_business_fact",
+        "observed_at": "2026-10-25 23:41:33.004040-04:00"
+      },
+      {
+        "id": 2,
+        "company": "summit",
+        "source": "legacy-ops",
+        "event_id": "summit-work_order-v1",
+        "payload": {
+          "kind": "work_order",
+          "state": "completed",
+          "source": "legacy-ops",
+          "company": "summit",
+          "event_id": "summit-work_order-v1",
+          "revision": 1,
+          "record_id": "summit-work_order",
+          "legal_entity": "LE-CA-03",
+          "schema_version": "business-fact.v1",
+          "mapping_version": 2,
+          "source_customer_id": "100",
+          "commercial_reference": "summit-opportunity"
+        },
+        "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+        "status": "accepted",
+        "reason": "source_owned_business_fact",
+        "observed_at": "2026-10-25 23:41:33.043943-04:00"
+      },
+      {
+        "id": 3,
+        "company": "summit",
+        "source": "legacy-finance",
+        "event_id": "summit-finance_account-v1",
+        "payload": {
+          "kind": "finance_account",
+          "state": "verified",
+          "source": "legacy-finance",
+          "company": "summit",
+          "event_id": "summit-finance_account-v1",
+          "revision": 1,
+          "record_id": "summit-finance_account",
+          "legal_entity": "LE-CA-03",
+          "schema_version": "business-fact.v1",
+          "mapping_version": 2,
+          "source_customer_id": "100",
+          "commercial_reference": null
+        },
+        "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+        "status": "accepted",
+        "reason": "source_owned_business_fact",
+        "observed_at": "2026-10-25 23:41:33.129552-04:00"
+      }
+    ],
+    "outbound": [
+      {
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "company": "summit",
+        "payload": {
+          "company": "summit",
+          "sources": [
+            {
+              "source": "legacy-crm",
+              "version": 2,
+              "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+              "revision": 1,
+              "source_id": "100",
+              "message_id": 7
+            },
+            {
+              "source": "legacy-finance",
+              "version": 2,
+              "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+              "revision": 1,
+              "source_id": "100",
+              "message_id": 9
+            },
+            {
+              "source": "legacy-ops",
+              "version": 2,
+              "raw_hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+              "revision": 3,
+              "source_id": "100",
+              "message_id": 12
+            }
+          ],
+          "business": {
+            "work_order": {
+              "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+              "state": "completed",
+              "source": "legacy-ops",
+              "event_id": 2,
+              "revision": 1,
+              "record_id": "summit-work_order"
+            },
+            "opportunity": {
+              "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+              "state": "won",
+              "source": "legacy-crm",
+              "event_id": 1,
+              "revision": 1,
+              "record_id": "summit-opportunity"
+            },
+            "finance_account": {
+              "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+              "state": "verified",
+              "source": "legacy-finance",
+              "event_id": 3,
+              "revision": 1,
+              "record_id": "summit-finance_account"
+            }
+          },
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+          "legal_entity": "LE-CA-03",
+          "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+          "schema_version": "onboarding-handoff.v1",
+          "mapping_version": 2
+        },
+        "hash": "d9f8c488e11f3213d15745cde75c6f94c381b09dad0c6b58fff9ff4c6892b2ea",
+        "state": "confirmed",
+        "attempts": 1,
+        "proof": {
+          "record": {
+            "id": "65619046-2382-5f31-b0dd-b8233673d6b3",
+            "kind": "internal_onboarding_handoff",
+            "company": "summit",
+            "business": {
+              "work_order": {
+                "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+                "state": "completed",
+                "source": "legacy-ops",
+                "event_id": 2,
+                "revision": 1,
+                "record_id": "summit-work_order"
+              },
+              "opportunity": {
+                "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+                "state": "won",
+                "source": "legacy-crm",
+                "event_id": 1,
+                "revision": 1,
+                "record_id": "summit-opportunity"
+              },
+              "finance_account": {
+                "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+                "state": "verified",
+                "source": "legacy-finance",
+                "event_id": 3,
+                "revision": 1,
+                "record_id": "summit-finance_account"
+              }
+            },
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "legal_entity": "LE-CA-03",
+            "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+            "mapping_version": 2
+          },
+          "payload": {
+            "company": "summit",
+            "sources": [
+              {
+                "source": "legacy-crm",
+                "version": 2,
+                "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+                "revision": 1,
+                "source_id": "100",
+                "message_id": 7
+              },
+              {
+                "source": "legacy-finance",
+                "version": 2,
+                "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+                "revision": 1,
+                "source_id": "100",
+                "message_id": 9
+              },
+              {
+                "source": "legacy-ops",
+                "version": 2,
+                "raw_hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+                "revision": 3,
+                "source_id": "100",
+                "message_id": 12
+              }
+            ],
+            "business": {
+              "work_order": {
+                "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+                "state": "completed",
+                "source": "legacy-ops",
+                "event_id": 2,
+                "revision": 1,
+                "record_id": "summit-work_order"
+              },
+              "opportunity": {
+                "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+                "state": "won",
+                "source": "legacy-crm",
+                "event_id": 1,
+                "revision": 1,
+                "record_id": "summit-opportunity"
+              },
+              "finance_account": {
+                "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+                "state": "verified",
+                "source": "legacy-finance",
+                "event_id": 3,
+                "revision": 1,
+                "record_id": "summit-finance_account"
+              }
+            },
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+            "legal_entity": "LE-CA-03",
+            "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+            "schema_version": "onboarding-handoff.v1",
+            "mapping_version": 2
+          },
+          "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+          "record_hash": "d39be039a89fae6a20d83efd9f8d175ef1774ac13adef6eb450f90899df1d8f3",
+          "payload_hash": "d9f8c488e11f3213d15745cde75c6f94c381b09dad0c6b58fff9ff4c6892b2ea"
+        },
+        "detail": "independent_receipt_and_record",
+        "next_at": "2026-10-25 23:41:35.681868-04:00",
+        "created_at": "2026-10-25 23:41:33.187341-04:00"
+      }
+    ],
+    "outbound_attempts": [
+      {
+        "id": 1,
+        "company": "summit",
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "ordinal": 1,
+        "stage": "dispatch",
+        "result": "started",
+        "observed_at": "2026-10-25 23:41:33.324143-04:00"
+      }
+    ],
+    "messages": [
+      {
+        "id": 7,
+        "company": "summit",
+        "source": "legacy-crm",
+        "event_id": "legacy-crm-customer-100-v1",
+        "body": {
+          "data": {
+            "status": "won",
+            "revision": 1,
+            "legacy_id": "100",
+            "legacy_name": "Common Property Group",
+            "legal_entity": "LE-CA-03"
+          },
+          "source": "legacy-crm",
+          "company": "summit",
+          "event_id": "legacy-crm-customer-100-v1",
+          "observed_at": "2026-10-01T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+        "status": "quarantined",
+        "reason": "ambiguous_identity",
+        "created_at": "2026-10-25 23:41:31.722449-04:00"
+      },
+      {
+        "id": 8,
+        "company": "summit",
+        "source": "legacy-ops",
+        "event_id": "legacy-ops-customer-100-v1",
+        "body": {
+          "data": {
+            "entity": "LE-CA-03",
+            "version": 1,
+            "work_status": "working",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "event_id": "legacy-ops-customer-100-v1",
+          "observed_at": "2026-10-01T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "57afc56dd08b85b29dbd393e383044b6c04a0fb94d54a108bb215092d8ac6614",
+        "status": "accepted",
+        "reason": "validated_against_reviewed_mapping",
+        "created_at": "2026-10-25 23:41:31.808399-04:00"
+      },
+      {
+        "id": 9,
+        "company": "summit",
+        "source": "legacy-finance",
+        "event_id": "legacy-finance-customer-100-v1",
+        "body": {
+          "data": {
+            "entity": "LE-CA-03",
+            "version": 1,
+            "account_id": "100",
+            "verification": "checked"
+          },
+          "source": "legacy-finance",
+          "company": "summit",
+          "event_id": "legacy-finance-customer-100-v1",
+          "observed_at": "2026-10-01T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "f1fbfe318417cec92b1cba3e046b81986bb1a579c6f5dd9cbb93ca5f8fba8ef8",
+        "status": "accepted",
+        "reason": "validated_against_reviewed_mapping",
+        "created_at": "2026-10-25 23:41:31.864735-04:00"
+      },
+      {
+        "id": 10,
+        "company": "summit",
+        "source": "legacy-ops",
+        "event_id": "p2-wrong-entity",
+        "body": {
+          "data": {
+            "entity": "LE-US-02",
+            "version": 1,
+            "work_status": "working",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "event_id": "p2-wrong-entity",
+          "observed_at": "2026-10-01T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "4fe134e7c7080d8352ba578ffb2f1196d3dc5539fa4d97d417a493010f52769e",
+        "status": "quarantined",
+        "reason": "incorrect_legal_entity",
+        "created_at": "2026-10-25 23:41:32.365781-04:00"
+      },
+      {
+        "id": 11,
+        "company": "summit",
+        "source": "legacy-ops",
+        "event_id": "p2-corrected-entity",
+        "body": {
+          "data": {
+            "entity": "LE-CA-03",
+            "version": 2,
+            "work_status": "working",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "event_id": "p2-corrected-entity",
+          "observed_at": "2026-10-02T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "8d710ebdc4ef8abef7c1ff306b2dea660491deabdf99491c8019f8aeb87ffe80",
+        "status": "accepted",
+        "reason": "validated_against_reviewed_mapping",
+        "created_at": "2026-10-25 23:41:32.557494-04:00"
+      },
+      {
+        "id": 12,
+        "company": "summit",
+        "source": "legacy-ops",
+        "event_id": "p2-new-local-state",
+        "body": {
+          "data": {
+            "entity": "LE-CA-03",
+            "version": 3,
+            "work_status": "closed",
+            "customer_key": "100"
+          },
+          "source": "legacy-ops",
+          "company": "summit",
+          "event_id": "p2-new-local-state",
+          "observed_at": "2026-10-03T12:00:00+00:00",
+          "schema_version": "source-customer.v1",
+          "mapping_version": 1
+        },
+        "hash": "a3338f7bcf7ea9c3fb221948a97908f01dbb2cffddaa9b8ca6de7801508d985e",
+        "status": "quarantined",
+        "reason": "unmapped_lifecycle_state",
+        "created_at": "2026-10-25 23:41:32.660476-04:00"
+      }
+    ],
+    "quarantine": [
+      {
+        "id": 1,
+        "company": "summit",
+        "message_id": 7,
+        "reason": "ambiguous_identity",
+        "detail": {
+          "candidate_ids": [
+            "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "9a4bd692-82b6-53d4-b662-f560cda4e6b3"
+          ]
+        },
+        "observed_at": "2026-10-25 23:41:31.723659-04:00"
+      },
+      {
+        "id": 2,
+        "company": "summit",
+        "message_id": 10,
+        "reason": "incorrect_legal_entity",
+        "detail": {},
+        "observed_at": "2026-10-25 23:41:32.366629-04:00"
+      },
+      {
+        "id": 3,
+        "company": "summit",
+        "message_id": 12,
+        "reason": "unmapped_lifecycle_state",
+        "detail": {},
+        "observed_at": "2026-10-25 23:41:32.661113-04:00"
+      }
+    ],
+    "mapping_versions": [
+      {
+        "company": "summit",
+        "version": 1,
+        "body": {
+          "sources": {
+            "legacy-crm": {
+              "id": "legacy_id",
+              "domain": "crm",
+              "entity": "legal_entity",
+              "fields": {
+                "status": "sales_state",
+                "legacy_name": "display_name"
+              },
+              "states": {
+                "status": {
+                  "won": "qualified",
+                  "lead": "prospect"
+                }
+              },
+              "revision": "revision"
+            },
+            "legacy-ops": {
+              "id": "customer_key",
+              "domain": "operations",
+              "entity": "entity",
+              "fields": {
+                "work_status": "operations_state"
+              },
+              "states": {
+                "work_status": {
+                  "done": "complete",
+                  "working": "active",
+                  "scheduled": "scheduled"
+                }
+              },
+              "revision": "version"
+            },
+            "legacy-finance": {
+              "id": "account_id",
+              "domain": "finance",
+              "entity": "entity",
+              "fields": {
+                "verification": "finance_state"
+              },
+              "states": {
+                "verification": {
+                  "checked": "verified",
+                  "unreviewed": "pending"
+                }
+              },
+              "revision": "version"
+            }
+          },
+          "schema_version": "admission-mapping.v1"
+        },
+        "hash": "49a80ad7ecc8b8be7ce032058205f08dfb8973322c59cfcfa5ada204498559db",
+        "reviewed_by": "synthetic-governance-installer",
+        "review_reference": "fixture-review.v1:summit",
+        "approved_at": "2026-10-25 23:41:30.605152-04:00"
+      },
+      {
+        "company": "summit",
+        "version": 2,
+        "body": {
+          "sources": {
+            "legacy-crm": {
+              "id": "legacy_id",
+              "domain": "crm",
+              "entity": "legal_entity",
+              "fields": {
+                "status": "sales_state",
+                "legacy_name": "display_name"
+              },
+              "states": {
+                "status": {
+                  "won": "qualified",
+                  "lead": "prospect"
+                }
+              },
+              "revision": "revision"
+            },
+            "legacy-ops": {
+              "id": "customer_key",
+              "domain": "operations",
+              "entity": "entity",
+              "fields": {
+                "work_status": "operations_state"
+              },
+              "states": {
+                "work_status": {
+                  "done": "complete",
+                  "closed": "complete",
+                  "working": "active",
+                  "scheduled": "scheduled"
+                }
+              },
+              "revision": "version"
+            },
+            "legacy-finance": {
+              "id": "account_id",
+              "domain": "finance",
+              "entity": "entity",
+              "fields": {
+                "verification": "finance_state"
+              },
+              "states": {
+                "verification": {
+                  "checked": "verified",
+                  "unreviewed": "pending"
+                }
+              },
+              "revision": "version"
+            }
+          },
+          "schema_version": "admission-mapping.v1"
+        },
+        "hash": "d45c1402c1e55c337d2b01dd72422bdd01927dcee3c4ff68b28fe4b1cc59c93e",
+        "reviewed_by": "synthetic-reviewer",
+        "review_reference": "mapping-review:c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "approved_at": "2026-10-25 23:41:32.873832-04:00"
+      }
+    ],
+    "baselines": [
+      {
+        "company": "summit",
+        "source": "legacy-crm",
+        "version": 1,
+        "expected": {
+          "100": {
+            "hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+            "revision": 1
+          }
+        },
+        "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+      },
+      {
+        "company": "summit",
+        "source": "legacy-finance",
+        "version": 1,
+        "expected": {
+          "100": {
+            "hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+            "revision": 1
+          }
+        },
+        "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+      },
+      {
+        "company": "summit",
+        "source": "legacy-ops",
+        "version": 1,
+        "expected": {
+          "100": {
+            "hash": "b4cdbfe6b196b887b19b51337d764ccd2e43376586416431833c462ee51c2619",
+            "revision": 1
+          }
+        },
+        "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+      },
+      {
+        "company": "summit",
+        "source": "legacy-crm",
+        "version": 2,
+        "expected": {
+          "100": {
+            "hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+            "revision": 1
+          }
+        },
+        "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      },
+      {
+        "company": "summit",
+        "source": "legacy-finance",
+        "version": 2,
+        "expected": {
+          "100": {
+            "hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+            "revision": 1
+          }
+        },
+        "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      },
+      {
+        "company": "summit",
+        "source": "legacy-ops",
+        "version": 2,
+        "expected": {
+          "100": {
+            "hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+            "revision": 3
+          }
+        },
+        "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      }
+    ],
+    "crosswalks": [
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-crm",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 1,
+        "proof": "identity-review:eb7270de-8bcc-4394-83df-1366a0a31b93"
+      },
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-finance",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 1,
+        "proof": "reviewed-contract-and-entity-match.v1"
+      },
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-ops",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 1,
+        "proof": "reviewed-contract-and-entity-match.v1"
+      },
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-crm",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 2,
+        "proof": "mapping-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      },
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-finance",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 2,
+        "proof": "mapping-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      },
+      {
+        "company": "summit",
+        "legal_entity": "LE-CA-03",
+        "source": "legacy-ops",
+        "source_id": "100",
+        "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+        "version": 2,
+        "proof": "mapping-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+      }
+    ],
+    "gate_runs": [
+      {
+        "id": 1,
+        "company": "summit",
+        "input_hash": "906da631d859a51fc37281ee6c50595c788ee709ac7df1aa33260576c266336a",
+        "result": {
+          "issues": [
+            "cross_domain_customer_coverage_gap",
+            "source_coverage_gap:legacy-crm",
+            "unresolved_quarantine"
+          ],
+          "passed": false,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": false,
+              "expected": 1,
+              "observed": 0,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+            }
+          ],
+          "input_hash": "906da631d859a51fc37281ee6c50595c788ee709ac7df1aa33260576c266336a",
+          "quarantine": [
+            {
+              "id": 1,
+              "reason": "ambiguous_identity",
+              "message_id": 7
+            }
+          ],
+          "mapping_version": 1,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:31.921419-04:00"
+      },
+      {
+        "id": 2,
+        "company": "summit",
+        "input_hash": "4fe5f41facfbbbc1b13ff55ac98b811e71a2c30f3f861c5e2441a406644b707d",
+        "result": {
+          "issues": [],
+          "passed": true,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+            }
+          ],
+          "input_hash": "4fe5f41facfbbbc1b13ff55ac98b811e71a2c30f3f861c5e2441a406644b707d",
+          "quarantine": [],
+          "mapping_version": 1,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.234312-04:00"
+      },
+      {
+        "id": 3,
+        "company": "summit",
+        "input_hash": "4fe5f41facfbbbc1b13ff55ac98b811e71a2c30f3f861c5e2441a406644b707d",
+        "result": {
+          "issues": [],
+          "passed": true,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+            }
+          ],
+          "input_hash": "4fe5f41facfbbbc1b13ff55ac98b811e71a2c30f3f861c5e2441a406644b707d",
+          "quarantine": [],
+          "mapping_version": 1,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.293139-04:00"
+      },
+      {
+        "id": 4,
+        "company": "summit",
+        "input_hash": "bc671ec3348708a7c3e2f06de36519d49fe13bed5ce1c985da52a3db4f8d98f4",
+        "result": {
+          "issues": [
+            "unresolved_quarantine"
+          ],
+          "passed": false,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+            }
+          ],
+          "input_hash": "bc671ec3348708a7c3e2f06de36519d49fe13bed5ce1c985da52a3db4f8d98f4",
+          "quarantine": [
+            {
+              "id": 2,
+              "reason": "incorrect_legal_entity",
+              "message_id": 10
+            }
+          ],
+          "mapping_version": 1,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.503464-04:00"
+      },
+      {
+        "id": 5,
+        "company": "summit",
+        "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+        "result": {
+          "issues": [],
+          "passed": true,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            }
+          ],
+          "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+          "quarantine": [],
+          "mapping_version": 2,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.880243-04:00"
+      },
+      {
+        "id": 6,
+        "company": "summit",
+        "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+        "result": {
+          "issues": [],
+          "passed": true,
+          "company": "summit",
+          "coverage": [
+            {
+              "domain": "crm",
+              "source": "legacy-crm",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "domain": "finance",
+              "source": "legacy-finance",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "domain": "operations",
+              "source": "legacy-ops",
+              "complete": true,
+              "expected": 1,
+              "observed": 1,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            }
+          ],
+          "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+          "quarantine": [],
+          "mapping_version": 2,
+          "reconciled_customer_accounts": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.936375-04:00"
+      }
+    ],
+    "audit": [
+      {
+        "id": 7,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "7",
+        "detail": {
+          "reason": "ambiguous_identity"
+        },
+        "observed_at": "2026-10-25 23:41:31.724421-04:00"
+      },
+      {
+        "id": 8,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "7",
+        "detail": {
+          "reason": "ambiguous_identity",
+          "source": "legacy-crm",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:31.725631-04:00"
+      },
+      {
+        "id": 9,
+        "company": "summit",
+        "action": "accepted",
+        "reference": "8",
+        "detail": {
+          "reason": "validated_against_reviewed_mapping",
+          "source": "legacy-ops",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:31.812495-04:00"
+      },
+      {
+        "id": 10,
+        "company": "summit",
+        "action": "accepted",
+        "reference": "9",
+        "detail": {
+          "reason": "validated_against_reviewed_mapping",
+          "source": "legacy-finance",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:31.868127-04:00"
+      },
+      {
+        "id": 11,
+        "company": "summit",
+        "action": "admission_blocked",
+        "reference": "906da631d859a51fc37281ee6c50595c788ee709ac7df1aa33260576c266336a",
+        "detail": {
+          "issues": [
+            "cross_domain_customer_coverage_gap",
+            "source_coverage_gap:legacy-crm",
+            "unresolved_quarantine"
+          ]
+        },
+        "observed_at": "2026-10-25 23:41:31.922207-04:00"
+      },
+      {
+        "id": 12,
+        "company": "summit",
+        "action": "identity_proposed",
+        "reference": "c8a832a0-fb9b-4561-92f2-b4fe02ecd475",
+        "detail": {
+          "actor": "synthetic-reviewer",
+          "payload": {
+            "candidate": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "message_id": 7,
+            "message_hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+            "quarantine_id": 1,
+            "mapping_version": 1
+          }
+        },
+        "observed_at": "2026-10-25 23:41:32.052137-04:00"
+      },
+      {
+        "id": 13,
+        "company": "summit",
+        "action": "review_rejected",
+        "reference": "c8a832a0-fb9b-4561-92f2-b4fe02ecd475",
+        "detail": {
+          "kind": "identity",
+          "actor": "synthetic-reviewer",
+          "reason": "Original source references require another explicit review."
+        },
+        "observed_at": "2026-10-25 23:41:32.104621-04:00"
+      },
+      {
+        "id": 14,
+        "company": "summit",
+        "action": "identity_proposed",
+        "reference": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+        "detail": {
+          "actor": "synthetic-reviewer",
+          "payload": {
+            "candidate": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "message_id": 7,
+            "message_hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6",
+            "quarantine_id": 1,
+            "mapping_version": 1
+          }
+        },
+        "observed_at": "2026-10-25 23:41:32.200818-04:00"
+      },
+      {
+        "id": 15,
+        "company": "summit",
+        "action": "review_approved",
+        "reference": "eb7270de-8bcc-4394-83df-1366a0a31b93",
+        "detail": {
+          "kind": "identity",
+          "actor": "synthetic-reviewer",
+          "reason": "Selected the existing scoped canonical account; no customer merge."
+        },
+        "observed_at": "2026-10-25 23:41:32.234565-04:00"
+      },
+      {
+        "id": 16,
+        "company": "summit",
+        "action": "admission_passed",
+        "reference": "4fe5f41facfbbbc1b13ff55ac98b811e71a2c30f3f861c5e2441a406644b707d",
+        "detail": {
+          "issues": []
+        },
+        "observed_at": "2026-10-25 23:41:32.293671-04:00"
+      },
+      {
+        "id": 17,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "10",
+        "detail": {
+          "reason": "incorrect_legal_entity"
+        },
+        "observed_at": "2026-10-25 23:41:32.367368-04:00"
+      },
+      {
+        "id": 18,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "10",
+        "detail": {
+          "reason": "incorrect_legal_entity",
+          "source": "legacy-ops",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.368705-04:00"
+      },
+      {
+        "id": 19,
+        "company": "summit",
+        "action": "admission_blocked",
+        "reference": "bc671ec3348708a7c3e2f06de36519d49fe13bed5ce1c985da52a3db4f8d98f4",
+        "detail": {
+          "issues": [
+            "unresolved_quarantine"
+          ]
+        },
+        "observed_at": "2026-10-25 23:41:32.503998-04:00"
+      },
+      {
+        "id": 20,
+        "company": "summit",
+        "action": "accepted",
+        "reference": "11",
+        "detail": {
+          "reason": "validated_against_reviewed_mapping",
+          "source": "legacy-ops",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.560815-04:00"
+      },
+      {
+        "id": 21,
+        "company": "summit",
+        "action": "source_correction_reviewed",
+        "reference": "2",
+        "detail": {
+          "actor": "synthetic-reviewer",
+          "message_id": 11
+        },
+        "observed_at": "2026-10-25 23:41:32.613519-04:00"
+      },
+      {
+        "id": 22,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "12",
+        "detail": {
+          "reason": "unmapped_lifecycle_state"
+        },
+        "observed_at": "2026-10-25 23:41:32.661629-04:00"
+      },
+      {
+        "id": 23,
+        "company": "summit",
+        "action": "quarantined",
+        "reference": "12",
+        "detail": {
+          "reason": "unmapped_lifecycle_state",
+          "source": "legacy-ops",
+          "mapping_version": 1
+        },
+        "observed_at": "2026-10-25 23:41:32.663140-04:00"
+      },
+      {
+        "id": 24,
+        "company": "summit",
+        "action": "mapping_proposed",
+        "reference": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "detail": {
+          "actor": "synthetic-reviewer",
+          "version": 2
+        },
+        "observed_at": "2026-10-25 23:41:32.811533-04:00"
+      },
+      {
+        "id": 25,
+        "company": "summit",
+        "action": "review_approved",
+        "reference": "c73f4881-4817-4ebf-b9cb-5a423320d01f",
+        "detail": {
+          "kind": "mapping",
+          "actor": "synthetic-reviewer",
+          "reason": "Re-evaluate every current source with complete reviewed coverage."
+        },
+        "observed_at": "2026-10-25 23:41:32.880479-04:00"
+      },
+      {
+        "id": 26,
+        "company": "summit",
+        "action": "admission_passed",
+        "reference": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+        "detail": {
+          "issues": []
+        },
+        "observed_at": "2026-10-25 23:41:32.936915-04:00"
+      },
+      {
+        "id": 27,
+        "company": "summit",
+        "action": "business_accepted",
+        "reference": "1",
+        "detail": {
+          "kind": "opportunity",
+          "reason": "source_owned_business_fact"
+        },
+        "observed_at": "2026-10-25 23:41:33.005011-04:00"
+      },
+      {
+        "id": 28,
+        "company": "summit",
+        "action": "business_accepted",
+        "reference": "2",
+        "detail": {
+          "kind": "work_order",
+          "reason": "source_owned_business_fact"
+        },
+        "observed_at": "2026-10-25 23:41:33.044613-04:00"
+      },
+      {
+        "id": 29,
+        "company": "summit",
+        "action": "business_accepted",
+        "reference": "3",
+        "detail": {
+          "kind": "finance_account",
+          "reason": "source_owned_business_fact"
+        },
+        "observed_at": "2026-10-25 23:41:33.130222-04:00"
+      },
+      {
+        "id": 30,
+        "company": "summit",
+        "action": "outbound_intent_committed",
+        "reference": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "detail": {
+          "hash": "d9f8c488e11f3213d15745cde75c6f94c381b09dad0c6b58fff9ff4c6892b2ea"
+        },
+        "observed_at": "2026-10-25 23:41:33.187836-04:00"
+      },
+      {
+        "id": 31,
+        "company": "summit",
+        "action": "outbound_uncertain",
+        "reference": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "detail": {
+          "reason": "remote_outcome_unknown_readback_before_retry"
+        },
+        "observed_at": "2026-10-25 23:41:33.526327-04:00"
+      },
+      {
+        "id": 32,
+        "company": "summit",
+        "action": "outbound_confirmed",
+        "reference": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "detail": {
+          "reason": "independent_receipt_and_record"
+        },
+        "observed_at": "2026-10-25 23:41:33.683116-04:00"
+      }
+    ]
+  },
+  "receiver": {
+    "effects": [
+      {
+        "id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "payload": {
+          "company": "summit",
+          "sources": [
+            {
+              "source": "legacy-crm",
+              "version": 2,
+              "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+              "revision": 1,
+              "source_id": "100",
+              "message_id": 7
+            },
+            {
+              "source": "legacy-finance",
+              "version": 2,
+              "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+              "revision": 1,
+              "source_id": "100",
+              "message_id": 9
+            },
+            {
+              "source": "legacy-ops",
+              "version": 2,
+              "raw_hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+              "revision": 3,
+              "source_id": "100",
+              "message_id": 12
+            }
+          ],
+          "business": {
+            "work_order": {
+              "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+              "state": "completed",
+              "source": "legacy-ops",
+              "event_id": 2,
+              "revision": 1,
+              "record_id": "summit-work_order"
+            },
+            "opportunity": {
+              "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+              "state": "won",
+              "source": "legacy-crm",
+              "event_id": 1,
+              "revision": 1,
+              "record_id": "summit-opportunity"
+            },
+            "finance_account": {
+              "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+              "state": "verified",
+              "source": "legacy-finance",
+              "event_id": 3,
+              "revision": 1,
+              "record_id": "summit-finance_account"
+            }
+          },
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+          "legal_entity": "LE-CA-03",
+          "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+          "schema_version": "onboarding-handoff.v1",
+          "mapping_version": 2
+        },
+        "hash": "d9f8c488e11f3213d15745cde75c6f94c381b09dad0c6b58fff9ff4c6892b2ea",
+        "receipt": {
+          "record": {
+            "id": "65619046-2382-5f31-b0dd-b8233673d6b3",
+            "kind": "internal_onboarding_handoff",
+            "company": "summit",
+            "business": {
+              "work_order": {
+                "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+                "state": "completed",
+                "source": "legacy-ops",
+                "event_id": 2,
+                "revision": 1,
+                "record_id": "summit-work_order"
+              },
+              "opportunity": {
+                "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+                "state": "won",
+                "source": "legacy-crm",
+                "event_id": 1,
+                "revision": 1,
+                "record_id": "summit-opportunity"
+              },
+              "finance_account": {
+                "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+                "state": "verified",
+                "source": "legacy-finance",
+                "event_id": 3,
+                "revision": 1,
+                "record_id": "summit-finance_account"
+              }
+            },
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "legal_entity": "LE-CA-03",
+            "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+            "mapping_version": 2
+          },
+          "payload": {
+            "company": "summit",
+            "sources": [
+              {
+                "source": "legacy-crm",
+                "version": 2,
+                "raw_hash": "ad52463d351e121caf27e3b7743af539b369d2d902c9d6ea6d4b3ec14940ca4e",
+                "revision": 1,
+                "source_id": "100",
+                "message_id": 7
+              },
+              {
+                "source": "legacy-finance",
+                "version": 2,
+                "raw_hash": "cae0648674b60173a82487d482bd2c2d9b81b1f95d576e390b99aef80ac2d3fa",
+                "revision": 1,
+                "source_id": "100",
+                "message_id": 9
+              },
+              {
+                "source": "legacy-ops",
+                "version": 2,
+                "raw_hash": "e5f31a94fcdf8a5934a333b16dc953ea721dfa89d394c7cc9f64cc9f3605335c",
+                "revision": 3,
+                "source_id": "100",
+                "message_id": 12
+              }
+            ],
+            "business": {
+              "work_order": {
+                "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+                "state": "completed",
+                "source": "legacy-ops",
+                "event_id": 2,
+                "revision": 1,
+                "record_id": "summit-work_order"
+              },
+              "opportunity": {
+                "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+                "state": "won",
+                "source": "legacy-crm",
+                "event_id": 1,
+                "revision": 1,
+                "record_id": "summit-opportunity"
+              },
+              "finance_account": {
+                "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+                "state": "verified",
+                "source": "legacy-finance",
+                "event_id": 3,
+                "revision": 1,
+                "record_id": "summit-finance_account"
+              }
+            },
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+            "legal_entity": "LE-CA-03",
+            "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+            "schema_version": "onboarding-handoff.v1",
+            "mapping_version": 2
+          },
+          "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+          "record_hash": "d39be039a89fae6a20d83efd9f8d175ef1774ac13adef6eb450f90899df1d8f3",
+          "payload_hash": "d9f8c488e11f3213d15745cde75c6f94c381b09dad0c6b58fff9ff4c6892b2ea"
+        }
+      }
+    ],
+    "records": [
+      {
+        "id": "65619046-2382-5f31-b0dd-b8233673d6b3",
+        "body": {
+          "id": "65619046-2382-5f31-b0dd-b8233673d6b3",
+          "kind": "internal_onboarding_handoff",
+          "company": "summit",
+          "business": {
+            "work_order": {
+              "hash": "4b2c70d22aaf6c7308b0517499d0fe91139fb046ee03e63c88e4fe7905979370",
+              "state": "completed",
+              "source": "legacy-ops",
+              "event_id": 2,
+              "revision": 1,
+              "record_id": "summit-work_order"
+            },
+            "opportunity": {
+              "hash": "846c43ee94735c00e2ecbd259c9fabb087dee07592f5a5c79ffe88dd03d48557",
+              "state": "won",
+              "source": "legacy-crm",
+              "event_id": 1,
+              "revision": 1,
+              "record_id": "summit-opportunity"
+            },
+            "finance_account": {
+              "hash": "144cec9d3379a1b2ed461c9b173f085ea6d7813c9c4fafcb141a3def021bc25c",
+              "state": "verified",
+              "source": "legacy-finance",
+              "event_id": 3,
+              "revision": 1,
+              "record_id": "summit-finance_account"
+            }
+          },
+          "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "legal_entity": "LE-CA-03",
+          "admission_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9",
+          "mapping_version": 2
+        }
+      }
+    ],
+    "requests": [
+      {
+        "id": 1,
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "operation": "readback",
+        "status": 404,
+        "at": "2026-10-25 23:41:33.316640-04:00"
+      },
+      {
+        "id": 2,
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "operation": "apply",
+        "status": 201,
+        "at": "2026-10-25 23:41:33.365011-04:00"
+      },
+      {
+        "id": 3,
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "operation": "readback",
+        "status": 200,
+        "at": "2026-10-25 23:41:33.649516-04:00"
+      },
+      {
+        "id": 4,
+        "effect_id": "013cd6f2-e087-5342-b10c-e3436f90a959",
+        "operation": "duplicate",
+        "status": 200,
+        "at": "2026-10-25 23:41:33.822523-04:00"
+      }
+    ]
+  },
+  "portfolio": {
+    "schema_version": "portfolio-admission.v1",
+    "synthetic": true,
+    "native_vendor_execution": false,
+    "metric_definition": "Scoped customer accounts in currently admitted companies; cross-brand party identity and statutory consolidation are not inferred.",
+    "included_customer_accounts": 1,
+    "included_companies": 1,
+    "companies": [
+      {
+        "id": "cedar",
+        "parent": "harbor-platform",
+        "brand": "Cedar Services",
+        "legal_entity": "LE-CA-01",
+        "acquired_on": "2025-06-01",
+        "status": "staged",
+        "included": false,
+        "gate": {
+          "company": "cedar",
+          "mapping_version": 1,
+          "passed": true,
+          "issues": [],
+          "coverage": [
+            {
+              "source": "hubspot",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:hubspot"
+            },
+            {
+              "source": "lmn",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:lmn"
+            },
+            {
+              "source": "quickbooks",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:quickbooks"
+            }
+          ],
+          "quarantine": [],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "a2d412603ded68e344aa06f1a64fb8ebf1ddaa79db233d88ccd9aa78d6abaed3"
+        },
+        "source_records": [
+          {
+            "source": "hubspot",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 1,
+            "raw": {
+              "version": 1,
+              "companyId": "100",
+              "dealStage": "closedwon",
+              "companyName": "Common Property Group",
+              "legalEntity": "LE-CA-01"
+            },
+            "normalized": {
+              "sales_state": "qualified",
+              "display_name": "Common Property Group"
+            }
+          },
+          {
+            "source": "lmn",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 2,
+            "raw": {
+              "entity": "LE-CA-01",
+              "clientId": "100",
+              "jobState": "In Progress",
+              "revision": 1
+            },
+            "normalized": {
+              "operations_state": "active"
+            }
+          },
+          {
+            "source": "quickbooks",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 3,
+            "raw": {
+              "EntityRef": "LE-CA-01",
+              "SyncToken": 1,
+              "CustomerRef": "100",
+              "AccountState": "Reconciled"
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meridian",
+        "parent": "harbor-platform",
+        "brand": "Meridian Facilities",
+        "legal_entity": "LE-US-02",
+        "acquired_on": "2026-02-01",
+        "status": "staged",
+        "included": false,
+        "gate": {
+          "company": "meridian",
+          "mapping_version": 1,
+          "passed": true,
+          "issues": [],
+          "coverage": [
+            {
+              "source": "aspire",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:aspire"
+            },
+            {
+              "source": "netsuite",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:netsuite"
+            },
+            {
+              "source": "salesforce",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:salesforce"
+            }
+          ],
+          "quarantine": [],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "755503eaa1de423cb666bf9e8bba1abcb57fab236fa89477936d14fd3f21b07c"
+        },
+        "source_records": [
+          {
+            "source": "aspire",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 5,
+            "raw": {
+              "sequence": 1,
+              "account_key": "100",
+              "entity_code": "LE-US-02",
+              "service_status": "SERVICING"
+            },
+            "normalized": {
+              "operations_state": "active"
+            }
+          },
+          {
+            "source": "netsuite",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 6,
+            "raw": {
+              "internalId": "100",
+              "subsidiary": "LE-US-02",
+              "controlStatus": "VERIFIED",
+              "recordVersion": 1
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          },
+          {
+            "source": "salesforce",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 4,
+            "raw": {
+              "Id": "100",
+              "Name": "Common Property Group",
+              "Revision": 1,
+              "StageName": "Closed Won",
+              "LegalEntity": "LE-US-02"
+            },
+            "normalized": {
+              "sales_state": "qualified",
+              "display_name": "Common Property Group"
+            }
+          }
+        ]
+      },
+      {
+        "id": "summit",
+        "parent": "harbor-platform",
+        "brand": "Summit Operator",
+        "legal_entity": "LE-CA-03",
+        "acquired_on": "2026-10-01",
+        "status": "portfolio_ready",
+        "included": true,
+        "gate": {
+          "company": "summit",
+          "mapping_version": 2,
+          "passed": true,
+          "issues": [],
+          "coverage": [
+            {
+              "source": "legacy-crm",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "source": "legacy-finance",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            },
+            {
+              "source": "legacy-ops",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "source-review:c73f4881-4817-4ebf-b9cb-5a423320d01f"
+            }
+          ],
+          "quarantine": [],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "df51ca710c9e5ae5bfec8611da07fe7008af76d9e565b80b38c669810ce85ed9"
+        },
+        "source_records": [
+          {
+            "source": "legacy-crm",
+            "source_id": "100",
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "revision": 1,
+            "version": 2,
+            "message_id": 7,
+            "raw": {
+              "status": "won",
+              "revision": 1,
+              "legacy_id": "100",
+              "legacy_name": "Common Property Group",
+              "legal_entity": "LE-CA-03"
+            },
+            "normalized": {
+              "sales_state": "qualified",
+              "display_name": "Common Property Group"
+            }
+          },
+          {
+            "source": "legacy-finance",
+            "source_id": "100",
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "revision": 1,
+            "version": 2,
+            "message_id": 9,
+            "raw": {
+              "entity": "LE-CA-03",
+              "version": 1,
+              "account_id": "100",
+              "verification": "checked"
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          },
+          {
+            "source": "legacy-ops",
+            "source_id": "100",
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "revision": 3,
+            "version": 2,
+            "message_id": 12,
+            "raw": {
+              "entity": "LE-CA-03",
+              "version": 3,
+              "work_status": "closed",
+              "customer_key": "100"
+            },
+            "normalized": {
+              "operations_state": "complete"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "owned_resources_cleaned": true
+}

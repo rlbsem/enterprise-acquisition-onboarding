@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: stg_financial
+    description: One frozen accepted source revision per company/kind/source ID, with explicit inclusion reason.
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+  - name: fct_invoices
+    description: Company and invoice ID grain; children preaggregated before joining. USD minor units, no recognized revenue.
+  - name: fct_allocations
+    description: Company and allocation ID grain; each allocation links one payment and invoice.
+  - name: legal_entity_totals
+    description: Company, legal entity, selected calendar month and USD reporting grain. Held rows are explicitly known excluded amounts.
+  - name: portfolio_totals
+    description: Selected month and currency grain; preserves gross source measures and explicit elimination adjustments.
+    columns:
+      - name: period
+        data_tests: [unique, not_null]

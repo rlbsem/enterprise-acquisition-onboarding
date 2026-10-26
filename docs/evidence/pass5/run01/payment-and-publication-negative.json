@@ -1,0 +1,189 @@
+{
+  "payment_minor": 8000000,
+  "allocation_sum_minor": 9000000,
+  "dbt": {
+    "dbt_version": "1.11.0",
+    "return_code": 1,
+    "results": [
+      {
+        "id": "model.acquisition_finance.dim_reporting_entities",
+        "status": "success",
+        "failures": null,
+        "execution_seconds": 0.08199739456176758
+      },
+      {
+        "id": "model.acquisition_finance.stg_financial",
+        "status": "success",
+        "failures": null,
+        "execution_seconds": 0.034999847412109375
+      },
+      {
+        "id": "test.acquisition_finance.not_null_stg_financial_event_id.75b87dfdde",
+        "status": "pass",
+        "failures": 0,
+        "execution_seconds": 0.04399991035461426
+      },
+      {
+        "id": "test.acquisition_finance.unique_stg_financial_event_id.12d4537b77",
+        "status": "pass",
+        "failures": 0,
+        "execution_seconds": 0.031000375747680664
+      },
+      {
+        "id": "model.acquisition_finance.fct_allocations",
+        "status": "success",
+        "failures": null,
+        "execution_seconds": 0.046001434326171875
+      },
+      {
+        "id": "model.acquisition_finance.fct_invoices",
+        "status": "success",
+        "failures": null,
+        "execution_seconds": 0.045999765396118164
+      },
+      {
+        "id": "test.acquisition_finance.financial_amount_controls",
+        "status": "fail",
+        "failures": 1,
+        "execution_seconds": 0.03599953651428223
+      },
+      {
+        "id": "test.acquisition_finance.financial_scope",
+        "status": "pass",
+        "failures": 0,
+        "execution_seconds": 0.04500174522399902
+      },
+      {
+        "id": "model.acquisition_finance.intercompany_eliminations",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "test.acquisition_finance.financial_grains",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "test.acquisition_finance.financial_references",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "model.acquisition_finance.legal_entity_totals",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "model.acquisition_finance.reconciliation_variances",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "model.acquisition_finance.portfolio_totals",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "test.acquisition_finance.not_null_portfolio_totals_period.be28435424",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "test.acquisition_finance.unique_portfolio_totals_period.9cfce08527",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "model.acquisition_finance.restatement_bridge",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      },
+      {
+        "id": "test.acquisition_finance.rollup_and_bridge",
+        "status": "skipped",
+        "failures": null,
+        "execution_seconds": 0
+      }
+    ]
+  },
+  "publications": [
+    "original"
+  ],
+  "requests": [
+    {
+      "role": "sponsor",
+      "path": "/reports/overallocated-candidate",
+      "status": 404
+    },
+    {
+      "role": "sponsor",
+      "path": "/reports/overallocated-candidate/sources/12",
+      "status": 404
+    },
+    {
+      "role": "sponsor",
+      "path": "/reports/forged-report",
+      "status": 404
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/overallocated-candidate",
+      "status": 404
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/overallocated-candidate/sources/12",
+      "status": 404
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/forged-report",
+      "status": 404
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/original?company=meridian",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/original?company=all",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/original/sources/23",
+      "status": 404
+    },
+    {
+      "role": "cedar-leader",
+      "path": "/reports/original/sources/12",
+      "status": 200
+    },
+    {
+      "role": "reviewer",
+      "path": "/reports/overallocated-candidate",
+      "status": 404
+    },
+    {
+      "role": "reviewer",
+      "path": "/reports/overallocated-candidate/sources/12",
+      "status": 404
+    },
+    {
+      "role": "reviewer",
+      "path": "/reports/forged-report",
+      "status": 404
+    }
+  ],
+  "all_control_rows_unchanged_by_http_reads": true
+}

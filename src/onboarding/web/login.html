@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign in · Harbor Portfolio</title>
+    <link rel="stylesheet" href="/console/assets/app.css" />
+    <script src="/console/assets/login.js" defer></script>
+  </head>
+  <body class="login-page">
+    <main class="login-panel">
+      <div class="brand-mark" aria-hidden="true">H</div>
+      <p class="eyebrow">HARBOR / PORTFOLIO OPERATIONS</p>
+      <h1>One platform.<br />Defensible numbers.</h1>
+      <p class="intro">
+        A governed view of acquired businesses, financial evidence and the
+        decisions that connect them.
+      </p>
+      <form id="login-form">
+        <h2>Sign in to your workspace</h2>
+        <label for="username">Username</label
+        ><input
+          id="username"
+          name="username"
+          autocomplete="username"
+          required
+          maxlength="80"
+        /><label for="password">Password</label
+        ><input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          maxlength="200"
+        /><button type="submit" class="primary">
+          Open workspace <span aria-hidden="true">→</span>
+        </button>
+      </form>
+      <p id="login-status" role="alert"></p>
+      <p class="fine">
+        Local synthetic environment · Session expires after 30 minutes.<br />Use
+        the generated private credentials supplied by the local operator.
+      </p>
+    </main>
+    <aside class="login-note" aria-label="Platform controls">
+      <p class="eyebrow">CONTROL BEFORE CONSOLIDATION</p>
+      <h2>Know what is included.<br />Keep what was reported.</h2>
+      <div>
+        <span>01</span>
+        <p>
+          <strong>Admit deliberately</strong>Source coverage, legal entities and
+          identity links govern inclusion.
+        </p>
+      </div>
+      <div>
+        <span>02</span>
+        <p>
+          <strong>Reconcile independently</strong>Invoices, postings and
+          allocated cash retain their own meaning.
+        </p>
+      </div>
+      <div>
+        <span>03</span>
+        <p>
+          <strong>Preserve the history</strong>Late corrections create a new
+          publication, not a rewritten past.
+        </p>
+      </div>
+      <p class="fine">
+        Executable local PostgreSQL / HTTP / dbt demonstration.<br />No
+        production deployment or recognized revenue is claimed.
+      </p>
+    </aside>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+name: acquisition_finance
+version: '1.0.0'
+config-version: 2
+profile: acquisition_finance
+model-paths: [models]
+test-paths: [tests]
+models:
+  acquisition_finance:
+    +materialized: table

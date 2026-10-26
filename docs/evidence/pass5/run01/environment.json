@@ -1,0 +1,386 @@
+{
+  "fresh_clone": true,
+  "fresh_virtual_environment": true,
+  "python": "3.12.14",
+  "postgresql": "17.11 existing binaries with new isolated clusters",
+  "dependency_versions": [
+    {
+      "package": "agate",
+      "pinned": "1.9.1",
+      "installed": "1.9.1"
+    },
+    {
+      "package": "annotated-doc",
+      "pinned": "0.0.5",
+      "installed": "0.0.5"
+    },
+    {
+      "package": "annotated-types",
+      "pinned": "0.8.0",
+      "installed": "0.8.0"
+    },
+    {
+      "package": "anyio",
+      "pinned": "4.15.1",
+      "installed": "4.15.1"
+    },
+    {
+      "package": "attrs",
+      "pinned": "26.1.0",
+      "installed": "26.1.0"
+    },
+    {
+      "package": "babel",
+      "pinned": "2.18.0",
+      "installed": "2.18.0"
+    },
+    {
+      "package": "certifi",
+      "pinned": "2026.10.23",
+      "installed": "2026.10.23"
+    },
+    {
+      "package": "charset-normalizer",
+      "pinned": "3.5.2",
+      "installed": "3.5.2"
+    },
+    {
+      "package": "click",
+      "pinned": "8.5.0",
+      "installed": "8.5.0"
+    },
+    {
+      "package": "colorama",
+      "pinned": "0.4.6",
+      "installed": "0.4.6"
+    },
+    {
+      "package": "daff",
+      "pinned": "1.4.2",
+      "installed": "1.4.2"
+    },
+    {
+      "package": "dbt-adapters",
+      "pinned": "1.24.5",
+      "installed": "1.24.5"
+    },
+    {
+      "package": "dbt-common",
+      "pinned": "1.39.0",
+      "installed": "1.39.0"
+    },
+    {
+      "package": "dbt-core",
+      "pinned": "1.11.0",
+      "installed": "1.11.0"
+    },
+    {
+      "package": "dbt-extractor",
+      "pinned": "0.6.0",
+      "installed": "0.6.0"
+    },
+    {
+      "package": "dbt-postgres",
+      "pinned": "1.11.0",
+      "installed": "1.11.0"
+    },
+    {
+      "package": "dbt-protos",
+      "pinned": "1.0.615",
+      "installed": "1.0.615"
+    },
+    {
+      "package": "dbt-semantic-interfaces",
+      "pinned": "0.9.0",
+      "installed": "0.9.0"
+    },
+    {
+      "package": "deepdiff",
+      "pinned": "8.6.2",
+      "installed": "8.6.2"
+    },
+    {
+      "package": "fastapi",
+      "pinned": "0.162.0",
+      "installed": "0.162.0"
+    },
+    {
+      "package": "greenlet",
+      "pinned": "3.5.6",
+      "installed": "3.5.6"
+    },
+    {
+      "package": "h11",
+      "pinned": "0.16.0",
+      "installed": "0.16.0"
+    },
+    {
+      "package": "httpcore",
+      "pinned": "1.0.9",
+      "installed": "1.0.9"
+    },
+    {
+      "package": "httpx",
+      "pinned": "0.28.1",
+      "installed": "0.28.1"
+    },
+    {
+      "package": "idna",
+      "pinned": "3.20",
+      "installed": "3.20"
+    },
+    {
+      "package": "importlib_metadata",
+      "pinned": "8.9.0",
+      "installed": "8.9.0"
+    },
+    {
+      "package": "iniconfig",
+      "pinned": "2.3.1",
+      "installed": "2.3.1"
+    },
+    {
+      "package": "isodate",
+      "pinned": "0.7.2",
+      "installed": "0.7.2"
+    },
+    {
+      "package": "Jinja2",
+      "pinned": "3.1.6",
+      "installed": "3.1.6"
+    },
+    {
+      "package": "jsonschema",
+      "pinned": "4.26.0",
+      "installed": "4.26.0"
+    },
+    {
+      "package": "jsonschema-specifications",
+      "pinned": "2025.9.1",
+      "installed": "2025.9.1"
+    },
+    {
+      "package": "leather",
+      "pinned": "0.4.1",
+      "installed": "0.4.1"
+    },
+    {
+      "package": "MarkupSafe",
+      "pinned": "3.0.4",
+      "installed": "3.0.4"
+    },
+    {
+      "package": "mashumaro",
+      "pinned": "3.14",
+      "installed": "3.14"
+    },
+    {
+      "package": "more-itertools",
+      "pinned": "10.8.0",
+      "installed": "10.8.0"
+    },
+    {
+      "package": "msgpack",
+      "pinned": "1.2.3",
+      "installed": "1.2.3"
+    },
+    {
+      "package": "networkx",
+      "pinned": "3.7",
+      "installed": "3.7"
+    },
+    {
+      "package": "opentelemetry-api",
+      "pinned": "1.45.1",
+      "installed": "1.45.1"
+    },
+    {
+      "package": "orderly-set",
+      "pinned": "5.5.0",
+      "installed": "5.5.0"
+    },
+    {
+      "package": "packaging",
+      "pinned": "26.3",
+      "installed": "26.3"
+    },
+    {
+      "package": "parsedatetime",
+      "pinned": "2.6",
+      "installed": "2.6"
+    },
+    {
+      "package": "pathspec",
+      "pinned": "0.12.1",
+      "installed": "0.12.1"
+    },
+    {
+      "package": "playwright",
+      "pinned": "1.64.1",
+      "installed": "1.64.1"
+    },
+    {
+      "package": "pluggy",
+      "pinned": "1.7.0",
+      "installed": "1.7.0"
+    },
+    {
+      "package": "protobuf",
+      "pinned": "6.33.6",
+      "installed": "6.33.6"
+    },
+    {
+      "package": "psycopg",
+      "pinned": "3.2.12",
+      "installed": "3.2.12"
+    },
+    {
+      "package": "psycopg-binary",
+      "pinned": "3.2.12",
+      "installed": "3.2.12"
+    },
+    {
+      "package": "psycopg2-binary",
+      "pinned": "2.9.13",
+      "installed": "2.9.13"
+    },
+    {
+      "package": "pydantic",
+      "pinned": "2.12.3",
+      "installed": "2.12.3"
+    },
+    {
+      "package": "pydantic_core",
+      "pinned": "2.41.4",
+      "installed": "2.41.4"
+    },
+    {
+      "package": "pyee",
+      "pinned": "14.0.0",
+      "installed": "14.0.0"
+    },
+    {
+      "package": "Pygments",
+      "pinned": "2.21.0",
+      "installed": "2.21.0"
+    },
+    {
+      "package": "pytest",
+      "pinned": "9.0.3",
+      "installed": "9.0.3"
+    },
+    {
+      "package": "python-dateutil",
+      "pinned": "2.9.0.post0",
+      "installed": "2.9.0.post0"
+    },
+    {
+      "package": "python-slugify",
+      "pinned": "9.1.3",
+      "installed": "9.1.3"
+    },
+    {
+      "package": "pytimeparse",
+      "pinned": "1.1.10",
+      "installed": "1.1.10"
+    },
+    {
+      "package": "pytz",
+      "pinned": "2026.5",
+      "installed": "2026.5"
+    },
+    {
+      "package": "PyYAML",
+      "pinned": "6.0.3",
+      "installed": "6.0.3"
+    },
+    {
+      "package": "referencing",
+      "pinned": "0.37.0",
+      "installed": "0.37.0"
+    },
+    {
+      "package": "requests",
+      "pinned": "2.34.2",
+      "installed": "2.34.2"
+    },
+    {
+      "package": "rpds-py",
+      "pinned": "2026.9.1",
+      "installed": "2026.9.1"
+    },
+    {
+      "package": "ruff",
+      "pinned": "0.14.2",
+      "installed": "0.14.2"
+    },
+    {
+      "package": "setuptools",
+      "pinned": "80.9.0",
+      "installed": "80.9.0"
+    },
+    {
+      "package": "six",
+      "pinned": "1.17.0",
+      "installed": "1.17.0"
+    },
+    {
+      "package": "snowplow-tracker",
+      "pinned": "1.1.0",
+      "installed": "1.1.0"
+    },
+    {
+      "package": "sqlparse",
+      "pinned": "0.5.5",
+      "installed": "0.5.5"
+    },
+    {
+      "package": "starlette",
+      "pinned": "1.10.0",
+      "installed": "1.10.0"
+    },
+    {
+      "package": "text-unidecode",
+      "pinned": "1.3",
+      "installed": "1.3"
+    },
+    {
+      "package": "typing-inspection",
+      "pinned": "0.4.4",
+      "installed": "0.4.4"
+    },
+    {
+      "package": "typing_extensions",
+      "pinned": "4.16.0",
+      "installed": "4.16.0"
+    },
+    {
+      "package": "tzdata",
+      "pinned": "2026.5",
+      "installed": "2026.5"
+    },
+    {
+      "package": "urllib3",
+      "pinned": "2.8.0",
+      "installed": "2.8.0"
+    },
+    {
+      "package": "uvicorn",
+      "pinned": "0.38.0",
+      "installed": "0.38.0"
+    },
+    {
+      "package": "wheel",
+      "pinned": "0.45.1",
+      "installed": "0.45.1"
+    },
+    {
+      "package": "zipp",
+      "pinned": "4.1.2",
+      "installed": "4.1.2"
+    }
+  ],
+  "playwright": "1.64.1",
+  "local_only": true,
+  "native_vendor_calls": 0
+}

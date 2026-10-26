@@ -1,0 +1,110 @@
+{
+  "audited_source_revision": "dc17ad5f627a1c3d84db9e8032d7ac1a0ba1ac40",
+  "source_run": {
+    "id": 40270066744,
+    "url": "https://github.com/rlbsem/enterprise-acquisition-onboarding/actions/runs/40270066744",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 121402022565,
+        "name": "postgres-acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 40270066744,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -r requirements.lock",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pip install --no-deps --no-build-isolation -e .",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run python -m playwright install --with-deps chromium",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run python scripts/check_repository.py",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run python scripts/verify.py --workspace .local/ci --output .local/ci-evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run python scripts/ci_failure_summary.py",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 10
+          },
+          {
+            "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          }
+        ]
+      }
+    ]
+  },
+  "summary_lines": [
+    "2026-10-26T04:44:04.4915332Z {\"evidence_artifacts\": 49, \"local_markdown_links\": 69, \"public_content_check\": \"passed\"}",
+    "2026-10-26T04:45:38.6444900Z {\"tests\": 62, \"failures\": 0, \"errors\": 0, \"skipped\": 0, \"evidence\": \"/home/runner/work/enterprise-acquisition-onboarding/enterprise-acquisition-onboarding/.local/ci-evidence\"}"
+  ],
+  "final_delivery_check": "The evidence-only delivery commit triggers the same workflow. Its exact head and completed result are pinned in PR #1's description and the final handoff, avoiding a self-referential commit hash in this file."
+}

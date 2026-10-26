@@ -1,0 +1,231 @@
+{
+  "requests": [
+    {
+      "role": "sponsor",
+      "route": "identity",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "sponsor",
+      "route": "mapping-preview",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "sponsor",
+      "route": "mapping",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "sponsor",
+      "route": "reviews/pending-review/decision",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "sponsor",
+      "route": "correction",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "sponsor",
+      "route": "admission",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "identity",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "mapping-preview",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "mapping",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "reviews/pending-review/decision",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "correction",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "cedar-leader",
+      "route": "admission",
+      "negative": "role_or_scope",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "identity",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "identity",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "identity",
+      "negative": "foreign_origin",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping-preview",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping-preview",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping-preview",
+      "negative": "foreign_origin",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "mapping",
+      "negative": "foreign_origin",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "reviews/pending-review/decision",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "reviews/pending-review/decision",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "reviews/pending-review/decision",
+      "negative": "foreign_origin",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "correction",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "correction",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "correction",
+      "negative": "foreign_origin",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "admission",
+      "negative": "missing_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "admission",
+      "negative": "wrong_csrf",
+      "status": 403
+    },
+    {
+      "role": "reviewer",
+      "route": "admission",
+      "negative": "foreign_origin",
+      "status": 403
+    }
+  ],
+  "control_before": {
+    "companies": "787970143bd18a0aa50e8d8e3188f343c34fc96efb00dee8ef0112a76296262f",
+    "messages": "77e2d084a42141e3bf75436806b693e2cd9d6bd650de2dd68e6fc92ee04129a2",
+    "source_records": "707e12f8fbf59a5f417c69e88416f5f1e6fef8797384a46f306f993f7dcb798c",
+    "customer_fields": "31e3d2b399130cb9cdc48812c695746b15bc3d59338f3d19b46fe414f863a162",
+    "crosswalks": "20acc6581c65dec532b2be7180c6274e1b7354ef029630f471f8d316d0efeefa",
+    "mapping_versions": "e130fd0fcdaceee477169d49f4858c2ec1a38cc15cfc1480477dad8694832c8e",
+    "baselines": "822ec4c5259d1e18be5c1709e05f65b3e0d8e6dbae8a8813b7cee894dc2c20f7",
+    "quarantine": "496bc3b1ce0784e5cbbcf3a696e5a7e5e7e25406a57c0335f76bc9d0cd37a965",
+    "quarantine_resolutions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "reviews": "32d1dc46f4c328b74f2c17122ac3635c2ac6e4409193c7312f8e4a87578fd8cf",
+    "review_decisions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "gate_runs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "audit": "3d3fa9bd71bbea3c56dcdb68e8858787ecc81f349e42a4d146c7eb25835bb02c",
+    "business_events": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "business_heads": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "outbound": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "outbound_attempts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_events": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_snapshots": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_inputs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_publications": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "control_after": {
+    "companies": "787970143bd18a0aa50e8d8e3188f343c34fc96efb00dee8ef0112a76296262f",
+    "messages": "77e2d084a42141e3bf75436806b693e2cd9d6bd650de2dd68e6fc92ee04129a2",
+    "source_records": "707e12f8fbf59a5f417c69e88416f5f1e6fef8797384a46f306f993f7dcb798c",
+    "customer_fields": "31e3d2b399130cb9cdc48812c695746b15bc3d59338f3d19b46fe414f863a162",
+    "crosswalks": "20acc6581c65dec532b2be7180c6274e1b7354ef029630f471f8d316d0efeefa",
+    "mapping_versions": "e130fd0fcdaceee477169d49f4858c2ec1a38cc15cfc1480477dad8694832c8e",
+    "baselines": "822ec4c5259d1e18be5c1709e05f65b3e0d8e6dbae8a8813b7cee894dc2c20f7",
+    "quarantine": "496bc3b1ce0784e5cbbcf3a696e5a7e5e7e25406a57c0335f76bc9d0cd37a965",
+    "quarantine_resolutions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "reviews": "32d1dc46f4c328b74f2c17122ac3635c2ac6e4409193c7312f8e4a87578fd8cf",
+    "review_decisions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "gate_runs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "audit": "3d3fa9bd71bbea3c56dcdb68e8858787ecc81f349e42a4d146c7eb25835bb02c",
+    "business_events": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "business_heads": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "outbound": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "outbound_attempts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_events": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_snapshots": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_inputs": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "financial_publications": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "all_control_rows_unchanged": true
+}

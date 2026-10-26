@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Harbor · Portfolio Operations</title>
+    <link rel="stylesheet" href="/console/assets/app.css" />
+    <script src="/console/assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <aside class="rail">
+      <a href="#portfolio" class="brand"
+        ><span class="brand-mark" aria-hidden="true">H</span
+        ><span>HARBOR<small>PORTFOLIO OPERATIONS</small></span></a
+      >
+      <p class="rail-label">WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <a href="#portfolio" data-route="portfolio">Portfolio overview</a
+        ><a href="#company" data-route="company">Operating company</a
+        ><a href="#governance" data-route="governance"
+          >Admission &amp; exceptions</a
+        ><a href="#finance" data-route="finance">Financial reconciliation</a
+        ><a href="#history" data-route="history">Reporting history</a>
+      </nav>
+      <div class="rail-foot">
+        <span class="live-dot" aria-hidden="true"></span>Local synthetic
+        workspace
+        <p>Evidence before assertion.<br />No native vendor execution.</p>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div>
+          <span class="crumb">Harbor Platform</span
+          ><span class="divider">/</span
+          ><span id="route-label">Portfolio overview</span>
+        </div>
+        <div class="user-area">
+          <span id="role-label" class="role-chip"></span
+          ><button id="logout" class="quiet">Sign out</button>
+        </div>
+      </header>
+      <div class="toolbar">
+        <div>
+          <label for="report-select">Reporting publication</label
+          ><select id="report-select"></select>
+        </div>
+        <div>
+          <label for="period-select">Reporting period</label
+          ><select id="period-select"></select>
+        </div>
+        <div>
+          <label for="company-select">Company scope</label
+          ><select id="company-select"></select>
+        </div>
+        <p id="publication-note"></p>
+      </div>
+      <p
+        id="status"
+        class="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+      <main id="main" tabindex="-1" aria-busy="true"></main>
+      <footer>
+        All companies and financial amounts are synthetic. Invoicing ≠ ERP
+        postings ≠ allocated cash. No recognized revenue or commercial result is
+        claimed.
+      </footer>
+    </div>
+    <dialog id="evidence-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-head">
+        <h2 id="dialog-title">Source evidence</h2>
+        <button id="dialog-close" class="quiet">Close</button>
+      </div>
+      <pre id="dialog-content"></pre>
+    </dialog>
+  </body>
+</html>

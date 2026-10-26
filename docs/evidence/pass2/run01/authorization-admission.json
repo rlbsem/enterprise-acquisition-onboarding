@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "state": "blocked",
+    "effects": 0,
+    "posts": 0
+  },
+  "observed": {
+    "state": "blocked",
+    "effects": 0,
+    "posts": 0
+  }
+}

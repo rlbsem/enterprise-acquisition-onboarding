@@ -1,0 +1,148 @@
+{
+  "executed_at": "2026-10-25T23:13:07.629143+00:00",
+  "source_commit": "e10c676401c0e7afb503afb5fc6f638f90a9b09f",
+  "source_sha256": {
+    "pyproject.toml": "2a5e6e29654f966c55f547b443dc86328d123c91160bee35196d07340bbcb313",
+    "requirements.lock": "cbb4740e596877d087fabe2b2d031631f1b20d1b71b4df58136ae395d904815e",
+    "scripts/check_repository.py": "cb5c2790c559e762071bb2f1b101e392b34b28d879b0d05a20b0a45b97c5d411",
+    "scripts/verify.py": "708341ac8514217c2791b00b59aa7e8f2287acb06dc712c420af8c5621f90389",
+    "src/onboarding/__init__.py": "511def106f00c886e7007575b644494bdb9a62dd35aea4a2960e441f7e35230d",
+    "src/onboarding/api.py": "7d5ef120aea0315e8bfb19099edd312f7be83112453ec6e4a4c6ceb35336bf5f",
+    "src/onboarding/contracts.py": "587c1e0cd2c194ffb9a74cf218b50ad9cd447b9cca09091f441081cf91a830f2",
+    "src/onboarding/db.py": "c6e2d27d74bb66badf31c46f1e20ac69c29b527f5b27abad5bb323d52fc7fd0d",
+    "src/onboarding/demo.py": "567e8d3d1f23c62d65acf7de30ba87e72560fd762b0e10e2b1ae1ef549b479b5",
+    "src/onboarding/engine.py": "da70de84b734881eb5cb3bb67b9cc26bf41ecfb455fc3d814fb8dc2bcc913cda",
+    "src/onboarding/fixtures.py": "0e46fd4f5c92dd8a4b7ba90049a59885f05bed04f040f72d64d594f6d1a7b9f6",
+    "src/onboarding/sandbox.py": "c68be72b114373e26837795756f720f4e4c8e92307f3712574739a1d2e1a7d81",
+    "src/onboarding/schema.sql": "6a2c1bf63d1f20aa32e7fb7735de693e9edd8c3dce0ab7f0259653904e7adf53",
+    "tests/conftest.py": "8bfc58ea3e513068f67110577a4e4638ea386455de457050f90b5afe4d289146",
+    "tests/test_admission.py": "d43a7a06987ee47a0bb40f9496f5c1e25054c11481cc3db0008414d700aa37bd"
+  },
+  "python": "3.12.14",
+  "os": "Windows",
+  "lane": "actual_local_postgresql_and_loopback_http",
+  "tests": 23,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "cases": [
+    {
+      "class": "tests.test_admission",
+      "name": "test_full_http_demo_all_four_acceptance_scenarios",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_import_is_not_admission_and_same_local_ids_do_not_merge",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_weak_name_candidates_remain_unlinked_and_raw_evidence_is_preserved",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_malformed_owned_records_quarantine_without_projecting[legalEntity-LE-US-02-incorrect_legal_entity]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_malformed_owned_records_quarantine_without_projecting[companyId--missing_source_identifier]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_malformed_owned_records_quarantine_without_projecting[dealStage-Unmapped CRM stage-unmapped_lifecycle_state]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_malformed_owned_records_quarantine_without_projecting[version-True-invalid_source_revision]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_missing_identifier_and_injected_lower_authority_field_are_not_ignored",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_exact_replay_preserves_readiness_but_content_collision_blocks",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_new_envelope_same_source_version_is_still_one_business_record",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_no_regress_preserves_latest_owned_state[stale-stale_or_conflicting_source_revision]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_no_regress_preserves_latest_owned_state[gap-source_revision_gap]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_no_regress_preserves_latest_owned_state[time-source_observation_regression]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_no_regress_preserves_latest_owned_state[state-unsupported_lifecycle_transition]",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_new_valid_source_revision_requires_new_reviewed_baseline",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_source_inventory_missing_is_unknown_not_zero",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_concurrent_real_http_replays_commit_once",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_http_identities_are_scoped_and_sponsor_is_read_only",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_service_database_role_cannot_change_governance_or_erase_evidence",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_governance_rejects_conflicting_field_ownership_and_duplicate_crosswalk",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_mapping_change_is_versioned_and_invalidates_old_source_coverage",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_persisted_ready_flag_and_equal_row_count_do_not_bypass_reconciliation",
+      "outcome": "passed"
+    },
+    {
+      "class": "tests.test_admission",
+      "name": "test_incomplete_lifecycle_mapping_cannot_be_approved",
+      "outcome": "passed"
+    }
+  ],
+  "native_vendor_execution": false,
+  "cloud_resources": false,
+  "scope": "Pass 1 only; no independent final audit or later-pass acceptance"
+}
