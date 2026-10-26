@@ -2,7 +2,7 @@
 
 **An imported acquisition is not a report-ready business.**
 
-A parent platform needs to attach acquired companies to shared infrastructure while preserving local customer IDs, operating definitions and legal entities. This executable control layer admits a company only after reviewed mappings, exact source coverage and source-to-projection reconciliation succeed. An authorized reviewer can resolve identity exceptions and resnapshot mappings; a durable outbox delivers an admitted handoff only after checking its current authority.
+A parent platform needs to attach acquired companies to shared infrastructure while preserving local customer IDs, operating definitions and legal entities. This executable control layer admits a company only after reviewed mappings, exact source coverage and source-to-projection reconciliation succeed. An authorized reviewer can resolve identity exceptions and resnapshot mappings; a durable outbox delivers an admitted handoff only after checking its current authority. Source-linked financial reports then reconcile invoices, ERP postings, allocated cash and supported intercompany eliminations against an independent Python oracle.
 
 Three fictional companies use different local CRM, operations and finance contracts. All data is synthetic. HubSpot, Salesforce, LMN, Aspire, QuickBooks and NetSuite names identify limited representative contracts; **no native vendor API, client system or cloud resource is used**.
 
@@ -46,7 +46,7 @@ PostgreSQL owns registry, mapping versions, crosswalks, raw messages, normalized
 
 The gate compares exact expected source IDs, revisions and raw content hashes, validates active mapping versions, and checks normalized fields and provenance against source records. Equal row counts and a persisted ready flag are insufficient. New source facts invalidate prior readiness until coverage is reviewed again. Missing source coverage remains unknown rather than becoming zero.
 
-[Admission contract](docs/admission-contract.md) · [Review and execution controls](docs/governed-execution.md) · [Pass ledger](docs/progress.md)
+[Admission contract](docs/admission-contract.md) · [Review and execution controls](docs/governed-execution.md) · [Financial reporting](docs/financial-reporting.md) · [Pass ledger](docs/progress.md)
 
 ## Run the complete local slice
 
@@ -60,6 +60,7 @@ python -m pip install --no-deps --no-build-isolation -e .
 # Set PG_BIN to the PostgreSQL bin directory, or put the binaries on PATH.
 python -m onboarding.demo --workspace .local/demo-01 --output .local/demo-01.json
 python -m onboarding.pass2_demo --workspace .local/pass2-01 --output .local/pass2-01.json
+python -m onboarding.financial_demo --workspace .local/finance-01 --output .local/finance-01.json
 ```
 
 Each command starts isolated PostgreSQL databases and real loopback HTTP processes, sends actual requests, writes a source-linked JSON summary and stops its resources. The second demonstrates explicit review, mapping version 2, separate business facts, a receiver commit followed by a lost response, independent readback and duplicate prevention. It requires a fresh workspace and output path. Local credentials are generated privately, never printed or committed. Never use a client or production database.
@@ -81,6 +82,14 @@ Pass 2 uses separate source, controller and reviewer API identities, plus a sepa
 
 The outbox freezes content and idempotency identity, persists at most three dispatch attempts, and verifies both the receiver receipt and its separately queried business record. A genuine worker termination is also tested. Unknown readback is not evidence of absence. Recovering a historical commit does not authorize a new write. These finite controls do not establish universal exactly-once execution or production reliability.
 
-**Opportunity won, work-order completion and finance-account verification are distinct facts. None establishes revenue, invoice settlement or cash.** The receiver creates an internal synthetic onboarding handoff, not a vendor job or financial transaction. Financial reconciliation belongs to Pass 3.
+**Opportunity won, work-order completion and finance-account verification are distinct facts. None establishes revenue, invoice settlement or cash.** The receiver creates an internal synthetic onboarding handoff, not a vendor job or financial transaction. Pass 3 adds actual financial source contracts and reconciliation; the handoff itself supplies none of those financial facts.
 
-Initial fixture mappings are installed by the trusted local harness. Subsequent decisions use a separately authenticated synthetic reviewer, not a claimed independent human approval. The controller cannot override failed checks. Tokens, role separation and loopback HTTP are demonstration controls, not production SSO/TLS, per-brand database RLS or protection against a compromised host administrator. Native connectors, CDC continuity, financial models, statutory consolidation and an operator browser remain outside this delivery.
+Initial fixture mappings are installed by the trusted local harness. Subsequent decisions use a separately authenticated synthetic reviewer, not a claimed independent human approval. The controller cannot override failed checks. Tokens, role separation and loopback HTTP are demonstration controls, not production SSO/TLS, per-brand database RLS or protection against a compromised host administrator. Native connectors, CDC continuity, statutory consolidation and an operator browser remain outside this delivery.
+
+## Financial reporting and restatement
+
+[Pass 3](docs/financial-reporting.md) runs nine real PostgreSQL dbt models and an independently calculated Python oracle. The synthetic selected-month scenario produces **USD 368,000 consolidated net invoicing, USD 363,000 ERP postings and USD 230,000 allocated cash**. A USD 5,000 posting discrepancy and an unsupported USD 8,000 intercompany candidate stay open. USD 20,000 is eliminated only with exact bilateral document evidence.
+
+A late January source correction yields a new reporting version with **USD 388,000 consolidated net invoicing and USD 383,000 postings**; cash remains unchanged. The original report and source revisions survive. A deliberately unbalanced candidate fails real dbt data tests and cannot publish. Reports use source-observation cutoffs plus captured admission state; no recognized revenue or commercial outcome is claimed.
+
+[Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.

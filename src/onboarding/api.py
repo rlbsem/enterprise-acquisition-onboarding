@@ -15,6 +15,7 @@ from pydantic import Field
 from typing import Literal
 from uuid import UUID
 from . import governance, business, execution
+from . import finance
 
 
 class IdentityReview(Closed):
@@ -174,6 +175,16 @@ def create_app(config):
         if principal(x_admission_token)["role"] != "controller":
             raise HTTPException(403, "admission_controller_required")
         return execution.plan(config, company, body.canonical, body.references)
+
+    @app.post("/v1/financial")
+    def financial_source(body: finance.Financial, x_admission_token: str = Header(default="")):
+        identity = principal(x_admission_token)
+        if identity["role"] != "source" or (identity["company"], identity["source"]) != (
+            body.company,
+            body.source,
+        ):
+            raise HTTPException(403, "source_scope_denied")
+        return finance.ingest(config["dsn"], body.model_dump())
 
     @app.post("/v1/outbound/{identifier}/step")
     def dispatch(identifier: UUID, x_admission_token: str = Header(default="")):

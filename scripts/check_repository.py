@@ -63,6 +63,91 @@ def check_pass2(folder):
     assert p["native_vendor_calls"] == 0 and p["owned_resources_cleaned"]
 
 
+def check_pass3(folder):
+    from onboarding.financial_oracle import calculate
+
+    p = json.loads((folder / "pass3.json").read_bytes())
+    assert p["currency"] == "USD" and p["money_unit"] == "integer_minor_units"
+    events = {r["id"]: r for r in p["source_events"]}
+    for r in events.values():
+        assert digest(r["body"]) == r["hash"] and type(r["body"]["amount_minor"]) is int
+    snapshots = {r["id"]: r for r in p["records"]["financial_snapshots"]}
+    policies = {r["version"]: r["body"] for r in p["records"]["financial_policies"]}
+
+    def independent(report):
+        snapshot = snapshots[report]
+        inputs = [r for r in p["records"]["financial_inputs"] if r["report_id"] == report]
+        for r in inputs:
+            assert events[r["event_id"]]["status"] == "accepted"
+            assert r["body"] == events[r["event_id"]]["body"] and r["hash"] == digest(r["body"])
+        previous = (
+            independent(snapshot["previous_id"])["portfolio_totals"]
+            if snapshot["previous_id"]
+            else None
+        )
+        return calculate(
+            inputs, snapshot["control"], policies[snapshot["policy_version"]], previous
+        )
+
+    for name in ["original", "restated"]:
+        result = p[name]
+        expected = independent(name)
+        for model, rows in expected.items():
+
+            def key(r):
+                return json.dumps(r, sort_keys=True)
+
+            assert sorted(rows, key=key) == sorted(result["results"][model], key=key), model
+        assert len(result["comparisons"]) == 7 and all(
+            c["exact_content_match"]
+            and c["row_differences"] == 0
+            and c["sha256"] == c["observed_sha256"]
+            for c in result["comparisons"]
+        )
+        nodes = result["dbt"]["results"]
+        assert len([n for n in nodes if n["id"].startswith("model.")]) == 9
+        assert len([n for n in nodes if n["id"].startswith("test.")]) == 9
+        assert result["dbt"]["return_code"] == 0 and all(
+            n["status"] in ["success", "pass"] for n in nodes
+        )
+        assert result["status"] == "reconciled_with_open_variances"
+    assert independent("original-cutoff-replay") == independent("original")
+    assert p["totals_before"]["consolidated_invoice_minor"] == 36800000
+    assert p["totals_after"]["consolidated_invoice_minor"] == 38800000
+    assert (
+        p["totals_before"]["allocated_cash_minor"]
+        == p["totals_after"]["allocated_cash_minor"]
+        == 23000000
+    )
+    assert len(p["changed_bridge"]) == 5 and all(
+        r["delta_minor"] == 2000000 and r["period"] == "2026-01-01" for r in p["changed_bridge"]
+    )
+    assert not snapshots["original"]["control"]["summit"]["admitted"]
+    assert {
+        (r["code"], r["amount_minor"]) for r in p["restated"]["results"]["reconciliation_variances"]
+    } == {("erp_posting_difference", 500000), ("intercompany_unresolved", 800000)}
+    assert all(r["response"]["status"] == "rejected" for r in p["rejected_updates"])
+    blocked = p["blocked_candidate"]
+    assert not blocked["published"] and blocked["dbt"]["return_code"] != 0
+    assert any(
+        n["status"] == "fail" and "financial_amount_controls" in n["id"]
+        for n in blocked["dbt"]["results"]
+    )
+    assert {r["report_id"] for r in p["records"]["financial_publications"]} == {
+        "original",
+        "restated",
+    }
+    assert (
+        p["downstream_effects_before"]
+        == p["downstream_effects_after"]
+        == p["downstream_posts_before"]
+        == p["downstream_posts_after"]
+        == 1
+    )
+    assert p["original_report_unchanged"] and p["original_cutoff_replay_equal"]
+    assert p["native_vendor_calls"] == 0 and p["owned_resources_cleaned"]
+
+
 count = 0
 for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
     inventory = json.loads(mf.read_bytes())
@@ -103,6 +188,8 @@ for mf in (ROOT / "docs/evidence").rglob("manifest.json"):
             assert source["raw"] and source["normalized"] and source["source_id"] == "100"
     if "pass2.json" in inventory:
         check_pass2(mf.parent)
+    if "pass3.json" in inventory:
+        check_pass3(mf.parent)
 links = 0
 for doc in [ROOT / "README.md", *(ROOT / "docs").rglob("*.md")]:
     for target in re.findall(r"\]\(([^)]+)\)", doc.read_text(encoding="utf-8")):

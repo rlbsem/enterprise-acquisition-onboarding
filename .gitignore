@@ -6,3 +6,6 @@ __pycache__/
 *.pyc
 *.egg-info/
 *.log
+warehouse/target/
+warehouse/logs/
+warehouse/dbt_packages/

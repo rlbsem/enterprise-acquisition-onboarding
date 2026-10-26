@@ -141,13 +141,14 @@ class Sandbox:
         with connect(self.admin_dsn) as c:
             c.execute(files("onboarding").joinpath("schema.sql").read_text(encoding="utf-8"))
             c.execute(files("onboarding").joinpath("pass2.sql").read_text(encoding="utf-8"))
+            c.execute(files("onboarding").joinpath("financial.sql").read_text(encoding="utf-8"))
             c.execute("REVOKE CREATE ON SCHEMA public FROM PUBLIC")
             role = sql.Identifier(self.role)
             c.execute(sql.SQL("GRANT USAGE ON SCHEMA public TO {}").format(role))
             c.execute(sql.SQL("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {}").format(role))
             c.execute(
                 sql.SQL(
-                    "GRANT INSERT ON messages,deliveries,quarantine,source_records,customer_fields,gate_runs,audit,business_events,business_heads,outbound,outbound_attempts TO {}"
+                    "GRANT INSERT ON messages,deliveries,quarantine,source_records,customer_fields,gate_runs,audit,business_events,business_heads,outbound,outbound_attempts,financial_events TO {}"
                 ).format(role)
             )
             c.execute(sql.SQL("GRANT UPDATE(status,reason) ON messages TO {}").format(role))
@@ -247,6 +248,10 @@ class Sandbox:
         )
 
     def reset(self):
+        with connect(self.admin_dsn) as c:
+            c.execute(
+                "TRUNCATE financial_publications,financial_inputs,financial_snapshots,financial_policies"
+            )
         self.messages = seed(self.admin_dsn)
         with connect(self.receiver_admin) as c:
             c.execute("TRUNCATE effects,records,requests,faults RESTART IDENTITY")
@@ -295,7 +300,7 @@ class Sandbox:
             c.execute(sql.SQL("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {}").format(role))
             c.execute(
                 sql.SQL(
-                    "GRANT INSERT ON reviews,review_decisions,quarantine_resolutions,crosswalks,mapping_versions,baselines,source_records,customer_fields,gate_runs,audit TO {}"
+                    "GRANT INSERT ON reviews,review_decisions,quarantine_resolutions,crosswalks,mapping_versions,baselines,source_records,customer_fields,gate_runs,audit,financial_policies,financial_snapshots,financial_inputs,financial_publications TO {}"
                 ).format(role)
             )
             c.execute(
@@ -406,6 +411,12 @@ class Sandbox:
                 c.execute(sql.SQL("DROP ROLE IF EXISTS {}").format(sql.Identifier(self.role)))
                 if getattr(self, "extra_roles_created", False):
                     c.execute(sql.SQL("DROP ROLE {}").format(sql.Identifier(self.reviewer_role)))
+                if getattr(self, "warehouse_role", None):
+                    c.execute(
+                        sql.SQL("DROP ROLE IF EXISTS {}").format(
+                            sql.Identifier(self.warehouse_role)
+                        )
+                    )
         if self.own:
             subprocess.run(
                 [self.pg_ctl, "-D", str(self.path / "pgdata"), "-m", "fast", "-w", "stop"],

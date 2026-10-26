@@ -6,7 +6,7 @@ Work remains on `feat/acquisition-admission`, draft PR #1. No merge or deploymen
 |---|---|
 | 1: Repeatable brand admission | Registry, three local source domains per company, scoped identity, reviewed mappings, immutable raw intake, quarantine, exact coverage and source-linked portfolio projection. Original 23-test acceptance pins `e10c676401c0e7afb503afb5fc6f638f90a9b09f`; published checkpoint `606dee249c1d71330f0e82f67a352b1986d1a624` remains preserved. |
 | 2: Source authority and safe execution | Scoped review proposals/decisions, source correction, mapping resnapshot/history, separate opportunity/work-order/finance-account contracts, durable bounded outbox, separate PostgreSQL/HTTP receiver, commit-then-lost-response recovery and genuine worker interruption. 39 passing tests and two standalone demos pin implementation `32c4e7475b12bf42898a51e697bd853db8159d10`; see the acceptance record below. |
-| 3: Portfolio reconciliation | Not started: financial grains, SQL/dbt, independent financial oracle, elimination rules and versioned restatements. |
+| 3: Portfolio reconciliation | Versioned financial source contracts, immutable policy/input/publication records, nine PostgreSQL dbt models, independent integer oracle, supported eliminations, visible variances and source-based prior-period restatement. See the source-pinned Pass 3 execution record. |
 | 4: Sponsor/acquisition console | Not started: authenticated operating-company/sponsor browser views and per-brand access controls. |
 | 5: Independent adversarial review | Not performed; remains a separate acceptance activity. |
 
@@ -16,4 +16,6 @@ Pass 2 acceptance covers A: explicit identity resolution; B: wrong entity remain
 
 The source correction uses a higher legitimate revision. Review does not alter the original quarantined event. The completed handoff is local and synthetic; opportunity, operations and finance states do not imply financial recognition. No native vendor execution or independent final audit is claimed.
 
-Pass 3 requires an explicit next assignment and the governing roadmap's financial grains, independent oracle, inclusion/elimination rules and temporal restatement acceptance. Preserve these source/review/receiver records as inputs; do not reinterpret snapshot completeness as CDC continuity or internal handoff as a financial transaction. Stop after the Pass 2 checkpoint.
+[Pass 3 acceptance and exact implementation revision](evidence/pass3/README.md) records real dbt execution, independent comparisons, late corrections and an unpublished unbalanced candidate. Original Pass 1 and Pass 2 archives remain unchanged. No native financial vendor, cloud resource or deployment is involved.
+
+Pass 4 requires a new assignment: authenticated sponsor/operator views, server-side company scope, reporting-version/variance drilldowns, admission-review interactions and real desktop/mobile browser proof. Production RLS/SSO, general FX/statutory accounting, CDC completeness and the independent final audit remain unverified. Stop after the Pass 3 checkpoint.
