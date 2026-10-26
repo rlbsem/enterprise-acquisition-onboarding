@@ -59,12 +59,17 @@ def controls(c, policy):
 
 
 def selected(c, cutoff):
-    return c.execute(
+    rows = c.execute(
         """SELECT DISTINCT ON(company,body->>'kind',body->>'source_id') id AS event_id,body,hash
     FROM financial_events WHERE status='accepted' AND (body->>'observed_at')::timestamptz<=%s
     ORDER BY company,body->>'kind',body->>'source_id',(body->>'revision')::int DESC""",
         (cutoff,),
     ).fetchall()
+    # Database collations can order punctuation differently. A frozen source set
+    # must have one canonical order on every supported execution platform.
+    return sorted(
+        rows, key=lambda r: (r["body"]["company"], r["body"]["kind"], r["body"]["source_id"])
+    )
 
 
 def approve_policy(dsn, version, body):

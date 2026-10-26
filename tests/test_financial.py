@@ -5,7 +5,36 @@ from onboarding.db import connect
 from onboarding.engine import Refused
 from onboarding.financial_demo import setup, financial_send
 from onboarding.financial_fixtures import policy, ORIGINAL_CUTOFF
-from onboarding.reporting import freeze, oracle_snapshot, compare, warehouse, approve_policy
+from onboarding.reporting import (
+    freeze,
+    oracle_snapshot,
+    compare,
+    warehouse,
+    approve_policy,
+    selected,
+)
+
+
+def test_financial_snapshot_selection_is_independent_of_database_collation():
+    rows = [
+        {"body": {"company": "cedar", "kind": "erp_posting", "source_id": key}}
+        for key in ["P1", "P-IC1", "P2", "PCR1"]
+    ]
+
+    class Cursor:
+        def __init__(self, data):
+            self.data = data
+
+        def execute(self, *args):
+            return self
+
+        def fetchall(self):
+            return self.data
+
+    forward = selected(Cursor(rows), ORIGINAL_CUTOFF)
+    reverse = selected(Cursor(list(reversed(rows))), ORIGINAL_CUTOFF)
+    assert forward == reverse
+    assert [r["body"]["source_id"] for r in forward] == ["P-IC1", "P1", "P2", "PCR1"]
 
 
 @pytest.mark.parametrize(
