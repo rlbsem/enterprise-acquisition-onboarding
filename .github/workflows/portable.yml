@@ -2,7 +2,7 @@ name: Portable demo acceptance
 on:
   pull_request:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -25,6 +25,11 @@ jobs:
         with:
           python-version: '3.12.14'
       - run: python -m pip install -r requirements.lock
+      - name: Verify preserved portable records
+        run: |
+          python scripts/check_portable_evidence.py docs/evidence/portable/native-run01
+          python scripts/check_portable_evidence.py docs/evidence/portable/compose-run01
+          python scripts/check_portable_evidence.py docs/evidence/portable/failed-network-run01 --failed
       - run: python scripts/verify_portable.py --workspace .local/compose-ci --output .local/compose-evidence
       - run: python scripts/check_portable_evidence.py .local/compose-evidence --working-tree
       - name: Safe failure summary

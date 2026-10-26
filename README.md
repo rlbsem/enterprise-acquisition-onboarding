@@ -20,7 +20,7 @@ Wait for `ready`, then open **http://127.0.0.1:8592/console**. Retrieve your fre
 docker compose exec demo python -m onboarding.portable credentials --user sponsor
 ```
 
-Startup runs real PostgreSQL, independent HTTP contracts and validated original/restated dbt publications. The console is host-loopback only; databases and internal APIs are not published. Use `docker compose down --volumes --remove-orphans` to remove this disposable demo. Each subsequent startup creates fresh data and credentials. [Guided walkthrough, security boundaries and packaging verification](docs/portable-demo.md).
+Startup runs real PostgreSQL, independent HTTP contracts and validated original/restated dbt publications. The console is host-loopback only; databases and internal APIs are not published. Use `docker compose down --volumes --remove-orphans` to remove this disposable demo. Each subsequent startup creates fresh data and credentials. [Guided walkthrough](docs/portable-demo.md) · [Executed packaging evidence and screenshots](docs/evidence/portable/README.md).
 
 ## Inspect the operations console
 
@@ -130,4 +130,4 @@ The command prepares real source/financial records and prints a loopback URL plu
 
 **Pass 5 acceptance: 62 regression tests, 53 real-browser checks, seven route-verified screenshots and seven accessibility scans with no violations or unresolved checks.** The [independent adversarial acceptance record](docs/evidence/pass5/README.md) documents the tested boundaries, direct HTTP/database negatives, separate financial recalculation and one corrected browser-evidence synchronization defect. Earlier evidence remains byte-for-byte unchanged; the [Pass 4 record](docs/evidence/pass4/README.md) remains historical.
 
-**Decision: ready for the stated local synthetic scope.** No material authorization, financial correctness or replay-safety failure was demonstrated. Production SSO/TLS/RLS, native connectors, statutory accounting and universal exactly-once execution remain outside the demonstrated scope. This is an independent AI-led assessment, not independent human security certification. PR #1 remains draft and unmerged; no deployment is authorized.
+**Decision: ready for the stated local synthetic scope.** No material authorization, financial correctness or replay-safety failure was demonstrated. Production SSO/TLS/RLS, native connectors, statutory accounting and universal exactly-once execution remain outside the demonstrated scope. This is an independent AI-led assessment, not independent human security certification. The original implementation is merged; the portable extension is submitted separately for review. No deployment is authorized.

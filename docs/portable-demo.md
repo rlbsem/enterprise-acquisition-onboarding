@@ -63,3 +63,5 @@ python scripts/verify_portable.py --workspace .local/portable-review --output .l
 The host runner needs the pinned Python dependencies from `requirements.lock`; reviewers launching the ordinary demo need only Docker. The runner builds and tests the normal image, authenticates through the host-published gateway, shuts it down, restarts it and rejects old credentials/sessions. It then executes the original real-browser acceptance through the gateway in the optional image, including company scope, CSRF, governance/audit, immutable publications, open exceptions, keyboard/mobile and accessibility checks. It verifies image source bytes, container settings and independently inventories project containers, networks and volumes after teardown.
 
 With local Python 3.12/PostgreSQL 17 binaries and installed Playwright Chromium, `--native` exercises the same entrypoint and browser harness on loopback. That fallback does not establish Docker execution. New packaging results are distinct from historical Pass 1–5 evidence and are not another independent architecture audit.
+
+[Recorded portable acceptance, screenshots and exact-source verification](evidence/portable/README.md).
