@@ -154,8 +154,10 @@ def check_pass4(folder):
     p = json.loads((folder / "pass4.json").read_bytes())
     assert p["browser"]["name"] == "chromium" and p["browser"]["playwright"] == "1.64.1"
     checks = {r["case"]: r for r in p["checks"]}
-    assert len(checks) >= 51 and all(
-        r["passed"] and r["expected"] == r["observed"] for r in checks.values()
+    # The same sign-in assertion executes in separate desktop/mobile contexts.
+    # Validate every recorded observation, not only one record per check name.
+    assert len(p["checks"]) >= 52 and all(
+        r["passed"] and r["expected"] == r["observed"] for r in p["checks"]
     )
     for key in [
         "A_sponsor_company_scope",
