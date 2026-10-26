@@ -18,6 +18,24 @@ These profiles illustrate revenue-scale business context through **gross billing
 
 The reported financial measures are independently calculated at document, posting and allocation grains. They differ from the assumed profiles, from one another and from the full underlying source year because credits, intercompany documents, collection schedules, acquisition dates and admission apply. No total is produced by scaling the earlier correctness fixture.
 
+## Calculated results
+
+All amounts below are synthetic USD. They describe the admitted, post-acquisition reporting perimeter, not all underlying company activity or recognized revenue.
+
+| Measure | Original | Restated |
+|---|---:|---:|
+| Commercial bookings | $22,421,280.00 | $22,421,280.00 |
+| Net invoices before supported elimination | $20,132,260.00 | $20,177,260.00 |
+| ERP postings before supported elimination | $20,107,260.00 | $20,152,260.00 |
+| Supported elimination | $120,000.00 | $120,000.00 |
+| Consolidated net invoicing | $20,012,260.00 | $20,057,260.00 |
+| Consolidated ERP postings | $19,987,260.00 | $20,032,260.00 |
+| Allocated cash | $15,609,585.60 | $15,609,585.60 |
+
+Cards use the existing whole-dollar display rounding; source facts, API values, comparisons and the evidence preserve integer cents. The $25,000 ERP posting difference and $40,000 unsupported intercompany candidate are distinct open exceptions, not a combined accounting loss.
+
+The generator submits **333 base source records**. **321 are accepted**; Summit's 12 CRM bookings are rejected because their identity has not been reviewed. Its accepted finance observations remain held. The complete run records **340 source events**, including three rejected negative probes, three accepted correction revisions and one accepted but unbalanced candidate revision. Duplicate replay creates no new financial event. The original snapshot contains 321 latest source records; 96 held and nine pre-acquisition source rows are excluded from reporting. A zero accepted-booking control for Summit means no authorized booking source, not zero underlying business.
+
 ## Launch and inspect
 
 Stop the default demo first if it is using port 8592. Run the annual scenario in its own Compose project:

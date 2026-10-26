@@ -5,6 +5,7 @@ import hashlib
 import json
 import subprocess
 from datetime import UTC, datetime
+from importlib.metadata import version
 from pathlib import Path
 import httpx
 from playwright.sync_api import sync_playwright, expect
@@ -53,6 +54,11 @@ def browser(lane, output):
         )
     with sync_playwright() as p:
         chromium = p.chromium.launch()
+        engine = {
+            "name": "chromium",
+            "version": chromium.version,
+            "playwright": version("playwright"),
+        }
         for viewport, label in [
             ({"width": 1500, "height": 1050}, "desktop"),
             ({"width": 390, "height": 844}, "mobile"),
@@ -95,6 +101,8 @@ def browser(lane, output):
             accessibility.append({"view": label + "_portfolio", **scan})
 
             def capture(name, route):
+                observed_route = page.url.split("#", 1)[1] if "#" in page.url else "portfolio"
+                assert observed_route == route
                 page.evaluate("window.scrollTo(0,0)")
                 target = output / name
                 page.screenshot(path=str(target), full_page=True, animations="disabled")
@@ -106,6 +114,10 @@ def browser(lane, output):
                         publication=page.locator("#report-select").input_value(),
                         period=page.locator("#period-select").input_value(),
                         capture="real_chromium_page_screenshot",
+                        observed_route=observed_route,
+                        rendered_heading=page.locator("#main h1").inner_text(),
+                        captured_at=datetime.now(UTC).isoformat(),
+                        role="sponsor",
                         sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                     )
                 )
@@ -158,6 +170,7 @@ def browser(lane, output):
         screenshots=screenshots,
         accessibility=accessibility,
         browser="actual_chromium",
+        engine=engine,
         synthetic=True,
     )
 
