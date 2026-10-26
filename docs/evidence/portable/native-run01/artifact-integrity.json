@@ -1,0 +1,11 @@
+{
+  "portable.json": "100061c3f8bd628312552ee1a94b66d84182a9bf1d9ba59b935d623e07b03369",
+  "browser/browser.json": "0b3c7cfacc9dab4b61fc9cbc6d16866d46008bfad08031af483a46516475a3cd",
+  "browser/company-desktop.png": "822b4f77ca384b6c0fb4a5bb06a374f738ba735e639ffedd7bb2c1a1e0194dc5",
+  "browser/financial-desktop.png": "43d86d422c8d604ba8b705cb356ed8198fe778c1260c2ed848729a93a9f5b449",
+  "browser/financial-mobile.png": "dccd29e88a2477aa4ed9cee79376ae1d479a7ed73294fa931cb11b584ec4a8ab",
+  "browser/governance-desktop.png": "416ab9547d239687f7fd090c7dea5db08ee49bafb8078f15b399529ad2b1f33e",
+  "browser/history-desktop.png": "b69917c99e55737c6929abfc8842db2cafc26c8b5ccf8f17a08934448e961038",
+  "browser/portfolio-desktop.png": "c810644654107fafc7e8160e69a52f93ff4f56ac18e1f462862943a2cbe701c3",
+  "browser/portfolio-mobile.png": "ece2665d4d9c5adec41cf0fb09df5cd37a3496a615f7a7141689e0aa1681086c"
+}

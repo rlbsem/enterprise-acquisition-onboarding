@@ -1,0 +1,36 @@
+services:
+  demo:
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "127.0.0.1:${ACQUISITION_DEMO_PORT:-8592}:8080"
+    user: "10001:10001"
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    mem_limit: 1536m
+    cpus: 2
+    tmpfs:
+      - /tmp:size=134217728,mode=1777
+      - /var/run/postgresql:size=4194304,mode=1777
+    volumes:
+      - demo-state:/state
+    stop_grace_period: 45s
+    restart: "no"
+    healthcheck:
+      test: [CMD, python, -m, onboarding.portable, health, --port, "8080"]
+      interval: 5s
+      timeout: 5s
+      start_period: 180s
+      retries: 5
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+      com.docker.network.bridge.enable_icc: "false"
+volumes:
+  demo-state:

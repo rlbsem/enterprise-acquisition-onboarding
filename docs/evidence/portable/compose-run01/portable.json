@@ -1,0 +1,655 @@
+{
+  "source_commit": "09657883afecc989b0ae910cb301a6d0d18a5c15",
+  "source_sha256": {
+    ".dockerignore": "24234d4e7bfe157c80d5df3dcd022a1004c09cb0a7afa0262604376b8f66a162",
+    ".github/workflows/portable.yml": "93f8c53d615c21c319b8e9bafff3eeaa3e8138ef8e5241949a1f29812a8c7ce8",
+    ".github/workflows/verify.yml": "45b17f0696492e52a4332bba3d4d2132437d35c81c347938493173a0b55cab20",
+    "Dockerfile": "059d5f4f50685aa964d2b75205e0ef06da6c8b4b4f96b4515839cabb3ed168bf",
+    "compose.acceptance.yaml": "cad204f27dd1f8ca2f5f2cbf21aca80b6132d43ee3bfd58b79124725a9ef0d9f",
+    "compose.yaml": "31363e45773662cb4b11bf9090610d566865ef2c96a97e6501608e62b3d56338",
+    "pyproject.toml": "dd6f29aec7ae740ef47fecae667815089778f654025224a2216ff7cb2f1e8423",
+    "requirements.lock": "2e8c72b3bed24539cebaee09e257d871e031e33211811722047a352ea5677fe5",
+    "scripts/check_portable_evidence.py": "573757bd6e47fc29190db6b7061e57709765b6f398e2cf9760e2bc298529892d",
+    "scripts/check_repository.py": "7848b8a1d4701bb2351bd3762f3aee667d6b7379e187a129f404336da8959b72",
+    "scripts/ci_failure_summary.py": "7533b7fdc1430560a74e287b7f259890ca8b625b384e0aa4bb453d2b13a036cb",
+    "scripts/pass5_financial_oracle.py": "47f20b29596ce6690061b8391ce14adc67976b6dbdb0d6739a312c6c59d3c9c1",
+    "scripts/verify.py": "45941c76f21a055e9fec08e35349bf73f243a4d20aaf9bd30cf135a5b845c48f",
+    "scripts/verify_portable.py": "a74a4fff4a0aadec1d3557e7348752100780dbea13f799ab084503fb54e82bcc",
+    "src/onboarding/__init__.py": "511def106f00c886e7007575b644494bdb9a62dd35aea4a2960e441f7e35230d",
+    "src/onboarding/api.py": "9564ba10e3a574c2171cc37d6f926db6e154c2917b42098b2b60a4af6c6977aa",
+    "src/onboarding/business.py": "f2e8f43577f1658b6f84748b157bc1f935c82ee0281ac748a03a306d7a809b09",
+    "src/onboarding/console.py": "8b32f0bc910d92501684e03e6017747faea799c632dae13e17430828faeb1384",
+    "src/onboarding/console.sql": "9077d541a8a38003b0c1ebfd9d86b3de690b349e6a06c0e691bc485840fe5357",
+    "src/onboarding/console_demo.py": "1cc8bd0af9d27c9fc210618bb127a9dc485127ae807843475a2fb25ca5792e32",
+    "src/onboarding/console_setup.py": "a09c0f0001b56414c69a9c3554fd100a6f510f976abc6cd586a8feeb530b7af5",
+    "src/onboarding/contracts.py": "587c1e0cd2c194ffb9a74cf218b50ad9cd447b9cca09091f441081cf91a830f2",
+    "src/onboarding/db.py": "c6e2d27d74bb66badf31c46f1e20ac69c29b527f5b27abad5bb323d52fc7fd0d",
+    "src/onboarding/demo.py": "567e8d3d1f23c62d65acf7de30ba87e72560fd762b0e10e2b1ae1ef549b479b5",
+    "src/onboarding/engine.py": "36735892e312fef8274e3c738e3179e2c1bbfa3601596664b49690f3f7f6066f",
+    "src/onboarding/execution.py": "d8867aa51d108d186b90ae53d4b42f935b87e1b976bc5a5e6dfa9b12d142b7ba",
+    "src/onboarding/finance.py": "26445b43408cd1036d866983f633b9e9c96d975761a0c21402362039b2be3663",
+    "src/onboarding/financial.sql": "55baa75d62396654b837773434742c5bea1acb099f5e387720d287544d0f699d",
+    "src/onboarding/financial_demo.py": "34fccf176192c0c398b44f4a10ae7a0da87caa7c31da054aec8694c6cfe3fb1a",
+    "src/onboarding/financial_fixtures.py": "453fa3af654b85a79aacc63fee551bdd8548ec0a5e01568fdf53ed31d4150178",
+    "src/onboarding/financial_oracle.py": "36d63b544d6184f628af16911fadf51a4f93a4b101942db99304d354051e173c",
+    "src/onboarding/fixtures.py": "0e46fd4f5c92dd8a4b7ba90049a59885f05bed04f040f72d64d594f6d1a7b9f6",
+    "src/onboarding/governance.py": "84290272706157d492c0a65655ede86f572a4794f88a6835c4135cbd8889e053",
+    "src/onboarding/pass2.sql": "b40306f548a7741325709a6dc5152d3db512431c40a6742bbf6b53d82dbcaf1b",
+    "src/onboarding/pass2_demo.py": "9d6040f7857656ee9ddac856e815fdcfebe9728d17f2186b37dfe814bda5dc08",
+    "src/onboarding/portable.py": "153f7ee3f9ca61183464631e58d9a25f39a462f48deb75d68af9adda8b66dcbb",
+    "src/onboarding/portable_acceptance.py": "ccd89e2e667cba73f87a777df8bb16d7e8fbfe7fa89595a1799b947700fc7f32",
+    "src/onboarding/portable_gateway.py": "7e67ce5d07f23c65cf8d33ca33d8428d4890b41eeb02f958bdb69fdaab95c334",
+    "src/onboarding/receiver.py": "05b33b7e3065fe57acf66059e9b67545fa2b83646f5eba482960dbc4a93c81c4",
+    "src/onboarding/reporting.py": "e92b0051b05829a77b6e52ec5ffe2b596cfc9b88f3a2287938c076778f4ecbf9",
+    "src/onboarding/sandbox.py": "eb569c3ccbaea512c356aa71683ff23589f1833f39d4633fa8f8fd37f72c6c46",
+    "src/onboarding/schema.sql": "6a2c1bf63d1f20aa32e7fb7735de693e9edd8c3dce0ab7f0259653904e7adf53",
+    "src/onboarding/web/app.css": "042608fdcc16b2f9dbe51f7ca82c8df6cebf4ebbed62dca6b6f0be2a6c0b316c",
+    "src/onboarding/web/app.js": "401179c116ea67d7f6996b5f59e610f8ee17b2742e5704aec6dd5e940364967e",
+    "src/onboarding/web/index.html": "248143e23a75ca0e34eaeaf28ee5dafabc19bceefa3059cf875509941d3a6df0",
+    "src/onboarding/web/login.html": "34c7befc6cece7453caafdad0380bda004886850e1a5d38327f4a092f291f5c8",
+    "src/onboarding/web/login.js": "fdaaf4ec6e81f7fbddf4b34cab88477311a5d6489ff13ecc81065f16f6399ae8",
+    "tests/conftest.py": "8bfc58ea3e513068f67110577a4e4638ea386455de457050f90b5afe4d289146",
+    "tests/test_admission.py": "d43a7a06987ee47a0bb40f9496f5c1e25054c11481cc3db0008414d700aa37bd",
+    "tests/test_console.py": "7b030745267b506240903210284c57079e58c845b03f4898da98df6bdb2f4116",
+    "tests/test_financial.py": "875eb4c4297e1b1fcfc283af41f7578dd97fb98fb4c3d9cee9f8bf2035bd2ed4",
+    "tests/test_pass2.py": "d8873299e6c31cc225dc186a79f1cfe415abc6802cbf4989a3231ab8328f5f9e",
+    "tests/test_pass5.py": "a7ffe9d5a576492b7023d9b97b445ce26091a992343ef7bf071b8a6f6431fd3e",
+    "tests/test_portable.py": "ce483291c2794b0626d0532d905f9f220def420571fe1aa0162a966f37122f09",
+    "tests/vendor/AXE-LICENSE": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+    "tests/vendor/axe.min.js": "e9e5863c33a874f09bc01acd9234b7e3c871479f5eef8802fa582544465e6d01",
+    "tests/vendor/provenance.json": "78e97fff0226d39d5047b8c0f4ff16b49316cf16cb0ecd4b757f805de72c3efc",
+    "warehouse/dbt_project.yml": "7e7ec60047cd4b2daf12152096d0bbe1a06cb860dc7d28c41e305e16f9d85931",
+    "warehouse/models/dim_reporting_entities.sql": "0d5f0e661a06efb746d479b9fce852db5a20dc812c3e70a7e6c54f0306dd7c23",
+    "warehouse/models/fct_allocations.sql": "99fc791473505e384d0cb9cca5a0274ec4c232afa17fd2e3434d7a719be39a10",
+    "warehouse/models/fct_invoices.sql": "cae735450bb22cfa814cec0ead70a34db6a7d1bfc7181e42e1e2abe6b7302936",
+    "warehouse/models/intercompany_eliminations.sql": "efedc1a7ec585d9e7d68e16001d652a46592c5bd16085aaed9849c6f616b4892",
+    "warehouse/models/legal_entity_totals.sql": "5a441db535bcc9f5dc56d2441e43ca40e08eb23e8947ee56885e6b8259934f94",
+    "warehouse/models/portfolio_totals.sql": "7a89569963ff5d3f280675dde297769bda4d22b2db8f2bc545f077e10c91785f",
+    "warehouse/models/reconciliation_variances.sql": "51428689cb1b466b2b745593d293ba0533c80654c112c0b751f65b25d9d58398",
+    "warehouse/models/restatement_bridge.sql": "c0039be53be5c58d1901368580578b13143c16db6aeeb90a10cf2c2da79b4b69",
+    "warehouse/models/schema.yml": "43191fbc07ab618b868af460c946ed90083562de488a336259d5f83723790e49",
+    "warehouse/models/stg_financial.sql": "ef2459d475492e9a8957378a3adb6e78509a19e984c4946cb0b3244b9ef9da6b",
+    "warehouse/tests/financial_amount_controls.sql": "4e295b14bf361de12d6eb8d2e61e47ba9073cca6699632c3372de77e08650a10",
+    "warehouse/tests/financial_grains.sql": "aece6ca5824c2154b0e50b79e8f82524ffb00eaceae3b2ba417ae085eafc7c87",
+    "warehouse/tests/financial_references.sql": "ca9e535d06ec14262a079424a075306d1b7467fc3d8c08e0c531fdce78fd7e1e",
+    "warehouse/tests/financial_scope.sql": "75c311e5e19db647afe3458c40e5f4c32e0080428576d0bc1b4d206ab9891422",
+    "warehouse/tests/rollup_and_bridge.sql": "a8809de6b1c3759d4e93f1f4fc5644cb096b75735643672c2942d416e0dd698e"
+  },
+  "started_at": "2026-10-26T16:16:02.879633+00:00",
+  "lane": "actual_docker_compose",
+  "native_vendor_calls": 0,
+  "cloud_resources": false,
+  "independent_architecture_audit": false,
+  "phases": [
+    {
+      "name": "normal_image",
+      "inspection": {
+        "run_id": "run-9f355eca218d40c1",
+        "companies": [
+          {
+            "id": "cedar",
+            "status": "portfolio_ready",
+            "active_mapping": 1
+          },
+          {
+            "id": "meridian",
+            "status": "portfolio_ready",
+            "active_mapping": 1
+          },
+          {
+            "id": "summit",
+            "status": "held",
+            "active_mapping": 1
+          }
+        ],
+        "publications": [
+          {
+            "report_id": "original"
+          },
+          {
+            "report_id": "restated"
+          }
+        ],
+        "review_decisions": 0,
+        "receiver_effects": 1,
+        "receiver_posts": 1,
+        "console_read_role_restricted": true,
+        "postgres": "17.11 (Debian 17.11-1.pgdg12+2)",
+        "python": "3.12.14",
+        "source_sha256": {
+          "src/onboarding/__init__.py": "511def106f00c886e7007575b644494bdb9a62dd35aea4a2960e441f7e35230d",
+          "src/onboarding/api.py": "9564ba10e3a574c2171cc37d6f926db6e154c2917b42098b2b60a4af6c6977aa",
+          "src/onboarding/business.py": "f2e8f43577f1658b6f84748b157bc1f935c82ee0281ac748a03a306d7a809b09",
+          "src/onboarding/console.py": "8b32f0bc910d92501684e03e6017747faea799c632dae13e17430828faeb1384",
+          "src/onboarding/console.sql": "9077d541a8a38003b0c1ebfd9d86b3de690b349e6a06c0e691bc485840fe5357",
+          "src/onboarding/console_demo.py": "1cc8bd0af9d27c9fc210618bb127a9dc485127ae807843475a2fb25ca5792e32",
+          "src/onboarding/console_setup.py": "a09c0f0001b56414c69a9c3554fd100a6f510f976abc6cd586a8feeb530b7af5",
+          "src/onboarding/contracts.py": "587c1e0cd2c194ffb9a74cf218b50ad9cd447b9cca09091f441081cf91a830f2",
+          "src/onboarding/db.py": "c6e2d27d74bb66badf31c46f1e20ac69c29b527f5b27abad5bb323d52fc7fd0d",
+          "src/onboarding/demo.py": "567e8d3d1f23c62d65acf7de30ba87e72560fd762b0e10e2b1ae1ef549b479b5",
+          "src/onboarding/engine.py": "36735892e312fef8274e3c738e3179e2c1bbfa3601596664b49690f3f7f6066f",
+          "src/onboarding/execution.py": "d8867aa51d108d186b90ae53d4b42f935b87e1b976bc5a5e6dfa9b12d142b7ba",
+          "src/onboarding/finance.py": "26445b43408cd1036d866983f633b9e9c96d975761a0c21402362039b2be3663",
+          "src/onboarding/financial.sql": "55baa75d62396654b837773434742c5bea1acb099f5e387720d287544d0f699d",
+          "src/onboarding/financial_demo.py": "34fccf176192c0c398b44f4a10ae7a0da87caa7c31da054aec8694c6cfe3fb1a",
+          "src/onboarding/financial_fixtures.py": "453fa3af654b85a79aacc63fee551bdd8548ec0a5e01568fdf53ed31d4150178",
+          "src/onboarding/financial_oracle.py": "36d63b544d6184f628af16911fadf51a4f93a4b101942db99304d354051e173c",
+          "src/onboarding/fixtures.py": "0e46fd4f5c92dd8a4b7ba90049a59885f05bed04f040f72d64d594f6d1a7b9f6",
+          "src/onboarding/governance.py": "84290272706157d492c0a65655ede86f572a4794f88a6835c4135cbd8889e053",
+          "src/onboarding/pass2.sql": "b40306f548a7741325709a6dc5152d3db512431c40a6742bbf6b53d82dbcaf1b",
+          "src/onboarding/pass2_demo.py": "9d6040f7857656ee9ddac856e815fdcfebe9728d17f2186b37dfe814bda5dc08",
+          "src/onboarding/portable.py": "153f7ee3f9ca61183464631e58d9a25f39a462f48deb75d68af9adda8b66dcbb",
+          "src/onboarding/portable_acceptance.py": "ccd89e2e667cba73f87a777df8bb16d7e8fbfe7fa89595a1799b947700fc7f32",
+          "src/onboarding/portable_gateway.py": "7e67ce5d07f23c65cf8d33ca33d8428d4890b41eeb02f958bdb69fdaab95c334",
+          "src/onboarding/receiver.py": "05b33b7e3065fe57acf66059e9b67545fa2b83646f5eba482960dbc4a93c81c4",
+          "src/onboarding/reporting.py": "e92b0051b05829a77b6e52ec5ffe2b596cfc9b88f3a2287938c076778f4ecbf9",
+          "src/onboarding/sandbox.py": "eb569c3ccbaea512c356aa71683ff23589f1833f39d4633fa8f8fd37f72c6c46",
+          "src/onboarding/schema.sql": "6a2c1bf63d1f20aa32e7fb7735de693e9edd8c3dce0ab7f0259653904e7adf53",
+          "src/onboarding/web/app.css": "042608fdcc16b2f9dbe51f7ca82c8df6cebf4ebbed62dca6b6f0be2a6c0b316c",
+          "src/onboarding/web/app.js": "401179c116ea67d7f6996b5f59e610f8ee17b2742e5704aec6dd5e940364967e",
+          "src/onboarding/web/index.html": "248143e23a75ca0e34eaeaf28ee5dafabc19bceefa3059cf875509941d3a6df0",
+          "src/onboarding/web/login.html": "34c7befc6cece7453caafdad0380bda004886850e1a5d38327f4a092f291f5c8",
+          "src/onboarding/web/login.js": "fdaaf4ec6e81f7fbddf4b34cab88477311a5d6489ff13ecc81065f16f6399ae8",
+          "warehouse/dbt_project.yml": "7e7ec60047cd4b2daf12152096d0bbe1a06cb860dc7d28c41e305e16f9d85931",
+          "warehouse/models/dim_reporting_entities.sql": "0d5f0e661a06efb746d479b9fce852db5a20dc812c3e70a7e6c54f0306dd7c23",
+          "warehouse/models/fct_allocations.sql": "99fc791473505e384d0cb9cca5a0274ec4c232afa17fd2e3434d7a719be39a10",
+          "warehouse/models/fct_invoices.sql": "cae735450bb22cfa814cec0ead70a34db6a7d1bfc7181e42e1e2abe6b7302936",
+          "warehouse/models/intercompany_eliminations.sql": "efedc1a7ec585d9e7d68e16001d652a46592c5bd16085aaed9849c6f616b4892",
+          "warehouse/models/legal_entity_totals.sql": "5a441db535bcc9f5dc56d2441e43ca40e08eb23e8947ee56885e6b8259934f94",
+          "warehouse/models/portfolio_totals.sql": "7a89569963ff5d3f280675dde297769bda4d22b2db8f2bc545f077e10c91785f",
+          "warehouse/models/reconciliation_variances.sql": "51428689cb1b466b2b745593d293ba0533c80654c112c0b751f65b25d9d58398",
+          "warehouse/models/restatement_bridge.sql": "c0039be53be5c58d1901368580578b13143c16db6aeeb90a10cf2c2da79b4b69",
+          "warehouse/models/schema.yml": "43191fbc07ab618b868af460c946ed90083562de488a336259d5f83723790e49",
+          "warehouse/models/stg_financial.sql": "ef2459d475492e9a8957378a3adb6e78509a19e984c4946cb0b3244b9ef9da6b",
+          "warehouse/tests/financial_amount_controls.sql": "4e295b14bf361de12d6eb8d2e61e47ba9073cca6699632c3372de77e08650a10",
+          "warehouse/tests/financial_grains.sql": "aece6ca5824c2154b0e50b79e8f82524ffb00eaceae3b2ba417ae085eafc7c87",
+          "warehouse/tests/financial_references.sql": "ca9e535d06ec14262a079424a075306d1b7467fc3d8c08e0c531fdce78fd7e1e",
+          "warehouse/tests/financial_scope.sql": "75c311e5e19db647afe3458c40e5f4c32e0080428576d0bc1b4d206ab9891422",
+          "warehouse/tests/rollup_and_bridge.sql": "a8809de6b1c3759d4e93f1f4fc5644cb096b75735643672c2942d416e0dd698e"
+        },
+        "financial": {
+          "original": {
+            "bookings_minor": 55000000,
+            "net_invoice_minor": 38800000,
+            "erp_posted_minor": 38300000,
+            "allocated_cash_minor": 23000000,
+            "elimination_minor": 2000000,
+            "consolidated_invoice_minor": 36800000,
+            "consolidated_erp_minor": 36300000
+          },
+          "restated": {
+            "bookings_minor": 55000000,
+            "net_invoice_minor": 40800000,
+            "erp_posted_minor": 40300000,
+            "allocated_cash_minor": 23000000,
+            "elimination_minor": 2000000,
+            "consolidated_invoice_minor": 38800000,
+            "consolidated_erp_minor": 38300000
+          },
+          "original_report_unchanged": true,
+          "blocked_candidate_published": false,
+          "builds": {
+            "original": {
+              "dbt": {
+                "dbt_version": "1.11.0",
+                "return_code": 0,
+                "results": [
+                  {
+                    "id": "model.acquisition_finance.dim_reporting_entities",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.09879732131958008
+                  },
+                  {
+                    "id": "model.acquisition_finance.stg_financial",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.03092193603515625
+                  },
+                  {
+                    "id": "test.acquisition_finance.not_null_stg_financial_event_id.75b87dfdde",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.04288434982299805
+                  },
+                  {
+                    "id": "test.acquisition_finance.unique_stg_financial_event_id.12d4537b77",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.018355846405029297
+                  },
+                  {
+                    "id": "model.acquisition_finance.fct_allocations",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.02752208709716797
+                  },
+                  {
+                    "id": "model.acquisition_finance.fct_invoices",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.029412031173706055
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_amount_controls",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016456127166748047
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_scope",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.01622796058654785
+                  },
+                  {
+                    "id": "model.acquisition_finance.intercompany_eliminations",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.030516862869262695
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_grains",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016353845596313477
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_references",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016867637634277344
+                  },
+                  {
+                    "id": "model.acquisition_finance.legal_entity_totals",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 1.2399754524230957
+                  },
+                  {
+                    "id": "model.acquisition_finance.reconciliation_variances",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.0324404239654541
+                  },
+                  {
+                    "id": "model.acquisition_finance.portfolio_totals",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.026751279830932617
+                  },
+                  {
+                    "id": "test.acquisition_finance.not_null_portfolio_totals_period.be28435424",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016022443771362305
+                  },
+                  {
+                    "id": "test.acquisition_finance.unique_portfolio_totals_period.9cfce08527",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.01738595962524414
+                  },
+                  {
+                    "id": "model.acquisition_finance.restatement_bridge",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.02906036376953125
+                  },
+                  {
+                    "id": "test.acquisition_finance.rollup_and_bridge",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.015973806381225586
+                  }
+                ]
+              },
+              "comparisons": [
+                {
+                  "model": "fct_invoices",
+                  "expected_rows": 5,
+                  "observed_rows": 5,
+                  "exact_content_match": true,
+                  "sha256": "4d83cd4b1b22f75acb9e1db9c0a32194c5794ffe16c9fcbfe4806fd7c8a27172",
+                  "observed_sha256": "4d83cd4b1b22f75acb9e1db9c0a32194c5794ffe16c9fcbfe4806fd7c8a27172",
+                  "row_differences": 0
+                },
+                {
+                  "model": "fct_allocations",
+                  "expected_rows": 3,
+                  "observed_rows": 3,
+                  "exact_content_match": true,
+                  "sha256": "d1f1646750a94a0078c33c54a01d2b2042e45b4c66fe84f8240a4a1a73503d6b",
+                  "observed_sha256": "d1f1646750a94a0078c33c54a01d2b2042e45b4c66fe84f8240a4a1a73503d6b",
+                  "row_differences": 0
+                },
+                {
+                  "model": "intercompany_eliminations",
+                  "expected_rows": 2,
+                  "observed_rows": 2,
+                  "exact_content_match": true,
+                  "sha256": "00975859f685e1d462230f784bde5471093f8bede42217d2043c933e7d2c64e9",
+                  "observed_sha256": "00975859f685e1d462230f784bde5471093f8bede42217d2043c933e7d2c64e9",
+                  "row_differences": 0
+                },
+                {
+                  "model": "reconciliation_variances",
+                  "expected_rows": 2,
+                  "observed_rows": 2,
+                  "exact_content_match": true,
+                  "sha256": "7f57b3e9cc50bbdee907419963626800910930cebd0d856753e38fd263f11403",
+                  "observed_sha256": "7f57b3e9cc50bbdee907419963626800910930cebd0d856753e38fd263f11403",
+                  "row_differences": 0
+                },
+                {
+                  "model": "legal_entity_totals",
+                  "expected_rows": 9,
+                  "observed_rows": 9,
+                  "exact_content_match": true,
+                  "sha256": "06fc1b902501a8c46cbf61d21b601b11ad8ab54d67ce180679e5b04129f13373",
+                  "observed_sha256": "06fc1b902501a8c46cbf61d21b601b11ad8ab54d67ce180679e5b04129f13373",
+                  "row_differences": 0
+                },
+                {
+                  "model": "portfolio_totals",
+                  "expected_rows": 3,
+                  "observed_rows": 3,
+                  "exact_content_match": true,
+                  "sha256": "1dae35de5f710dc448deb36b08e18edec3de77cad55c33cf7ff2fdb5f1bf3f14",
+                  "observed_sha256": "1dae35de5f710dc448deb36b08e18edec3de77cad55c33cf7ff2fdb5f1bf3f14",
+                  "row_differences": 0
+                },
+                {
+                  "model": "restatement_bridge",
+                  "expected_rows": 0,
+                  "observed_rows": 0,
+                  "exact_content_match": true,
+                  "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                  "observed_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+                  "row_differences": 0
+                }
+              ]
+            },
+            "restated": {
+              "dbt": {
+                "dbt_version": "1.11.0",
+                "return_code": 0,
+                "results": [
+                  {
+                    "id": "model.acquisition_finance.dim_reporting_entities",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.10883522033691406
+                  },
+                  {
+                    "id": "model.acquisition_finance.stg_financial",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.037650346755981445
+                  },
+                  {
+                    "id": "test.acquisition_finance.not_null_stg_financial_event_id.75b87dfdde",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.04553675651550293
+                  },
+                  {
+                    "id": "test.acquisition_finance.unique_stg_financial_event_id.12d4537b77",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.020923852920532227
+                  },
+                  {
+                    "id": "model.acquisition_finance.fct_allocations",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.036034584045410156
+                  },
+                  {
+                    "id": "model.acquisition_finance.fct_invoices",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.035866737365722656
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_amount_controls",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.018625259399414062
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_scope",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.020193815231323242
+                  },
+                  {
+                    "id": "model.acquisition_finance.intercompany_eliminations",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.03617572784423828
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_grains",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.022863149642944336
+                  },
+                  {
+                    "id": "test.acquisition_finance.financial_references",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016548633575439453
+                  },
+                  {
+                    "id": "model.acquisition_finance.legal_entity_totals",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 1.2322063446044922
+                  },
+                  {
+                    "id": "model.acquisition_finance.reconciliation_variances",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.0384976863861084
+                  },
+                  {
+                    "id": "model.acquisition_finance.portfolio_totals",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.033247947692871094
+                  },
+                  {
+                    "id": "test.acquisition_finance.not_null_portfolio_totals_period.be28435424",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016040802001953125
+                  },
+                  {
+                    "id": "test.acquisition_finance.unique_portfolio_totals_period.9cfce08527",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.016260623931884766
+                  },
+                  {
+                    "id": "model.acquisition_finance.restatement_bridge",
+                    "status": "success",
+                    "failures": null,
+                    "execution_seconds": 0.0365753173828125
+                  },
+                  {
+                    "id": "test.acquisition_finance.rollup_and_bridge",
+                    "status": "pass",
+                    "failures": 0,
+                    "execution_seconds": 0.015212297439575195
+                  }
+                ]
+              },
+              "comparisons": [
+                {
+                  "model": "fct_invoices",
+                  "expected_rows": 5,
+                  "observed_rows": 5,
+                  "exact_content_match": true,
+                  "sha256": "596d293dc597776e29ede0819010cb3493f87fb69b7de590dc58eb75822e9de0",
+                  "observed_sha256": "596d293dc597776e29ede0819010cb3493f87fb69b7de590dc58eb75822e9de0",
+                  "row_differences": 0
+                },
+                {
+                  "model": "fct_allocations",
+                  "expected_rows": 3,
+                  "observed_rows": 3,
+                  "exact_content_match": true,
+                  "sha256": "85a6cffc8d8e63fe645962ca826457628ec564e4b745c46736c29f1d6a2cbdb2",
+                  "observed_sha256": "85a6cffc8d8e63fe645962ca826457628ec564e4b745c46736c29f1d6a2cbdb2",
+                  "row_differences": 0
+                },
+                {
+                  "model": "intercompany_eliminations",
+                  "expected_rows": 2,
+                  "observed_rows": 2,
+                  "exact_content_match": true,
+                  "sha256": "00975859f685e1d462230f784bde5471093f8bede42217d2043c933e7d2c64e9",
+                  "observed_sha256": "00975859f685e1d462230f784bde5471093f8bede42217d2043c933e7d2c64e9",
+                  "row_differences": 0
+                },
+                {
+                  "model": "reconciliation_variances",
+                  "expected_rows": 2,
+                  "observed_rows": 2,
+                  "exact_content_match": true,
+                  "sha256": "7f57b3e9cc50bbdee907419963626800910930cebd0d856753e38fd263f11403",
+                  "observed_sha256": "7f57b3e9cc50bbdee907419963626800910930cebd0d856753e38fd263f11403",
+                  "row_differences": 0
+                },
+                {
+                  "model": "legal_entity_totals",
+                  "expected_rows": 9,
+                  "observed_rows": 9,
+                  "exact_content_match": true,
+                  "sha256": "7c9f335ce9dd359ca21769e30533a49a6b343494dc048240d1dc00230dbcbd50",
+                  "observed_sha256": "7c9f335ce9dd359ca21769e30533a49a6b343494dc048240d1dc00230dbcbd50",
+                  "row_differences": 0
+                },
+                {
+                  "model": "portfolio_totals",
+                  "expected_rows": 3,
+                  "observed_rows": 3,
+                  "exact_content_match": true,
+                  "sha256": "921be9fd3631da0cea976bb987acd49e8e52585dba6cb7d783c0e3e2f81aec95",
+                  "observed_sha256": "921be9fd3631da0cea976bb987acd49e8e52585dba6cb7d783c0e3e2f81aec95",
+                  "row_differences": 0
+                },
+                {
+                  "model": "restatement_bridge",
+                  "expected_rows": 27,
+                  "observed_rows": 27,
+                  "exact_content_match": true,
+                  "sha256": "f492c5cc3b9c2e9b346173a5e4fa5918c2b91237153eb524baf2495e18e2663f",
+                  "observed_sha256": "f492c5cc3b9c2e9b346173a5e4fa5918c2b91237153eb524baf2495e18e2663f",
+                  "row_differences": 0
+                }
+              ]
+            }
+          },
+          "open_variances": [
+            {
+              "company": "cedar",
+              "legal_entity": "LE-CA-01",
+              "period": "2026-01-01",
+              "source_id": "I2",
+              "code": "erp_posting_difference",
+              "amount_minor": 500000
+            },
+            {
+              "company": "cedar",
+              "legal_entity": "LE-CA-01",
+              "period": "2026-02-01",
+              "source_id": "IC2",
+              "code": "intercompany_unresolved",
+              "amount_minor": 800000
+            }
+          ]
+        },
+        "private_modes": {
+          "runtime-private.json": "0o600",
+          "console-credentials-private.json": "0o600"
+        }
+      },
+      "isolation": {
+        "user": "10001:10001",
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_new_privileges": true,
+        "loopback_console_only": true,
+        "dedicated_bridge_loopback_default": true,
+        "intercontainer_communication_disabled": true,
+        "runtime_egress_firewall": false,
+        "no_database_published": true,
+        "memory_limit_bytes": 1610612736,
+        "pids_limit": 256,
+        "image_id": "sha256:ab6525971a274199bc685a448acb9c81c066a42c02ac54dc8b52d1bb40086ddd"
+      }
+    },
+    {
+      "name": "normal_shutdown",
+      "clean_exit": true,
+      "owned_services_stopped": true,
+      "independent_listener_or_container_pid_check": true
+    },
+    {
+      "name": "fresh_restart",
+      "new_private_credentials": true,
+      "old_session_rejected": true,
+      "old_credential_rejected": true,
+      "financial_parity": true
+    },
+    {
+      "name": "restarted_shutdown",
+      "clean_exit": true,
+      "owned_services_stopped": true,
+      "independent_listener_or_container_pid_check": true
+    },
+    {
+      "name": "packaged_browser",
+      "checks": 53,
+      "accessibility_views": 7,
+      "screenshots": 7,
+      "downstream_posts_unchanged": true,
+      "isolation": {
+        "user": "10001:10001",
+        "read_only_root": true,
+        "all_capabilities_dropped": true,
+        "no_new_privileges": true,
+        "loopback_console_only": true,
+        "dedicated_bridge_loopback_default": true,
+        "intercontainer_communication_disabled": true,
+        "runtime_egress_firewall": false,
+        "no_database_published": true,
+        "memory_limit_bytes": 1610612736,
+        "pids_limit": 256,
+        "image_id": "sha256:dd3dae9564136a7f95133188cb41ceaa81d557ed5a551d2641c8bcf0287e221e"
+      }
+    },
+    {
+      "name": "browser_shutdown",
+      "clean_exit": true,
+      "owned_services_stopped": true,
+      "independent_listener_or_container_pid_check": true
+    }
+  ],
+  "cleanup": [
+    {
+      "independent_label_inventory": {
+        "containers": [],
+        "networks": [],
+        "volumes": []
+      },
+      "verified_absent": true
+    }
+  ],
+  "docker_engine": "28.0.4",
+  "compose": "2.38.2",
+  "status": "passed",
+  "finished_at": "2026-10-26T16:19:06.352010+00:00"
+}

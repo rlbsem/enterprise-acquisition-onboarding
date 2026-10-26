@@ -1,0 +1,5 @@
+# Explicit optional test image. The regular demo has no browser or expiry-test login.
+services:
+  demo:
+    build:
+      target: acceptance

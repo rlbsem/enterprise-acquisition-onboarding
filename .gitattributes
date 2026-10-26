@@ -1,1 +1,3 @@
 * text=auto eol=lf
+# Preserve captured artifact bytes across Windows and Linux checkouts.
+docs/evidence/portable/** -text
