@@ -1,0 +1,333 @@
+{
+  "source_commit": "d22f2af92cdea01ad61c377d9cd9617d9ee8f17c",
+  "source_sha256": {
+    ".dockerignore": "24234d4e7bfe157c80d5df3dcd022a1004c09cb0a7afa0262604376b8f66a162",
+    ".github/workflows/annual.yml": "100223758c4ae0bf0a0e0f44ca231f79ffc20d83a5b7bb30e6e33cba5bcd9a7f",
+    ".github/workflows/portable.yml": "130cafeb0e180ab23dfc87a46d7d39db71748a0f2052e5e6499ce7a249c30445",
+    ".github/workflows/verify.yml": "ea6b8edb0e8a81e11c4345b15679641ae18657c29e9fa31717379bc9eb09f3df",
+    "Dockerfile": "059d5f4f50685aa964d2b75205e0ef06da6c8b4b4f96b4515839cabb3ed168bf",
+    "compose.acceptance.yaml": "cad204f27dd1f8ca2f5f2cbf21aca80b6132d43ee3bfd58b79124725a9ef0d9f",
+    "compose.annual.yaml": "4222cbe4f0703308d3283c71ad8a57731eb71b53b6247d96f402cacdbf18b046",
+    "compose.yaml": "31363e45773662cb4b11bf9090610d566865ef2c96a97e6501608e62b3d56338",
+    "pyproject.toml": "dd6f29aec7ae740ef47fecae667815089778f654025224a2216ff7cb2f1e8423",
+    "requirements.lock": "2e8c72b3bed24539cebaee09e257d871e031e33211811722047a352ea5677fe5",
+    "scripts/check_annual_evidence.py": "83d723b942608cff7ad7cd23221f9a65316ea9154dbeeb0f1afe713a30df2055",
+    "scripts/check_portable_evidence.py": "573757bd6e47fc29190db6b7061e57709765b6f398e2cf9760e2bc298529892d",
+    "scripts/check_repository.py": "7848b8a1d4701bb2351bd3762f3aee667d6b7379e187a129f404336da8959b72",
+    "scripts/ci_failure_summary.py": "7533b7fdc1430560a74e287b7f259890ca8b625b384e0aa4bb453d2b13a036cb",
+    "scripts/pass5_financial_oracle.py": "47f20b29596ce6690061b8391ce14adc67976b6dbdb0d6739a312c6c59d3c9c1",
+    "scripts/verify.py": "45941c76f21a055e9fec08e35349bf73f243a4d20aaf9bd30cf135a5b845c48f",
+    "scripts/verify_annual.py": "e1c1bfa0a2f435290b3b7e2a641a4484e76a085190eec50413e030084d675db9",
+    "scripts/verify_portable.py": "43cb6f21ffa4746a80ea1fc2b07f7b6c344ba7a38d4101034e21351ac3edabc6",
+    "src/onboarding/__init__.py": "511def106f00c886e7007575b644494bdb9a62dd35aea4a2960e441f7e35230d",
+    "src/onboarding/annual_demo.py": "6ea3b50d3fd10f8c0889314cd35fbdb9087afb39af6157a54a9739b6049656e1",
+    "src/onboarding/annual_fixtures.py": "aa64e987842ebb51dcdc2365bc21dd137b789cabb5541e4a6789cf6bd15403fb",
+    "src/onboarding/api.py": "9564ba10e3a574c2171cc37d6f926db6e154c2917b42098b2b60a4af6c6977aa",
+    "src/onboarding/business.py": "f2e8f43577f1658b6f84748b157bc1f935c82ee0281ac748a03a306d7a809b09",
+    "src/onboarding/console.py": "14f84bfa734bceaf3fd4ab948ea41e0e38989287cf1e8ed4d4d212d77d03ebeb",
+    "src/onboarding/console.sql": "9077d541a8a38003b0c1ebfd9d86b3de690b349e6a06c0e691bc485840fe5357",
+    "src/onboarding/console_demo.py": "1cc8bd0af9d27c9fc210618bb127a9dc485127ae807843475a2fb25ca5792e32",
+    "src/onboarding/console_setup.py": "a09c0f0001b56414c69a9c3554fd100a6f510f976abc6cd586a8feeb530b7af5",
+    "src/onboarding/contracts.py": "587c1e0cd2c194ffb9a74cf218b50ad9cd447b9cca09091f441081cf91a830f2",
+    "src/onboarding/db.py": "c6e2d27d74bb66badf31c46f1e20ac69c29b527f5b27abad5bb323d52fc7fd0d",
+    "src/onboarding/demo.py": "567e8d3d1f23c62d65acf7de30ba87e72560fd762b0e10e2b1ae1ef549b479b5",
+    "src/onboarding/engine.py": "36735892e312fef8274e3c738e3179e2c1bbfa3601596664b49690f3f7f6066f",
+    "src/onboarding/execution.py": "d8867aa51d108d186b90ae53d4b42f935b87e1b976bc5a5e6dfa9b12d142b7ba",
+    "src/onboarding/finance.py": "26445b43408cd1036d866983f633b9e9c96d975761a0c21402362039b2be3663",
+    "src/onboarding/financial.sql": "55baa75d62396654b837773434742c5bea1acb099f5e387720d287544d0f699d",
+    "src/onboarding/financial_demo.py": "34fccf176192c0c398b44f4a10ae7a0da87caa7c31da054aec8694c6cfe3fb1a",
+    "src/onboarding/financial_fixtures.py": "453fa3af654b85a79aacc63fee551bdd8548ec0a5e01568fdf53ed31d4150178",
+    "src/onboarding/financial_oracle.py": "36d63b544d6184f628af16911fadf51a4f93a4b101942db99304d354051e173c",
+    "src/onboarding/fixtures.py": "0e46fd4f5c92dd8a4b7ba90049a59885f05bed04f040f72d64d594f6d1a7b9f6",
+    "src/onboarding/governance.py": "84290272706157d492c0a65655ede86f572a4794f88a6835c4135cbd8889e053",
+    "src/onboarding/pass2.sql": "b40306f548a7741325709a6dc5152d3db512431c40a6742bbf6b53d82dbcaf1b",
+    "src/onboarding/pass2_demo.py": "9d6040f7857656ee9ddac856e815fdcfebe9728d17f2186b37dfe814bda5dc08",
+    "src/onboarding/portable.py": "ceba446293818b88e5ff159024782eae094bdd83c294ace3194c4c01cdf1f20f",
+    "src/onboarding/portable_acceptance.py": "ccd89e2e667cba73f87a777df8bb16d7e8fbfe7fa89595a1799b947700fc7f32",
+    "src/onboarding/portable_gateway.py": "7e67ce5d07f23c65cf8d33ca33d8428d4890b41eeb02f958bdb69fdaab95c334",
+    "src/onboarding/receiver.py": "05b33b7e3065fe57acf66059e9b67545fa2b83646f5eba482960dbc4a93c81c4",
+    "src/onboarding/reporting.py": "e92b0051b05829a77b6e52ec5ffe2b596cfc9b88f3a2287938c076778f4ecbf9",
+    "src/onboarding/sandbox.py": "eb569c3ccbaea512c356aa71683ff23589f1833f39d4633fa8f8fd37f72c6c46",
+    "src/onboarding/schema.sql": "6a2c1bf63d1f20aa32e7fb7735de693e9edd8c3dce0ab7f0259653904e7adf53",
+    "src/onboarding/web/app.css": "abac03223b98866139d89da970e8fbdce110820c81e3164c31052e19ab711128",
+    "src/onboarding/web/app.js": "dbaee25b75292305b0a466b5cba2e563d4bba911f9af044b7a964d8702833154",
+    "src/onboarding/web/index.html": "248143e23a75ca0e34eaeaf28ee5dafabc19bceefa3059cf875509941d3a6df0",
+    "src/onboarding/web/login.html": "34c7befc6cece7453caafdad0380bda004886850e1a5d38327f4a092f291f5c8",
+    "src/onboarding/web/login.js": "fdaaf4ec6e81f7fbddf4b34cab88477311a5d6489ff13ecc81065f16f6399ae8",
+    "tests/conftest.py": "8bfc58ea3e513068f67110577a4e4638ea386455de457050f90b5afe4d289146",
+    "tests/test_admission.py": "d43a7a06987ee47a0bb40f9496f5c1e25054c11481cc3db0008414d700aa37bd",
+    "tests/test_annual.py": "187c425c29dfc0c76e471bdf2d991a35e147670d1a56c79be070dde8d314ed51",
+    "tests/test_console.py": "7b030745267b506240903210284c57079e58c845b03f4898da98df6bdb2f4116",
+    "tests/test_financial.py": "875eb4c4297e1b1fcfc283af41f7578dd97fb98fb4c3d9cee9f8bf2035bd2ed4",
+    "tests/test_pass2.py": "d8873299e6c31cc225dc186a79f1cfe415abc6802cbf4989a3231ab8328f5f9e",
+    "tests/test_pass5.py": "a7ffe9d5a576492b7023d9b97b445ce26091a992343ef7bf071b8a6f6431fd3e",
+    "tests/test_portable.py": "ce483291c2794b0626d0532d905f9f220def420571fe1aa0162a966f37122f09",
+    "tests/vendor/AXE-LICENSE": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+    "tests/vendor/axe.min.js": "e9e5863c33a874f09bc01acd9234b7e3c871479f5eef8802fa582544465e6d01",
+    "tests/vendor/provenance.json": "78e97fff0226d39d5047b8c0f4ff16b49316cf16cb0ecd4b757f805de72c3efc",
+    "warehouse/dbt_project.yml": "7e7ec60047cd4b2daf12152096d0bbe1a06cb860dc7d28c41e305e16f9d85931",
+    "warehouse/models/dim_reporting_entities.sql": "0d5f0e661a06efb746d479b9fce852db5a20dc812c3e70a7e6c54f0306dd7c23",
+    "warehouse/models/fct_allocations.sql": "99fc791473505e384d0cb9cca5a0274ec4c232afa17fd2e3434d7a719be39a10",
+    "warehouse/models/fct_invoices.sql": "cae735450bb22cfa814cec0ead70a34db6a7d1bfc7181e42e1e2abe6b7302936",
+    "warehouse/models/intercompany_eliminations.sql": "efedc1a7ec585d9e7d68e16001d652a46592c5bd16085aaed9849c6f616b4892",
+    "warehouse/models/legal_entity_totals.sql": "5a441db535bcc9f5dc56d2441e43ca40e08eb23e8947ee56885e6b8259934f94",
+    "warehouse/models/portfolio_totals.sql": "7a89569963ff5d3f280675dde297769bda4d22b2db8f2bc545f077e10c91785f",
+    "warehouse/models/reconciliation_variances.sql": "51428689cb1b466b2b745593d293ba0533c80654c112c0b751f65b25d9d58398",
+    "warehouse/models/restatement_bridge.sql": "c0039be53be5c58d1901368580578b13143c16db6aeeb90a10cf2c2da79b4b69",
+    "warehouse/models/schema.yml": "43191fbc07ab618b868af460c946ed90083562de488a336259d5f83723790e49",
+    "warehouse/models/stg_financial.sql": "ef2459d475492e9a8957378a3adb6e78509a19e984c4946cb0b3244b9ef9da6b",
+    "warehouse/tests/financial_amount_controls.sql": "4e295b14bf361de12d6eb8d2e61e47ba9073cca6699632c3372de77e08650a10",
+    "warehouse/tests/financial_grains.sql": "aece6ca5824c2154b0e50b79e8f82524ffb00eaceae3b2ba417ae085eafc7c87",
+    "warehouse/tests/financial_references.sql": "ca9e535d06ec14262a079424a075306d1b7467fc3d8c08e0c531fdce78fd7e1e",
+    "warehouse/tests/financial_scope.sql": "75c311e5e19db647afe3458c40e5f4c32e0080428576d0bc1b4d206ab9891422",
+    "warehouse/tests/rollup_and_bridge.sql": "a8809de6b1c3759d4e93f1f4fc5644cb096b75735643672c2942d416e0dd698e"
+  },
+  "started_at": "2026-10-26T17:22:14.282583+00:00",
+  "lane": "actual_docker_compose",
+  "native_vendor_calls": 0,
+  "cloud_resources": false,
+  "isolation": {
+    "user": "10001:10001",
+    "read_only_root": true,
+    "all_capabilities_dropped": true,
+    "no_new_privileges": true,
+    "loopback_console_only": true,
+    "dedicated_bridge_loopback_default": true,
+    "intercontainer_communication_disabled": true,
+    "runtime_egress_firewall": false,
+    "no_database_published": true,
+    "memory_limit_bytes": 1610612736,
+    "pids_limit": 256,
+    "image_id": "sha256:72270e98502cc11a61cb6b4ce55508e1821fd8d17c05fa4488a7c9b9c65e2b1a"
+  },
+  "browser": {
+    "checks": [
+      {
+        "case": "twelve_reporting_months",
+        "expected": 12,
+        "observed": 12,
+        "passed": true
+      },
+      {
+        "case": "three_profiles",
+        "expected": 3,
+        "observed": 3,
+        "passed": true
+      },
+      {
+        "case": "held_sources_excluded",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "preacquisition_visible",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "held_exclusion_visible",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "late_correction_delta_minor",
+        "expected": 4500000,
+        "observed": 4500000,
+        "passed": true
+      },
+      {
+        "case": "desktop_annual_context",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "desktop_profile_assumption",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "desktop_no_page_overflow",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "desktop_actual_metric",
+        "expected": "$20,057,260",
+        "observed": "$20,057,260",
+        "passed": true
+      },
+      {
+        "case": "desktop_monthly_filter",
+        "expected": "$2,509,600",
+        "observed": "$2,509,600",
+        "passed": true
+      },
+      {
+        "case": "mobile_annual_context",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_profile_assumption",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_no_page_overflow",
+        "expected": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_actual_metric",
+        "expected": "$20,057,260",
+        "observed": "$20,057,260",
+        "passed": true
+      },
+      {
+        "case": "mobile_monthly_filter",
+        "expected": "$2,509,600",
+        "observed": "$2,509,600",
+        "passed": true
+      },
+      {
+        "case": "company_profile_scope",
+        "expected": [
+          "cedar"
+        ],
+        "observed": [
+          "cedar"
+        ],
+        "passed": true
+      },
+      {
+        "case": "foreign_company_denied",
+        "expected": 403,
+        "observed": 403,
+        "passed": true
+      },
+      {
+        "case": "unpublished_candidate_denied",
+        "expected": 404,
+        "observed": 404,
+        "passed": true
+      },
+      {
+        "case": "browser_errors",
+        "expected": [],
+        "observed": [],
+        "passed": true
+      }
+    ],
+    "screenshots": [
+      {
+        "file": "annual-desktop.png",
+        "route": "portfolio",
+        "viewport": {
+          "width": 1500,
+          "height": 1050
+        },
+        "publication": "restated",
+        "period": "all",
+        "capture": "real_chromium_page_screenshot",
+        "observed_route": "portfolio",
+        "rendered_heading": "Which acquisitions are ready to report?",
+        "captured_at": "2026-10-26T17:23:32.893138+00:00",
+        "role": "sponsor",
+        "sha256": "eeac42aa8ec3d2f8886c858fbca59d269c453586a94a6b5ce436c4cb84e26c0c"
+      },
+      {
+        "file": "annual-finance-desktop.png",
+        "route": "finance",
+        "viewport": {
+          "width": 1500,
+          "height": 1050
+        },
+        "publication": "restated",
+        "period": "2026-06-01",
+        "capture": "real_chromium_page_screenshot",
+        "observed_route": "finance",
+        "rendered_heading": "Financial reconciliation",
+        "captured_at": "2026-10-26T17:23:33.320117+00:00",
+        "role": "sponsor",
+        "sha256": "b503c0e42a05c6c8115d31e5ba17378e0edf8c7fa17d9f36b549b9ab2009ef1d"
+      },
+      {
+        "file": "annual-mobile.png",
+        "route": "portfolio",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "publication": "restated",
+        "period": "all",
+        "capture": "real_chromium_page_screenshot",
+        "observed_route": "portfolio",
+        "rendered_heading": "Which acquisitions are ready to report?",
+        "captured_at": "2026-10-26T17:23:34.158698+00:00",
+        "role": "sponsor",
+        "sha256": "f94832ff1111648bb8cd0c339ad8b6a70ea8ef2d32a921f36be4088313eafbfc"
+      },
+      {
+        "file": "annual-finance-mobile.png",
+        "route": "finance",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "publication": "restated",
+        "period": "2026-06-01",
+        "capture": "real_chromium_page_screenshot",
+        "observed_route": "finance",
+        "rendered_heading": "Financial reconciliation",
+        "captured_at": "2026-10-26T17:23:34.566478+00:00",
+        "role": "sponsor",
+        "sha256": "a30c089046e1b095ffafecd2490111460f8515ea615bb854661d7483b2a0283c"
+      }
+    ],
+    "accessibility": [
+      {
+        "view": "desktop_portfolio",
+        "version": "4.11.0",
+        "violations": [],
+        "incomplete": []
+      },
+      {
+        "view": "mobile_portfolio",
+        "version": "4.11.0",
+        "violations": [],
+        "incomplete": []
+      }
+    ],
+    "browser": "actual_chromium",
+    "engine": {
+      "name": "chromium",
+      "version": "156.0.8078.4",
+      "playwright": "1.64.1"
+    },
+    "synthetic": true
+  },
+  "shutdown": {
+    "clean_exit": true,
+    "owned_services_stopped": true,
+    "independent_listener_or_container_pid_check": true
+  },
+  "status": "passed",
+  "cleanup": {
+    "independent_label_inventory": {
+      "containers": [],
+      "networks": [],
+      "volumes": []
+    },
+    "verified_absent": true
+  },
+  "finished_at": "2026-10-26T17:23:38.352066+00:00"
+}

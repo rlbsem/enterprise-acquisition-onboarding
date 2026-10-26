@@ -165,7 +165,9 @@ def acceptance_config(stack):
     }
 
 
-def serve(state, port, container=False, acceptance=False):
+def serve(state, port, container=False, acceptance=False, scenario="correctness"):
+    if scenario not in {"correctness", "annual"} or (acceptance and scenario != "correctness"):
+        raise ValueError("unsupported_portable_scenario")
     if any(
         os.environ.get(k)
         for k in ["ONBOARDING_TEST_ADMIN_DSN", "ONBOARDING_RUNTIME", "ONBOARDING_RECEIVER_RUNTIME"]
@@ -198,7 +200,13 @@ def serve(state, port, container=False, acceptance=False):
             with ExitStack() as scope:
                 stack = scope.enter_context(Sandbox(state / run_id))
                 scope.callback(close_gateway)
-                financial = execute(stack, stack.path / "financial")
+                if scenario == "annual":
+                    from .annual_demo import execute as annual_execute
+
+                    financial = annual_execute(stack, stack.path / "financial")
+                    private_json(stack.path / "annual-evidence-private.json", financial)
+                else:
+                    financial = execute(stack, stack.path / "financial")
                 if stop.is_set():
                     return
                 upstream = urlsplit(stack.url)
@@ -289,6 +297,7 @@ def main():
     start.add_argument("--port", type=int, default=8592)
     start.add_argument("--container", action="store_true")
     start.add_argument("--acceptance", action="store_true")
+    start.add_argument("--scenario", choices=["correctness", "annual"], default="correctness")
     credentials = sub.add_parser("credentials")
     credentials.add_argument("--state", type=Path, default=Path("/state"))
     credentials.add_argument(
@@ -300,6 +309,8 @@ def main():
     shutdown.add_argument("--state", type=Path, required=True)
     snapshot = sub.add_parser("inspect")
     snapshot.add_argument("--state", type=Path, default=Path("/state"))
+    evidence = sub.add_parser("annual-evidence")
+    evidence.add_argument("--state", type=Path, default=Path("/state"))
     health = sub.add_parser("health")
     health.add_argument("--port", type=int, default=8080)
     a = parser.parse_args()
@@ -321,9 +332,13 @@ def main():
     if a.command == "inspect":
         print(json.dumps(inspect(a.state.resolve()), default=str))
         return
+    if a.command == "annual-evidence":
+        _, run = current(a.state.resolve())
+        print((run / "annual-evidence-private.json").read_text(encoding="utf-8"))
+        return
     state = a.state.absolute()
     try:
-        serve(state, a.port, a.container, a.acceptance)
+        serve(state, a.port, a.container, a.acceptance, a.scenario)
     except Exception:
         # Only explicitly private state receives the traceback; compose logs stay sanitized.
         if state.is_dir():

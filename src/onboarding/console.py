@@ -359,6 +359,19 @@ def register(app, config):
                 "previous_id": row["previous_id"],
                 "currency": row["policy"]["currency"],
                 "periods": row["policy"]["periods"],
+                "scenario": {
+                    "id": row["policy"]
+                    .get("scenario", {})
+                    .get("id", "selected-period-correctness"),
+                    "profiles": {
+                        key: amount
+                        for key, amount in row["policy"]
+                        .get("scenario", {})
+                        .get("profiles", {})
+                        .items()
+                        if key in allowed
+                    },
+                },
                 "scope": allowed,
                 "control": {k: v for k, v in row["control"].items() if k in allowed},
                 "input_hash": row["input_hash"] if u["role"] == "sponsor" else None,
