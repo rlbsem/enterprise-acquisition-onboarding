@@ -40,6 +40,10 @@ def main():
     out.mkdir(parents=True)
     start = source_hashes()
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    for name, expected_hash in start.items():
+        committed = subprocess.check_output(["git", "show", revision + ":" + name], cwd=ROOT)
+        if hashlib.sha256(committed).hexdigest() != expected_hash:
+            raise ValueError("source_not_exact_committed_bytes:" + name)
 
     def run(name, args):
         with (work / (name + ".log")).open("w", encoding="utf-8") as log:
