@@ -92,4 +92,4 @@ Initial fixture mappings are installed by the trusted local harness. Subsequent 
 
 A late January source correction yields a new reporting version with **USD 388,000 consolidated net invoicing and USD 383,000 postings**; cash remains unchanged. The original report and source revisions survive. A deliberately unbalanced candidate fails real dbt data tests and cannot publish. Reports use source-observation cutoffs plus captured admission state; no recognized revenue or commercial outcome is claimed.
 
-**Current local acceptance: 49 passing tests, both validated dbt builds and all three standalone demos.** [Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.
+**Current local acceptance: 50 passing tests, both validated dbt builds and all three standalone demos.** [Pass 3 execution, oracle comparisons and rejected evidence](docs/evidence/pass3/run02/README.md). The financial report is structured CLI/JSON output; the sponsor console is not implemented.

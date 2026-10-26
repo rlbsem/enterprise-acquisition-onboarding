@@ -52,7 +52,7 @@ The USD 5,000 Cedar posting difference and USD 8,000 unsupported intercompany ca
 
 Original cutoff: October 20. Three source revisions observed October 22 correct Cedar's January invoice, one line and its ERP posting by USD 20,000. Cutoff October 23 produces a new publication. Five January measures change by that amount; credits, cash, bookings and eliminations stay unchanged. Replaying the original cutoff still produces the original source-based result. Receiver effects **and POST counts** remain one before and after reporting: restatement causes no downstream business-system write.
 
-A later one-cent line imbalance deliberately fails the dbt amount-control test and remains an unpublished candidate. Its failed/skipped nodes are preserved as rejected evidence, separate from the two validated builds. [Executed records](evidence/pass3/README.md) pin actual source, fixtures, results and tests.
+A later one-cent line imbalance deliberately fails the dbt amount-control test and remains an unpublished candidate. Its failed/skipped nodes are preserved as rejected evidence, separate from the two validated builds. [Executed records](evidence/pass3/run02/README.md) pin actual source, fixtures, results and tests.
 
 ## Reproduce
 
