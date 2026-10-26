@@ -1,0 +1,14 @@
+{
+  "historical_readback": "confirmed",
+  "new_plan_status": 409,
+  "new_plan_rejection": {
+    "detail": "current_admission_required"
+  },
+  "remote": {
+    "effects": 1,
+    "records": 1,
+    "posts": 1
+  },
+  "outbound_intents": 1,
+  "current_admission": "held"
+}

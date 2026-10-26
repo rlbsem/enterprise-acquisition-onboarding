@@ -1,0 +1,20 @@
+{
+  "statuses": [
+    409,
+    409,
+    403,
+    422
+  ],
+  "rejection": {
+    "detail": "candidate_not_in_original_review"
+  },
+  "original_quarantine": {
+    "id": 1,
+    "message_id": 1,
+    "reason": "ambiguous_identity",
+    "hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6"
+  },
+  "control_rows_unchanged": true,
+  "pending_proposal": "7f7e2164-8232-4fdf-9f5e-2d1c9401709c",
+  "unauthorized_links": 0
+}

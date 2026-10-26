@@ -1,0 +1,155 @@
+{
+  "recorded_at": "2026-10-26T04:41:27.283333+00:00",
+  "commands": [
+    {
+      "command": "git clone --branch feat/acquisition-admission https://github.com/rlbsem/enterprise-acquisition-onboarding.git work/repository",
+      "exit_code": 0,
+      "note": "Initial restricted network attempt failed; enabled network clone succeeded."
+    },
+    {
+      "command": "python -m venv .venv; python -m ensurepip --upgrade --default-pip",
+      "exit_code": 0,
+      "note": "Bundled Python 3.12.14. Initial default temporary-directory access failed; retry used the writable ignored .local/tmp directory."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pip install -r requirements.lock",
+      "exit_code": 0,
+      "note": "Restricted DNS attempt failed before installing; enabled-network installation succeeded."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pip install --no-deps --no-build-isolation -e .",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m playwright install chromium",
+      "exit_code": 0,
+      "environment": "PLAYWRIGHT_BROWSERS_PATH=.local/browsers"
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/check_repository.py",
+      "exit_code": 0,
+      "observed": {
+        "evidence_artifacts": 49,
+        "local_markdown_links": 69,
+        "public_content_check": "passed"
+      }
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/verify.py --workspace .local/pass5-baseline --output .local/pass5-baseline-evidence",
+      "exit_code": 1,
+      "observed": {
+        "tests_passed": 1,
+        "setup_errors": 56
+      },
+      "reason": "Execution environment prohibited the loopback database connection; not a product defect."
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/verify.py --workspace .local/pass5-baseline02 --output .local/pass5-baseline02-evidence",
+      "exit_code": 0,
+      "source_commit": "7a65b7fe5cd3cf7841ceb8cb7ddb22b8d7cf9b36",
+      "observed": {
+        "tests": 57,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "note": "Fresh baseline preserved, including the subsequently discovered mislabeled mobile capture."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest .local/pass5_tests.py -q --tb=short --basetemp=.local/pass5-targeted --junitxml=.local/pass5-targeted-junit.xml",
+      "exit_code": 0,
+      "observed": {
+        "tests": 5,
+        "seconds": 25.11
+      },
+      "note": "Draft of the now committed tests/test_pass5.py, before formatting."
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/verify.py --workspace .local/pass5-final --output .local/pass5-final-evidence",
+      "exit_code": 1,
+      "execution_commit": "291566e54b9fb730170631ebb6a0d13581849852",
+      "published_identical_tree_commit": "4dc321c7a26e2e084fc75a38b4705e9699e91dca",
+      "tree_sha": "7da60d812205cac88b1d2de8e0c5bc4a5a4bc7da",
+      "observed": {
+        "regressions_passed": 62
+      },
+      "reason": "First route-check correction used table role instead of the existing region role; corrected in next commit. No final acceptance claimed."
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/verify.py --workspace .local/pass5-release --output .local/pass5-release-evidence",
+      "exit_code": 1,
+      "source_commit": "57372772df0227686d32569a30dd76e47af61dcc",
+      "observed": {
+        "regressions_passed": 62,
+        "mobile_finance_contrast_incomplete": 46,
+        "violations": 0
+      },
+      "reason": "Actual finance view contains horizontally clipped cells; subsequent explicit visibility checks resolved all 46 nodes. No final acceptance claimed."
+    },
+    {
+      "command": ".venv/Scripts/python.exe .local/diagnose_mobile02.py",
+      "exit_code": 0,
+      "observed": {
+        "initial_incomplete_nodes": 46,
+        "same_node_explicit_contrast_passes_after_scroll": 46,
+        "unresolved": 0
+      },
+      "note": "Diagnostic promoted into the committed console acceptance driver; full raw diagnostics remain private."
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/verify.py --workspace .local/pass5-accepted --output .local/pass5-accepted-evidence",
+      "exit_code": 0,
+      "source_commit": "dc17ad5f627a1c3d84db9e8032d7ac1a0ba1ac40",
+      "observed": {
+        "tests": 62,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "environment": "PG_BIN points to PostgreSQL 17.11; PYTHONUTF8=1; writable temporary directory; PLAYWRIGHT_BROWSERS_PATH=.local/browsers; PASS5_EVIDENCE points to ignored supplemental output."
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/pass5_financial_oracle.py --input docs/evidence/pass5/run01/pass3.json --output docs/evidence/pass5/run01/independent-financial.json",
+      "exit_code": 0,
+      "observed": {
+        "versions": 2,
+        "differences": 0,
+        "one_cent_negative_detected": true
+      }
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/check_repository.py",
+      "exit_code": 0,
+      "observed": {
+        "evidence_artifacts": 94,
+        "local_markdown_links": 100,
+        "public_content_check": "passed"
+      },
+      "note": "Package integrity check before adding the CI snapshot."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m ruff check src tests scripts",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m ruff format --check src tests scripts",
+      "exit_code": 0,
+      "observed": {
+        "files_formatted": 31
+      }
+    },
+    {
+      "command": ".venv/Scripts/python.exe scripts/check_repository.py",
+      "exit_code": 0,
+      "observed": {
+        "evidence_artifacts": 95,
+        "local_markdown_links": 101,
+        "public_content_check": "passed"
+      },
+      "note": "Final delivery package including CI snapshot."
+    }
+  ],
+  "private_credentials_or_runtime_logs_exported": false,
+  "same_successful_suites_repeated_only_after_demonstrated_acceptance_failures_and_corrections": true,
+  "archive_text_encoding": "UTF-8 with LF line endings; supplemental Windows exports canonicalized for the repository before hashing; original local runtime files retained privately."
+}

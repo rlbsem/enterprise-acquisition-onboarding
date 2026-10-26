@@ -1,0 +1,236 @@
+{
+  "method": "standalone_source_event_selection_and_integer_document_arithmetic_no_application_oracle_imports",
+  "versions": {
+    "original": {
+      "source_revisions_match_frozen_inputs": true,
+      "source_count": 35,
+      "totals_minor": {
+        "bookings_minor": 55000000,
+        "net_invoice_minor": 38800000,
+        "erp_posted_minor": 38300000,
+        "allocated_cash_minor": 23000000,
+        "elimination_minor": 2000000,
+        "consolidated_invoice_minor": 36800000,
+        "consolidated_erp_minor": 36300000
+      },
+      "invoice_recalculation": [
+        {
+          "company": "cedar",
+          "invoice_id": "I1",
+          "gross_minor": 12000000,
+          "lines_minor": 12000000,
+          "credits_minor": 1000000,
+          "net_minor": 11000000,
+          "erp_minor": 11000000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "I2",
+          "gross_minor": 5000000,
+          "lines_minor": 5000000,
+          "credits_minor": 0,
+          "net_minor": 5000000,
+          "erp_minor": 4500000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC1",
+          "gross_minor": 2000000,
+          "lines_minor": 2000000,
+          "credits_minor": 0,
+          "net_minor": 2000000,
+          "erp_minor": 2000000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC2",
+          "gross_minor": 800000,
+          "lines_minor": 800000,
+          "credits_minor": 0,
+          "net_minor": 800000,
+          "erp_minor": 800000
+        },
+        {
+          "company": "meridian",
+          "invoice_id": "I2",
+          "gross_minor": 20000000,
+          "lines_minor": 20000000,
+          "credits_minor": 0,
+          "net_minor": 20000000,
+          "erp_minor": 20000000
+        }
+      ],
+      "elimination_evidence": [
+        {
+          "company": "cedar",
+          "invoice_id": "IC1",
+          "elimination_minor": 2000000,
+          "charge_count": 1,
+          "acceptance_count": 1
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC2",
+          "elimination_minor": 0,
+          "charge_count": 1,
+          "acceptance_count": 0
+        }
+      ],
+      "excluded_invoices": [
+        {
+          "company": "meridian",
+          "invoice": "I1",
+          "amount_minor": 9000000,
+          "reason": "pre_acquisition"
+        },
+        {
+          "company": "summit",
+          "invoice": "I1",
+          "amount_minor": 10000000,
+          "reason": "admission_held"
+        }
+      ],
+      "separate_variances": [
+        [
+          "cedar",
+          "I2",
+          "erp_posting_difference",
+          500000
+        ],
+        [
+          "cedar",
+          "IC2",
+          "intercompany_unresolved",
+          800000
+        ]
+      ],
+      "join_multiplication_negative": {
+        "correct_gross_minor": 12000000,
+        "naive_join_gross_minor": 48000000,
+        "detected": true
+      },
+      "source_set_sha256": "f3724e2c543b880f0f0c5e1d204e3d6226c251a079a14823e808d0d2794b7d06"
+    },
+    "restated": {
+      "source_revisions_match_frozen_inputs": true,
+      "source_count": 35,
+      "totals_minor": {
+        "bookings_minor": 55000000,
+        "net_invoice_minor": 40800000,
+        "erp_posted_minor": 40300000,
+        "allocated_cash_minor": 23000000,
+        "elimination_minor": 2000000,
+        "consolidated_invoice_minor": 38800000,
+        "consolidated_erp_minor": 38300000
+      },
+      "invoice_recalculation": [
+        {
+          "company": "cedar",
+          "invoice_id": "I1",
+          "gross_minor": 14000000,
+          "lines_minor": 14000000,
+          "credits_minor": 1000000,
+          "net_minor": 13000000,
+          "erp_minor": 13000000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "I2",
+          "gross_minor": 5000000,
+          "lines_minor": 5000000,
+          "credits_minor": 0,
+          "net_minor": 5000000,
+          "erp_minor": 4500000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC1",
+          "gross_minor": 2000000,
+          "lines_minor": 2000000,
+          "credits_minor": 0,
+          "net_minor": 2000000,
+          "erp_minor": 2000000
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC2",
+          "gross_minor": 800000,
+          "lines_minor": 800000,
+          "credits_minor": 0,
+          "net_minor": 800000,
+          "erp_minor": 800000
+        },
+        {
+          "company": "meridian",
+          "invoice_id": "I2",
+          "gross_minor": 20000000,
+          "lines_minor": 20000000,
+          "credits_minor": 0,
+          "net_minor": 20000000,
+          "erp_minor": 20000000
+        }
+      ],
+      "elimination_evidence": [
+        {
+          "company": "cedar",
+          "invoice_id": "IC1",
+          "elimination_minor": 2000000,
+          "charge_count": 1,
+          "acceptance_count": 1
+        },
+        {
+          "company": "cedar",
+          "invoice_id": "IC2",
+          "elimination_minor": 0,
+          "charge_count": 1,
+          "acceptance_count": 0
+        }
+      ],
+      "excluded_invoices": [
+        {
+          "company": "meridian",
+          "invoice": "I1",
+          "amount_minor": 9000000,
+          "reason": "pre_acquisition"
+        },
+        {
+          "company": "summit",
+          "invoice": "I1",
+          "amount_minor": 10000000,
+          "reason": "admission_held"
+        }
+      ],
+      "separate_variances": [
+        [
+          "cedar",
+          "I2",
+          "erp_posting_difference",
+          500000
+        ],
+        [
+          "cedar",
+          "IC2",
+          "intercompany_unresolved",
+          800000
+        ]
+      ],
+      "join_multiplication_negative": {
+        "correct_gross_minor": 14000000,
+        "naive_join_gross_minor": 56000000,
+        "detected": true
+      },
+      "source_set_sha256": "c7a8d0f72b8b2575f6a07a1d7e76e3e73ad846867f093a2f6cd27e4fc218ec02"
+    }
+  },
+  "restatement_delta_minor": {
+    "bookings_minor": 0,
+    "net_invoice_minor": 2000000,
+    "erp_posted_minor": 2000000,
+    "allocated_cash_minor": 0,
+    "elimination_minor": 0,
+    "consolidated_invoice_minor": 2000000,
+    "consolidated_erp_minor": 2000000
+  },
+  "differences": 0,
+  "one_cent_publication_mutation_detected": true
+}
