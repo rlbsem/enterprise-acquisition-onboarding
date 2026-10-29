@@ -398,6 +398,9 @@ def execute(stack, sources, spec, work, workers=4, keep_sources=False):
     healthy = [
         r for i, r in enumerate(runs) if spec.expected_admitted(i) and r["admission"]["passed"]
     ]
+    admission_requests = [
+        r["admission_seconds"] for r in runs if not r["admission"].get("not_requested")
+    ]
     assert healthy, "no_healthy_company_progress"
     expected = spec.financial()
     approve_policy(stack.reviewer_dsn, 1, spec.policy(expected))
@@ -525,8 +528,10 @@ def execute(stack, sources, spec, work, workers=4, keep_sources=False):
             control_financial_membership=membership,
             metrics=dict(
                 ingestion_and_admission_seconds=ingestion_seconds,
-                admission_latency_seconds=[r["admission_seconds"] for r in runs],
-                admission_latency_median=statistics.median(r["admission_seconds"] for r in runs),
+                admission_latency_seconds=admission_requests,
+                admission_request_count=len(admission_requests),
+                pending_without_admission_request=spec.count - len(admission_requests),
+                admission_latency_median=statistics.median(admission_requests),
                 max_work_queue_delay_seconds=max(r["started_seconds"] for r in runs),
                 healthy_admission_per_second=len(healthy) / ingestion_seconds,
                 freeze_seconds=freeze_seconds,

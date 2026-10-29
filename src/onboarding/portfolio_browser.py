@@ -146,6 +146,19 @@ def capture(stack, spec, output):
                 )
 
             screenshot("portfolio", "portfolio")
+            pending = next((i for i in range(spec.count) if spec.mode(i) == "pending_review"), None)
+            if pending is not None:
+                page.locator("#company-select").select_option(spec.companies[pending][0])
+                page.locator("nav a[data-route=company]").click()
+                ready(page, spec.companies[pending][1])
+                check(
+                    label + "_pending_detail_label",
+                    "Current admission: Pending." in page.locator("#main .notice").inner_text(),
+                    True,
+                )
+                page.locator("#company-select").select_option("all")
+                page.locator("nav a[data-route=portfolio]").click()
+                ready(page, "Which acquisitions are ready to report?")
             page.locator("#report-select").select_option("original")
             ready(page)
             expect(page.locator("[data-metric=consolidated_invoice_minor]")).to_have_text(

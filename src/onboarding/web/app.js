@@ -193,13 +193,13 @@ function companyPage(c) {
       c.company.name,
       `${c.company.legal_entity} · Acquired ${date(c.company.acquired_on)} · Mapping v${c.company.active_mapping}`,
     ) +
-    `<div class="notice">Current admission: <strong>${c.company.admitted ? "Admitted" : "Held"}</strong>. This publication captured <strong>${published.admitted ? "admitted" : "held"}</strong> status at mapping v${published.mapping_version}. Reviewing admission does not republish financial history.</div>` +
+    `<div class="notice">Current admission: <strong>${admissionLabel(c.company)}</strong>. This publication captured <strong>${published.admitted ? "admitted" : "held"}</strong> status at mapping v${published.mapping_version}. Reviewing admission does not republish financial history.</div>` +
     panel(
       "Source-system coverage",
       "The registered source owner retains each field and original local ID.",
       sourceTable(c),
     ) +
-    `<div class="grid2">${panel("Admission decision", c.company.gate.passed ? "Fresh reconciliation passed; the recorded admission flag is still required." : "Unresolved controls prevent admission.", `<p>${chip(c.company.admitted ? "Admitted" : "Held", c.company.admitted ? "good" : "warn")}</p>${json(c.company.gate.issues || [])}<button data-nav="governance">Inspect exceptions →</button>`)}${panel("Recorded handoff & recovery", "Read-only persisted execution evidence. Opening this view sends no receiver request.", c.outbound.map((r) => `<p>${chip(r.state, r.state === "confirmed" ? "good" : "warn")} <code>${E(r.effect_id)}</code></p><p class="fine">${r.attempts} persisted dispatch attempt(s) · ${E(r.detail.replaceAll("_", " "))}</p><details><summary>Independent receipt and exact-content proof</summary>${json(r.proof)}</details>`).join("") || `<p class="empty">No handoff intent exists for this company.</p>`)}</div>` +
+    `<div class="grid2">${panel("Admission decision", c.company.gate.passed ? "Fresh reconciliation passed; the recorded admission flag is still required." : "Unresolved controls prevent admission.", `<p>${chip(admissionLabel(c.company), c.company.admitted ? "good" : "warn")}</p>${json(c.company.gate.issues || [])}<button data-nav="governance">Inspect exceptions →</button>`)}${panel("Recorded handoff & recovery", "Read-only persisted execution evidence. Opening this view sends no receiver request.", c.outbound.map((r) => `<p>${chip(r.state, r.state === "confirmed" ? "good" : "warn")} <code>${E(r.effect_id)}</code></p><p class="fine">${r.attempts} persisted dispatch attempt(s) · ${E(r.detail.replaceAll("_", " "))}</p><details><summary>Independent receipt and exact-content proof</summary>${json(r.proof)}</details>`).join("") || `<p class="empty">No handoff intent exists for this company.</p>`)}</div>` +
     panel(
       "Company financial results",
       "Only this scope's approved legal-entity rows; excluded periods are not evidence of zero underlying activity.",
@@ -372,7 +372,7 @@ function governancePage(c) {
       "Admission & exceptions",
       `${c.company.name} · ${c.company.legal_entity}. Decisions append history; they cannot rewrite original source facts or bypass failed controls.`,
     ) +
-    `<div class="notice">${write ? "Authorized reviewer: scoped decisions require a reason and are checked against the current source context." : "Read-only view. This session cannot propose, approve or recompute admission."} Current admission: <strong>${c.company.admitted ? "Admitted" : "Held"}</strong>.</div>` +
+    `<div class="notice">${write ? "Authorized reviewer: scoped decisions require a reason and are checked against the current source context." : "Read-only view. This session cannot propose, approve or recompute admission."} Current admission: <strong>${admissionLabel(c.company)}</strong>.</div>` +
     panel(
       "Quarantine & original evidence",
       "Resolution markers do not erase original source messages.",
