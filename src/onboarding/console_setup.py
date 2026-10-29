@@ -18,7 +18,7 @@ def password_hash(password, salt=None):
     return salt + ":" + value
 
 
-def setup(stack):
+def setup(stack, companies=COMPANIES):
     stack.console_roles = []
     dsns = {}
     for kind in ["auth", "read"]:
@@ -57,9 +57,14 @@ def setup(stack):
             ).format(sql.Identifier(stack.console_roles[1]))
         )
     definitions = [
-        ("sponsor", "sponsor", [c[0] for c in COMPANIES], "portfolio-executive"),
-        *((c + "-leader", "operator", [c], c + "-leader") for c, *_ in COMPANIES),
-        ("reviewer", "reviewer", ["summit"], "acquisition-reviewer"),
+        ("sponsor", "sponsor", [c[0] for c in companies], "portfolio-executive"),
+        *((c + "-leader", "operator", [c], c + "-leader") for c, *_ in companies),
+        (
+            "reviewer",
+            "reviewer",
+            ["summit"] if companies == COMPANIES else [companies[0][0]],
+            "acquisition-reviewer",
+        ),
     ]
     users = []
     stack.console_credentials = {}

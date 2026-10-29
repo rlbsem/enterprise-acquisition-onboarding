@@ -45,7 +45,8 @@ def child_env(extra=None):
 
 
 class Sandbox:
-    def __init__(self, workspace):
+    def __init__(self, workspace, scenario=None):
+        self.scenario = scenario
         self.path = Path(workspace).resolve()
         if self.path.exists():
             raise ValueError("fresh_workspace_required")
@@ -166,8 +167,11 @@ class Sandbox:
         self._receiver_and_reviewer()
         from .console_setup import setup as console_setup
 
-        self.console = console_setup(self)
-        self.messages = seed(self.admin_dsn)
+        companies = self.scenario.companies if self.scenario else COMPANIES
+        self.console = console_setup(self, companies)
+        self.messages = (
+            self.scenario.seed(self.admin_dsn) if self.scenario else seed(self.admin_dsn)
+        )
         self.identities = [
             {
                 "role": "source",
@@ -175,7 +179,7 @@ class Sandbox:
                 "source": source,
                 "token": secrets.token_urlsafe(32),
             }
-            for company, _, _, _, style in COMPANIES
+            for company, _, _, _, style in companies
             for source in mapping(style)["sources"]
         ]
         self.identities += [
@@ -185,7 +189,7 @@ class Sandbox:
             {
                 "role": "reviewer",
                 "actor": "synthetic-reviewer",
-                "companies": [x[0] for x in COMPANIES],
+                "companies": [x[0] for x in companies],
                 "token": secrets.token_urlsafe(32),
             }
         )
@@ -257,7 +261,9 @@ class Sandbox:
             c.execute(
                 "TRUNCATE financial_publications,financial_inputs,financial_snapshots,financial_policies"
             )
-        self.messages = seed(self.admin_dsn)
+        self.messages = (
+            self.scenario.seed(self.admin_dsn) if self.scenario else seed(self.admin_dsn)
+        )
         with connect(self.receiver_admin) as c:
             c.execute("TRUNCATE effects,records,requests,faults RESTART IDENTITY")
 

@@ -18,6 +18,8 @@ const state = {
   report: null,
   company: null,
   route: "portfolio",
+  admissionFilter: "all",
+  companyQuery: "",
 };
 const labels = {
   portfolio: "Portfolio overview",
@@ -119,15 +121,26 @@ function companyTable() {
       "Acquisition",
       "Current admission",
       "Mapping",
+      "Source coverage",
       "Action",
     ],
-    state.overview.companies.map(
+    state.overview.companies.filter(c => (state.admissionFilter === "all" || admissionLabel(c).toLowerCase() === state.admissionFilter) && `${c.name} ${c.legal_entity}`.toLowerCase().includes(state.companyQuery)).map(
       (c) =>
-        `<tr><td><strong>${E(c.name)}</strong><small>${E(c.legal_entity)}</small></td><td>${date(c.acquired_on)}</td><td>${chip(c.admitted ? "Admitted" : "Held", c.admitted ? "good" : "warn")}</td><td>v${c.active_mapping}</td><td><button data-company="${E(c.id)}">Inspect <span aria-hidden="true">↗</span></button></td></tr>`,
+        `<tr><td><strong>${E(c.name)}</strong><small>${E(c.legal_entity)}</small></td><td>${date(c.acquired_on)}</td><td>${chip(admissionLabel(c), c.admitted ? "good" : "warn")}</td><td>v${c.active_mapping}</td><td>${c.gate.coverage.filter(s => s.complete).length} / ${c.gate.coverage.length} sources</td><td><button data-company="${E(c.id)}">Inspect <span aria-hidden="true">↗</span></button></td></tr>`,
     ),
   );
 }
+function admissionLabel(c) {
+  return c.admitted ? "Admitted" : c.status === "staged" && c.gate.passed ? "Pending" : "Held";
+}
 function scenarioContext() {
+  if (state.report.scenario.id === "multi-company-v1") {
+    return panel(
+      `Measured portfolio scenario · ${state.overview.companies.length} permitted companies`,
+      "January and October 2026 · independently persisted synthetic source records",
+      `<p>Different CRM, operations and finance contracts share local customer and invoice IDs. Company scope, reviewed mappings, exact source coverage and acquisition dates determine inclusion.</p><p class="fine">This is a bounded multi-company workload, not an annual revenue census or a production capacity guarantee. Held and pending companies retain their records; their amounts are excluded from the captured publication. Current admission and historical financial inclusion can differ.</p>`,
+    );
+  }
   const annual = state.report.scenario.id === "annual-2026";
   const profiles = Object.entries(state.report.scenario.profiles);
   return panel(
@@ -154,7 +167,7 @@ function portfolio() {
     panel(
       "Acquisition readiness",
       "Live control state · source identity, legal entity and mapping coverage",
-      companyTable(),
+      `<div class="portfolio-filters"><div><label for="admission-filter">Admission state</label><select id="admission-filter">${["all", "admitted", "held", "pending"].map(s => `<option value="${s}" ${state.admissionFilter === s ? "selected" : ""}>${s[0].toUpperCase() + s.slice(1)}</option>`).join("")}</select></div><div><label for="company-query">Find company or legal entity</label><input id="company-query" type="search" value="${E(state.companyQuery)}" /></div></div><div id="company-table">${companyTable()}</div>`,
     ) +
     `<div class="grid2">${panel("Exceptions that need a decision", "Distinct exception categories; not a combined accounting loss", exceptions())}${panel("A defensible reporting perimeter", "Source evidence remains visible when a company or transaction is excluded.", `<div class="stat-strip"><div><strong>${companies.filter((c) => c.admitted).length}<span> / ${companies.length}</span></strong><span>currently admitted companies</span></div><div><strong>${state.overview.reports.length}</strong><span>validated reporting versions</span></div></div><div class="callout"><strong>What was known at ${date(state.report.cutoff)}</strong><br>Current controls may change. Published source inputs and exclusions do not.</div><button data-nav="history">Inspect reporting history →</button>`)}</div>`
   );
@@ -180,13 +193,13 @@ function companyPage(c) {
       c.company.name,
       `${c.company.legal_entity} · Acquired ${date(c.company.acquired_on)} · Mapping v${c.company.active_mapping}`,
     ) +
-    `<div class="notice">Current admission: <strong>${c.company.admitted ? "Admitted" : "Held"}</strong>. This publication captured <strong>${published.admitted ? "admitted" : "held"}</strong> status at mapping v${published.mapping_version}. Reviewing admission does not republish financial history.</div>` +
+    `<div class="notice">Current admission: <strong>${admissionLabel(c.company)}</strong>. This publication captured <strong>${published.admitted ? "admitted" : "held"}</strong> status at mapping v${published.mapping_version}. Reviewing admission does not republish financial history.</div>` +
     panel(
       "Source-system coverage",
       "The registered source owner retains each field and original local ID.",
       sourceTable(c),
     ) +
-    `<div class="grid2">${panel("Admission decision", c.company.gate.passed ? "Fresh reconciliation passed; the recorded admission flag is still required." : "Unresolved controls prevent admission.", `<p>${chip(c.company.admitted ? "Admitted" : "Held", c.company.admitted ? "good" : "warn")}</p>${json(c.company.gate.issues || [])}<button data-nav="governance">Inspect exceptions →</button>`)}${panel("Recorded handoff & recovery", "Read-only persisted execution evidence. Opening this view sends no receiver request.", c.outbound.map((r) => `<p>${chip(r.state, r.state === "confirmed" ? "good" : "warn")} <code>${E(r.effect_id)}</code></p><p class="fine">${r.attempts} persisted dispatch attempt(s) · ${E(r.detail.replaceAll("_", " "))}</p><details><summary>Independent receipt and exact-content proof</summary>${json(r.proof)}</details>`).join("") || `<p class="empty">No handoff intent exists for this company.</p>`)}</div>` +
+    `<div class="grid2">${panel("Admission decision", c.company.gate.passed ? "Fresh reconciliation passed; the recorded admission flag is still required." : "Unresolved controls prevent admission.", `<p>${chip(admissionLabel(c.company), c.company.admitted ? "good" : "warn")}</p>${json(c.company.gate.issues || [])}<button data-nav="governance">Inspect exceptions →</button>`)}${panel("Recorded handoff & recovery", "Read-only persisted execution evidence. Opening this view sends no receiver request.", c.outbound.map((r) => `<p>${chip(r.state, r.state === "confirmed" ? "good" : "warn")} <code>${E(r.effect_id)}</code></p><p class="fine">${r.attempts} persisted dispatch attempt(s) · ${E(r.detail.replaceAll("_", " "))}</p><details><summary>Independent receipt and exact-content proof</summary>${json(r.proof)}</details>`).join("") || `<p class="empty">No handoff intent exists for this company.</p>`)}</div>` +
     panel(
       "Company financial results",
       "Only this scope's approved legal-entity rows; excluded periods are not evidence of zero underlying activity.",
@@ -359,7 +372,7 @@ function governancePage(c) {
       "Admission & exceptions",
       `${c.company.name} · ${c.company.legal_entity}. Decisions append history; they cannot rewrite original source facts or bypass failed controls.`,
     ) +
-    `<div class="notice">${write ? "Authorized reviewer: scoped decisions require a reason and are checked against the current source context." : "Read-only view. This session cannot propose, approve or recompute admission."} Current admission: <strong>${c.company.admitted ? "Admitted" : "Held"}</strong>.</div>` +
+    `<div class="notice">${write ? "Authorized reviewer: scoped decisions require a reason and are checked against the current source context." : "Read-only view. This session cannot propose, approve or recompute admission."} Current admission: <strong>${admissionLabel(c.company)}</strong>.</div>` +
     panel(
       "Quarantine & original evidence",
       "Resolution markers do not erase original source messages.",
@@ -591,6 +604,18 @@ $("#logout").addEventListener("click", async () => {
 });
 for (const id of ["report-select", "period-select", "company-select"])
   $("#" + id).addEventListener("change", () => refresh());
+document.addEventListener("change", (event) => {
+  if (event.target.id === "admission-filter") {
+    state.admissionFilter = event.target.value;
+    $("#company-table").innerHTML = companyTable();
+  }
+});
+document.addEventListener("input", (event) => {
+  if (event.target.id === "company-query") {
+    state.companyQuery = event.target.value.toLowerCase();
+    $("#company-table").innerHTML = companyTable();
+  }
+});
 window.addEventListener("hashchange", () => refresh(true));
 (async () => {
   try {

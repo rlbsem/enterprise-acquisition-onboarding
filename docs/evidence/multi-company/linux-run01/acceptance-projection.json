@@ -1,0 +1,804 @@
+{
+  "schema_version": "multi-company-execution.v1",
+  "source_binding": {
+    "source_commit": "947665d1341305cd3e3b67f1b1c3c29420d0be52",
+    "source_hash_encoding": "UTF-8 with LF line endings",
+    "source_hashes": {
+      "pyproject.toml": "dd6f29aec7ae740ef47fecae667815089778f654025224a2216ff7cb2f1e8423",
+      "requirements.lock": "2e8c72b3bed24539cebaee09e257d871e031e33211811722047a352ea5677fe5",
+      "scripts/check_annual_evidence.py": "866d9c16f082ea6cf5d7dce9e09a15cfd384255f6f1a8e45db51c1235f5ce0c3",
+      "scripts/check_portable_evidence.py": "573757bd6e47fc29190db6b7061e57709765b6f398e2cf9760e2bc298529892d",
+      "scripts/check_portfolio_evidence.py": "79a0ae60a7341b90681b6b96f456ac6b870abc0d34c3ebc3b2c191dc527bf49e",
+      "scripts/check_repository.py": "7848b8a1d4701bb2351bd3762f3aee667d6b7379e187a129f404336da8959b72",
+      "scripts/ci_failure_summary.py": "7533b7fdc1430560a74e287b7f259890ca8b625b384e0aa4bb453d2b13a036cb",
+      "scripts/pass5_financial_oracle.py": "47f20b29596ce6690061b8391ce14adc67976b6dbdb0d6739a312c6c59d3c9c1",
+      "scripts/verify.py": "45941c76f21a055e9fec08e35349bf73f243a4d20aaf9bd30cf135a5b845c48f",
+      "scripts/verify_annual.py": "e1c1bfa0a2f435290b3b7e2a641a4484e76a085190eec50413e030084d675db9",
+      "scripts/verify_portable.py": "43cb6f21ffa4746a80ea1fc2b07f7b6c344ba7a38d4101034e21351ac3edabc6",
+      "scripts/verify_portfolio.py": "c6b062950750bdad0c5c3ddc55730446ec541d24fcd0055bdaabbc6fd76a6fc3",
+      "src/onboarding/__init__.py": "511def106f00c886e7007575b644494bdb9a62dd35aea4a2960e441f7e35230d",
+      "src/onboarding/annual_demo.py": "6ea3b50d3fd10f8c0889314cd35fbdb9087afb39af6157a54a9739b6049656e1",
+      "src/onboarding/annual_fixtures.py": "aa64e987842ebb51dcdc2365bc21dd137b789cabb5541e4a6789cf6bd15403fb",
+      "src/onboarding/api.py": "9564ba10e3a574c2171cc37d6f926db6e154c2917b42098b2b60a4af6c6977aa",
+      "src/onboarding/business.py": "f2e8f43577f1658b6f84748b157bc1f935c82ee0281ac748a03a306d7a809b09",
+      "src/onboarding/console.py": "14f84bfa734bceaf3fd4ab948ea41e0e38989287cf1e8ed4d4d212d77d03ebeb",
+      "src/onboarding/console.sql": "9077d541a8a38003b0c1ebfd9d86b3de690b349e6a06c0e691bc485840fe5357",
+      "src/onboarding/console_demo.py": "1cc8bd0af9d27c9fc210618bb127a9dc485127ae807843475a2fb25ca5792e32",
+      "src/onboarding/console_setup.py": "0f458ec689853d4fbd6fd2e3fa447c44f060e80b4325ed7798f965ae2bc34ff4",
+      "src/onboarding/contracts.py": "587c1e0cd2c194ffb9a74cf218b50ad9cd447b9cca09091f441081cf91a830f2",
+      "src/onboarding/db.py": "c6e2d27d74bb66badf31c46f1e20ac69c29b527f5b27abad5bb323d52fc7fd0d",
+      "src/onboarding/demo.py": "567e8d3d1f23c62d65acf7de30ba87e72560fd762b0e10e2b1ae1ef549b479b5",
+      "src/onboarding/engine.py": "36735892e312fef8274e3c738e3179e2c1bbfa3601596664b49690f3f7f6066f",
+      "src/onboarding/execution.py": "d8867aa51d108d186b90ae53d4b42f935b87e1b976bc5a5e6dfa9b12d142b7ba",
+      "src/onboarding/finance.py": "26445b43408cd1036d866983f633b9e9c96d975761a0c21402362039b2be3663",
+      "src/onboarding/financial.sql": "55baa75d62396654b837773434742c5bea1acb099f5e387720d287544d0f699d",
+      "src/onboarding/financial_demo.py": "34fccf176192c0c398b44f4a10ae7a0da87caa7c31da054aec8694c6cfe3fb1a",
+      "src/onboarding/financial_fixtures.py": "453fa3af654b85a79aacc63fee551bdd8548ec0a5e01568fdf53ed31d4150178",
+      "src/onboarding/financial_oracle.py": "36d63b544d6184f628af16911fadf51a4f93a4b101942db99304d354051e173c",
+      "src/onboarding/fixtures.py": "0e46fd4f5c92dd8a4b7ba90049a59885f05bed04f040f72d64d594f6d1a7b9f6",
+      "src/onboarding/governance.py": "84290272706157d492c0a65655ede86f572a4794f88a6835c4135cbd8889e053",
+      "src/onboarding/pass2.sql": "b40306f548a7741325709a6dc5152d3db512431c40a6742bbf6b53d82dbcaf1b",
+      "src/onboarding/pass2_demo.py": "9d6040f7857656ee9ddac856e815fdcfebe9728d17f2186b37dfe814bda5dc08",
+      "src/onboarding/portable.py": "ceba446293818b88e5ff159024782eae094bdd83c294ace3194c4c01cdf1f20f",
+      "src/onboarding/portable_acceptance.py": "ccd89e2e667cba73f87a777df8bb16d7e8fbfe7fa89595a1799b947700fc7f32",
+      "src/onboarding/portable_gateway.py": "7e67ce5d07f23c65cf8d33ca33d8428d4890b41eeb02f958bdb69fdaab95c334",
+      "src/onboarding/portfolio_browser.py": "900c1ef8801e431875598713a44c5a927f723b760b44df856ffb0dd160178b1d",
+      "src/onboarding/portfolio_demo.py": "abaf541026ae863cb6d3a195f3493a3f2bb4d4bf45d7f93e321d7c0a80d47cf8",
+      "src/onboarding/portfolio_fixtures.py": "f35d8fa416319449a01450ecbefb596e6da2e686c59f8a076844c45e93186a6d",
+      "src/onboarding/portfolio_oracle.py": "fb58387bfaf94440f9d71612557b9959de9c324ea1514e21e9ea3efca5c80fa2",
+      "src/onboarding/portfolio_sources.py": "3d008b23555d2f6c786a22180d8e6c427a9e5742bc1e8314dea22066b760d36c",
+      "src/onboarding/receiver.py": "05b33b7e3065fe57acf66059e9b67545fa2b83646f5eba482960dbc4a93c81c4",
+      "src/onboarding/reporting.py": "e92b0051b05829a77b6e52ec5ffe2b596cfc9b88f3a2287938c076778f4ecbf9",
+      "src/onboarding/sandbox.py": "1c12a550d73b94204c0c5c36d2b9a9c9fbd855a6bfd0e9a5d026c4b5525ddcff",
+      "src/onboarding/schema.sql": "6a2c1bf63d1f20aa32e7fb7735de693e9edd8c3dce0ab7f0259653904e7adf53",
+      "src/onboarding/web/app.css": "7b145f63212017408616fb90844cd9a9499631ad44a9d22943e9ee94ae6fb6f1",
+      "src/onboarding/web/app.js": "afab9685f77946c50f0ac2258c01812dd2df1c5a0b4ff0caf29db28881aaf0ee",
+      "src/onboarding/web/index.html": "248143e23a75ca0e34eaeaf28ee5dafabc19bceefa3059cf875509941d3a6df0",
+      "src/onboarding/web/login.html": "34c7befc6cece7453caafdad0380bda004886850e1a5d38327f4a092f291f5c8",
+      "src/onboarding/web/login.js": "fdaaf4ec6e81f7fbddf4b34cab88477311a5d6489ff13ecc81065f16f6399ae8",
+      "tests/conftest.py": "8bfc58ea3e513068f67110577a4e4638ea386455de457050f90b5afe4d289146",
+      "tests/test_admission.py": "d43a7a06987ee47a0bb40f9496f5c1e25054c11481cc3db0008414d700aa37bd",
+      "tests/test_annual.py": "187c425c29dfc0c76e471bdf2d991a35e147670d1a56c79be070dde8d314ed51",
+      "tests/test_annual_evidence.py": "e4608400ab9e6737956f76bab7babfbac227ea7516fcb9506aac74654f25427c",
+      "tests/test_console.py": "7b030745267b506240903210284c57079e58c845b03f4898da98df6bdb2f4116",
+      "tests/test_financial.py": "875eb4c4297e1b1fcfc283af41f7578dd97fb98fb4c3d9cee9f8bf2035bd2ed4",
+      "tests/test_pass2.py": "d8873299e6c31cc225dc186a79f1cfe415abc6802cbf4989a3231ab8328f5f9e",
+      "tests/test_pass5.py": "a7ffe9d5a576492b7023d9b97b445ce26091a992343ef7bf071b8a6f6431fd3e",
+      "tests/test_portable.py": "ce483291c2794b0626d0532d905f9f220def420571fe1aa0162a966f37122f09",
+      "tests/test_portfolio.py": "ed7d3902084be33456533f4a6bdd9717fb5744086dd98ba4d90593c72da97b47",
+      "tests/vendor/axe.min.js": "e9e5863c33a874f09bc01acd9234b7e3c871479f5eef8802fa582544465e6d01",
+      "tests/vendor/provenance.json": "78e97fff0226d39d5047b8c0f4ff16b49316cf16cb0ecd4b757f805de72c3efc",
+      "warehouse/dbt_project.yml": "7e7ec60047cd4b2daf12152096d0bbe1a06cb860dc7d28c41e305e16f9d85931",
+      "warehouse/models/dim_reporting_entities.sql": "0d5f0e661a06efb746d479b9fce852db5a20dc812c3e70a7e6c54f0306dd7c23",
+      "warehouse/models/fct_allocations.sql": "99fc791473505e384d0cb9cca5a0274ec4c232afa17fd2e3434d7a719be39a10",
+      "warehouse/models/fct_invoices.sql": "cae735450bb22cfa814cec0ead70a34db6a7d1bfc7181e42e1e2abe6b7302936",
+      "warehouse/models/intercompany_eliminations.sql": "efedc1a7ec585d9e7d68e16001d652a46592c5bd16085aaed9849c6f616b4892",
+      "warehouse/models/legal_entity_totals.sql": "5a441db535bcc9f5dc56d2441e43ca40e08eb23e8947ee56885e6b8259934f94",
+      "warehouse/models/portfolio_totals.sql": "7a89569963ff5d3f280675dde297769bda4d22b2db8f2bc545f077e10c91785f",
+      "warehouse/models/reconciliation_variances.sql": "51428689cb1b466b2b745593d293ba0533c80654c112c0b751f65b25d9d58398",
+      "warehouse/models/restatement_bridge.sql": "c0039be53be5c58d1901368580578b13143c16db6aeeb90a10cf2c2da79b4b69",
+      "warehouse/models/schema.yml": "43191fbc07ab618b868af460c946ed90083562de488a336259d5f83723790e49",
+      "warehouse/models/stg_financial.sql": "ef2459d475492e9a8957378a3adb6e78509a19e984c4946cb0b3244b9ef9da6b",
+      "warehouse/tests/financial_amount_controls.sql": "4e295b14bf361de12d6eb8d2e61e47ba9073cca6699632c3372de77e08650a10",
+      "warehouse/tests/financial_grains.sql": "aece6ca5824c2154b0e50b79e8f82524ffb00eaceae3b2ba417ae085eafc7c87",
+      "warehouse/tests/financial_references.sql": "ca9e535d06ec14262a079424a075306d1b7467fc3d8c08e0c531fdce78fd7e1e",
+      "warehouse/tests/financial_scope.sql": "75c311e5e19db647afe3458c40e5f4c32e0080428576d0bc1b4d206ab9891422",
+      "warehouse/tests/rollup_and_bridge.sql": "a8809de6b1c3759d4e93f1f4fc5644cb096b75735643672c2942d416e0dd698e"
+    }
+  },
+  "company_count": 50,
+  "workers": 4,
+  "identity": {
+    "canonical_accounts": 149,
+    "source_projections": 439,
+    "companies_reusing_local_100": 50,
+    "cross_company_collisions": 0
+  },
+  "current_status": [
+    {
+      "id": "acq-aaa",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aab",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aac",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aad",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aae",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aaf",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-aag",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aah",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aai",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aaj",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aak",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aal",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aam",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-aan",
+      "status": "staged",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aao",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aap",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aaq",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aar",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aas",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aat",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-aau",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aav",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aaw",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aax",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aay",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aaz",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-aba",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-abb",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abc",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abd",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abe",
+      "status": "staged",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abf",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abg",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abh",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-abi",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abj",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abk",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abl",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abm",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abn",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abo",
+      "status": "portfolio_ready",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-abp",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abq",
+      "status": "held",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abr",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abs",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abt",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abu",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abv",
+      "status": "staged",
+      "active_mapping": 2
+    },
+    {
+      "id": "acq-abw",
+      "status": "portfolio_ready",
+      "active_mapping": 1
+    },
+    {
+      "id": "acq-abx",
+      "status": "held",
+      "active_mapping": 1
+    }
+  ],
+  "source_service_down_during_healthy_progress": true,
+  "healthy_companies_completed_before_source_restart": 37,
+  "authorization": {
+    "cross_company_source_http": 403,
+    "cross_company_console_read_http": 403,
+    "cross_company_console_write_http": 403,
+    "cross_company_feed_http": 403,
+    "restricted_sql_mutation": "42501",
+    "wrong_legal_entity": "quarantined",
+    "company_state_unchanged": true,
+    "per_company_database_RLS": false
+  },
+  "contention_probe": {
+    "actual_blocked_backends": 1,
+    "healthy_admission_completed_while_other_lock_held": true,
+    "healthy_admission_seconds": 0.044783256000016536,
+    "shared_server_isolation": false
+  },
+  "resource_observations": {
+    "host_physical_memory_bytes": 16760344576,
+    "database_storage_bytes": {
+      "control": 22853299,
+      "receiver": 8165043,
+      "source": 10163891
+    },
+    "database_counters_snapshot": {
+      "xact_commit": 8335,
+      "xact_rollback": 26,
+      "blks_read": 215,
+      "blks_hit": 3805697,
+      "temp_bytes": 0,
+      "deadlocks": 0
+    },
+    "PostgreSQL_settings": {
+      "max_connections": "30",
+      "shared_buffers": "32MB",
+      "track_io_timing": "off"
+    },
+    "container_memory_peak_bytes": "850014208",
+    "measurement_scope": "Separate database sizes and owned database statistics; orchestrator CPU excludes PostgreSQL and dbt child CPU; cgroup peak is container lifetime when available"
+  },
+  "financial_inventory_gap": {
+    "rejected": true,
+    "partial_snapshot_rows": 0,
+    "repaired_before_publication": true
+  },
+  "original_oracle": {
+    "status": "passed",
+    "compared_source_members": 2727,
+    "included_source_members": 1038,
+    "invoice_grains": 119,
+    "allocation_grains": 112,
+    "company_periods": 100,
+    "unresolved_variances": 131,
+    "supported_eliminations": 2,
+    "totals": [
+      {
+        "period": "2026-01-01",
+        "currency": "USD",
+        "bookings_minor": 251340000,
+        "gross_invoice_minor": 125670000,
+        "credits_minor": 2441771,
+        "net_invoice_minor": 123228229,
+        "erp_posted_minor": 123228229,
+        "allocated_cash_minor": 79409572,
+        "elimination_minor": 0,
+        "consolidated_invoice_minor": 123228229,
+        "consolidated_erp_minor": 123228229
+      },
+      {
+        "period": "2026-10-01",
+        "currency": "USD",
+        "bookings_minor": 1452187000,
+        "gross_invoice_minor": 479190000,
+        "credits_minor": 9300940,
+        "net_invoice_minor": 469889060,
+        "erp_posted_minor": 469714060,
+        "allocated_cash_minor": 299404093,
+        "elimination_minor": 534000,
+        "consolidated_invoice_minor": 469355060,
+        "consolidated_erp_minor": 469180060
+      }
+    ],
+    "incorrect_amounts": 0,
+    "incorrect_source_memberships": 0
+  },
+  "restated_oracle": {
+    "status": "passed",
+    "compared_source_members": 2727,
+    "included_source_members": 1074,
+    "invoice_grains": 123,
+    "allocation_grains": 116,
+    "company_periods": 100,
+    "unresolved_variances": 135,
+    "supported_eliminations": 2,
+    "totals": [
+      {
+        "period": "2026-01-01",
+        "currency": "USD",
+        "bookings_minor": 263458000,
+        "gross_invoice_minor": 131729000,
+        "credits_minor": 2562951,
+        "net_invoice_minor": 129166049,
+        "erp_posted_minor": 129166049,
+        "allocated_cash_minor": 82675373,
+        "elimination_minor": 0,
+        "consolidated_invoice_minor": 129166049,
+        "consolidated_erp_minor": 129166049
+      },
+      {
+        "period": "2026-10-01",
+        "currency": "USD",
+        "bookings_minor": 1464701000,
+        "gross_invoice_minor": 485584000,
+        "credits_minor": 9426080,
+        "net_invoice_minor": 476157920,
+        "erp_posted_minor": 475982920,
+        "allocated_cash_minor": 302776616,
+        "elimination_minor": 534000,
+        "consolidated_invoice_minor": 475623920,
+        "consolidated_erp_minor": 475448920
+      }
+    ],
+    "incorrect_amounts": 0,
+    "incorrect_source_memberships": 0
+  },
+  "original_publication_unchanged": true,
+  "original_input_membership_unchanged": true,
+  "teardown": {
+    "independent_listener_checks": 5,
+    "remaining_listeners": 0,
+    "owned_processes_stopped": true,
+    "owned_PostgreSQL_stopped": true,
+    "owned_database_and_roles_absence_checked": false
+  },
+  "owned_resources_cleaned": true,
+  "runtime": {
+    "PostgreSQL": "17.11 (Debian 17.11-1.pgdg12+2)",
+    "python": "3.12.14",
+    "os": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.36",
+    "cpu_count": 4,
+    "container_memory_limit": "3221225472",
+    "container_cpu_limit": "200000 100000"
+  },
+  "delivery": {
+    "exhausted_queues": 1,
+    "healthy_confirmed": 36,
+    "lost_ack_exercised": true,
+    "same_local_business_ids": true,
+    "duplicate_business_effects": 0,
+    "shared_receiver_failure_domain": true
+  },
+  "browser": {
+    "browser": {
+      "name": "Chromium",
+      "version": "156.0.8078.4",
+      "playwright": "1.64.1"
+    },
+    "checks": [
+      {
+        "case": "desktop_company_count",
+        "observed": 51,
+        "expected": 51,
+        "passed": true
+      },
+      {
+        "case": "desktop_actual_financial_metric",
+        "observed": "$6,047,900",
+        "expected": "$6,047,900",
+        "passed": true
+      },
+      {
+        "case": "desktop_held_filter",
+        "observed": 9,
+        "expected": 9,
+        "passed": true
+      },
+      {
+        "case": "desktop_pending_filter",
+        "observed": 3,
+        "expected": 3,
+        "passed": true
+      },
+      {
+        "case": "desktop_admitted_filter",
+        "observed": 38,
+        "expected": 38,
+        "passed": true
+      },
+      {
+        "case": "desktop_entity_search",
+        "observed": 1,
+        "expected": 1,
+        "passed": true
+      },
+      {
+        "case": "desktop_page_no_overflow",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "desktop_pending_detail_label",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "desktop_current_vs_historical_admission",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_company_count",
+        "observed": 51,
+        "expected": 51,
+        "passed": true
+      },
+      {
+        "case": "mobile_actual_financial_metric",
+        "observed": "$6,047,900",
+        "expected": "$6,047,900",
+        "passed": true
+      },
+      {
+        "case": "mobile_held_filter",
+        "observed": 9,
+        "expected": 9,
+        "passed": true
+      },
+      {
+        "case": "mobile_pending_filter",
+        "observed": 3,
+        "expected": 3,
+        "passed": true
+      },
+      {
+        "case": "mobile_admitted_filter",
+        "observed": 38,
+        "expected": 38,
+        "passed": true
+      },
+      {
+        "case": "mobile_entity_search",
+        "observed": 1,
+        "expected": 1,
+        "passed": true
+      },
+      {
+        "case": "mobile_page_no_overflow",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_pending_detail_label",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "mobile_current_vs_historical_admission",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      }
+    ],
+    "screenshots": [
+      {
+        "file": "desktop-portfolio.png",
+        "sha256": "c6f820c98b6451561d7fe56b46334f7330418ddb9d2ca8618281535817ad21ed",
+        "captured_at": "2026-10-29T14:14:41.810143+00:00",
+        "viewport": {
+          "width": 1500,
+          "height": 1050
+        },
+        "route": "portfolio",
+        "publication": "restated",
+        "company": "all",
+        "admission_filter": "held",
+        "capture": "real_browser_viewport_no_image_editing"
+      },
+      {
+        "file": "desktop-company.png",
+        "sha256": "45cc9a651bb2d5063081ea1f4151b9652c35304a13d3889acb2004be1c2238c9",
+        "captured_at": "2026-10-29T14:14:45.717117+00:00",
+        "viewport": {
+          "width": 1500,
+          "height": 1050
+        },
+        "route": "company",
+        "publication": "original",
+        "company": "acq-aaa",
+        "admission_filter": null,
+        "capture": "real_browser_viewport_no_image_editing"
+      },
+      {
+        "file": "desktop-finance.png",
+        "sha256": "447b4cd61b85f4cfbac0e19a462804a5d10804a678c7a69b93764c6c08d54460",
+        "captured_at": "2026-10-29T14:14:50.248207+00:00",
+        "viewport": {
+          "width": 1500,
+          "height": 1050
+        },
+        "route": "finance",
+        "publication": "restated",
+        "company": "all",
+        "admission_filter": null,
+        "capture": "real_browser_viewport_no_image_editing"
+      },
+      {
+        "file": "mobile-portfolio.png",
+        "sha256": "2fb6671df54a65b21dbf23d36d291caab38ec37ba45c84a42964cb008dc50518",
+        "captured_at": "2026-10-29T14:14:52.679575+00:00",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "route": "portfolio",
+        "publication": "restated",
+        "company": "all",
+        "admission_filter": "held",
+        "capture": "real_browser_viewport_no_image_editing"
+      },
+      {
+        "file": "mobile-company.png",
+        "sha256": "c41e7c53529a0a7245aec1b3261211a1ba6f18b12106ac0132637f62b5cf45b7",
+        "captured_at": "2026-10-29T14:14:56.794737+00:00",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "route": "company",
+        "publication": "original",
+        "company": "acq-aaa",
+        "admission_filter": null,
+        "capture": "real_browser_viewport_no_image_editing"
+      },
+      {
+        "file": "mobile-finance.png",
+        "sha256": "ea141a5448243163f35bd7fb8c9ac93964ca0d7d32c46a1666154354684e55bf",
+        "captured_at": "2026-10-29T14:19:30.583549+00:00",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "route": "finance",
+        "publication": "restated",
+        "company": "all",
+        "admission_filter": null,
+        "capture": "real_browser_viewport_no_image_editing"
+      }
+    ],
+    "script_errors": [],
+    "accessibility": [
+      {
+        "view": "desktop_portfolio",
+        "violations": [],
+        "resolved_contrast_followups": 0,
+        "unresolved_checks": 0
+      },
+      {
+        "view": "desktop_company",
+        "violations": [],
+        "resolved_contrast_followups": 0,
+        "unresolved_checks": 0
+      },
+      {
+        "view": "desktop_finance",
+        "violations": [],
+        "resolved_contrast_followups": 0,
+        "unresolved_checks": 0
+      },
+      {
+        "view": "mobile_portfolio",
+        "violations": [],
+        "resolved_contrast_followups": 0,
+        "unresolved_checks": 0
+      },
+      {
+        "view": "mobile_company",
+        "violations": [],
+        "resolved_contrast_followups": 7,
+        "unresolved_checks": 0
+      },
+      {
+        "view": "mobile_finance",
+        "violations": [],
+        "resolved_contrast_followups": 1331,
+        "unresolved_checks": 0
+      }
+    ]
+  },
+  "provenance": {
+    "kind": "Allowlisted projection of actual downloaded CI observations; full source/receipt witness remains in original artifact",
+    "workflow_run": 40888750629,
+    "workflow_job": 123499467278,
+    "source_commit": "947665d1341305cd3e3b67f1b1c3c29420d0be52",
+    "artifact_id": 12904558060,
+    "artifact_digest": "sha256:32d7b0c2e5846fa602c6e06d7750a73a84e91eba4334155e9565ade1ea377288",
+    "original_record_sha256": "d47182c4fceb88e7a26a91ef77ad3fffb8ce082b7746fefc234ddaaa6b3947fc",
+    "original_inspection_sha256": "e76c4dd3cb1560cb42e4d22db474b3ff2e951c17a46412a2c0a08ccd3349ceec",
+    "original_artifact_files": {
+      "browser/browser.json": "b9464d82b57b7b422b4b60bc895f8ea279e59d68a63cdcbe1d5d892d62ec9a45",
+      "browser/desktop-company.png": "45cc9a651bb2d5063081ea1f4151b9652c35304a13d3889acb2004be1c2238c9",
+      "browser/desktop-finance.png": "447b4cd61b85f4cfbac0e19a462804a5d10804a678c7a69b93764c6c08d54460",
+      "browser/desktop-portfolio.png": "c6f820c98b6451561d7fe56b46334f7330418ddb9d2ca8618281535817ad21ed",
+      "browser/mobile-company.png": "c41e7c53529a0a7245aec1b3261211a1ba6f18b12106ac0132637f62b5cf45b7",
+      "browser/mobile-finance.png": "ea141a5448243163f35bd7fb8c9ac93964ca0d7d32c46a1666154354684e55bf",
+      "browser/mobile-portfolio.png": "2fb6671df54a65b21dbf23d36d291caab38ec37ba45c84a42964cb008dc50518",
+      "companies-003-run-01.json": "a21c9adad9889c2576cb1013da0ea0c6ec4ad08c193acf97042c80b59d0cc31e",
+      "companies-010-run-01.json": "de369c1ae3726bc801fb1b0b23cac70e48f74d5b291971f2d244e594dbd3360a",
+      "companies-025-run-01.json": "b93d66720b06dbf88ac6baf05bd13805fecd3c667a5a6583ebfa23fda80985c8",
+      "companies-050-run-01.json": "d47182c4fceb88e7a26a91ef77ad3fffb8ce082b7746fefc234ddaaa6b3947fc",
+      "summary.json": "550a6b04199349c6503a5623ab5f96eff55628d23705a007b2cdfaa48eb7609b"
+    }
+  },
+  "containment": {
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-29T14:11:07.044643155Z",
+      "FinishedAt": "2026-10-29T14:19:32.121063681Z"
+    },
+    "user": "10001:10001",
+    "host_config": {
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "ReadonlyRootfs": true,
+      "CapDrop": [
+        "ALL"
+      ],
+      "Privileged": false,
+      "Memory": 3221225472,
+      "NanoCpus": 2000000000,
+      "PidsLimit": 512,
+      "SecurityOpt": [
+        "no-new-privileges:true"
+      ]
+    },
+    "mount_types": [
+      "bind",
+      "bind",
+      "bind",
+      "bind"
+    ]
+  }
+}
