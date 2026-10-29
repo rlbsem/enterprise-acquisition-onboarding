@@ -1,0 +1,20 @@
+{
+  "authorization-admission.json": "3e79e1a450ef17ded8819c7e3ebdc5461ff052c258cb318900ddd4d62d771fa4",
+  "authorization-business.json": "3e79e1a450ef17ded8819c7e3ebdc5461ff052c258cb318900ddd4d62d771fa4",
+  "authorization-mapping.json": "3e79e1a450ef17ded8819c7e3ebdc5461ff052c258cb318900ddd4d62d771fa4",
+  "authorization-source_revision.json": "3e79e1a450ef17ded8819c7e3ebdc5461ff052c258cb318900ddd4d62d771fa4",
+  "company-desktop.png": "822b4f77ca384b6c0fb4a5bb06a374f738ba735e639ffedd7bb2c1a1e0194dc5",
+  "demo.json": "447404eab463398940f7d30b47ef2cbf6b3e83d353b433a90c0ab8851a7849ee",
+  "exhaustion.json": "4bb43c038ba5a95c7b9854f6bd88ff95eccd59d6ab58c69be9f30cdb6f2fa819",
+  "financial-desktop.png": "43d86d422c8d604ba8b705cb356ed8198fe778c1260c2ed848729a93a9f5b449",
+  "financial-mobile.png": "dccd29e88a2477aa4ed9cee79376ae1d479a7ed73294fa931cb11b584ec4a8ab",
+  "governance-desktop.png": "05c8491d68cf9a4ab1e67a31c25e9175dae88f80069e968e3a10b1a0a64d5302",
+  "history-desktop.png": "1c3bd859212d4bea8db49c9c228b7bcd7251ac75708c53c15e53715e8c04d321",
+  "pass2.json": "5a9efa111255dce7c64c2cb3eccc9cfeb1a8335fd96fd91c4847188331c8e8a0",
+  "pass3.json": "d0185bd15dcb6ee51c50cd42e71677637e39c4171c4855eaf2cae90a3cedead4",
+  "pass4.json": "d3cc41d2200f60382e584fd913ea1e0d22dda96e9f717fb7944f649f4d359661",
+  "portfolio-desktop.png": "da92ab24a5c1c5ed3caacbf313bf2e703e449be2fa90eb15ac4bbdfadee2f4b2",
+  "portfolio-mobile.png": "c5d967e748ce70fe387bf672bafc717c60778f48b4b8a8af51776d5daa7af68b",
+  "process-death.json": "f1c0193bc7e4ebf64248c1a360819557992038f10d4274b42f45d694e2c84dc6",
+  "verification.json": "dca95e5039c289c03ea200bf95c64dc634b7b67bfa5215994fb8eb61d9725264"
+}

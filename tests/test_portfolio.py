@@ -7,6 +7,7 @@ from onboarding.portfolio_oracle import calculate, verify
 from onboarding.portfolio_demo import execute
 from onboarding.portfolio_sources import Sources
 from onboarding.sandbox import Sandbox
+from onboarding.db import connect
 
 
 @pytest.mark.parametrize("count", [3, 10, 25, 50])
@@ -30,6 +31,15 @@ def test_deterministic_company_scoped_workload(count):
 def test_configuration_is_bounded(count):
     with pytest.raises(ValueError):
         Portfolio(count)
+
+
+def test_optional_portfolio_fixture_can_reset_without_recreating_runtime(tmp_path):
+    with Sandbox(tmp_path / "reset-runtime", scenario=Portfolio(3)) as stack:
+        stack.reset()
+        with connect(stack.console["read_dsn"]) as c:
+            assert c.execute("SELECT count(*) n FROM companies").fetchone()["n"] == 3
+            assert c.execute("SELECT count(*) n FROM customers").fetchone()["n"] == 9
+            assert c.execute("SELECT count(*) n FROM source_records").fetchone()["n"] == 0
 
 
 def test_oracle_has_independently_calculated_selected_invoice_arithmetic():

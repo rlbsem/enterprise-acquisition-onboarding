@@ -46,6 +46,14 @@ All companies deliberately reuse local ID `100` and the same customer trade name
 
 The admission projection includes only currently admitted companies and retains each held company's exceptions, local definitions and source lineage. Its metric is a **count of scoped customer accounts**, not deduplicated global parties, financial consolidation, revenue or cash. CRM Won maps to a qualified commercial state and proves none of those financial outcomes. Pass 3 supplies separate source-linked financial reports under an explicit reporting policy.
 
+## Measured multi-company failure isolation
+
+A separate deterministic workload exercises **3, 10, 25 and 50 synthetic companies**, preserving both original three-company scenarios. Real PostgreSQL, independently persisted HTTP source feeds, the handoff receiver and dbt run through company-scoped identity, overlapping local IDs, source outages, conflicting events, exhausted retries and late financial corrections.
+
+The 50-company workload includes **149 scoped customer accounts**. Healthy companies continue onboarding while another company's source is down or company lock is held. A missing reviewed financial fact still blocks consolidated publication; held and pending businesses do not become unsupported zeroes or contaminate parent totals. These finite observations do not establish production capacity, physical company isolation or native vendor integration.
+
+[Executed measurements, financial witnesses and screenshots](docs/evidence/multi-company/README.md) · [Reproduction and architectural limits](docs/multi-company-acceptance.md).
+
 ## Architecture
 
 ```mermaid

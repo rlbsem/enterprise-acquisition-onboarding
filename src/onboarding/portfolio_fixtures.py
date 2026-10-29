@@ -76,8 +76,11 @@ class Portfolio:
         return result
 
     def seed(self, dsn):
-        # The sandbox is fresh. The original seed function and its fixtures are unchanged.
+        # Trusted disposable-fixture reset, matching the original installer's lifecycle.
         with connect(dsn) as c:
+            c.execute(
+                "TRUNCATE audit,gate_runs,customer_fields,source_records,quarantine,deliveries,messages,baselines,crosswalks,customers,mapping_versions,systems,companies,platforms RESTART IDENTITY CASCADE"
+            )
             c.execute(
                 "INSERT INTO platforms VALUES('synthetic-portfolio','Synthetic acquisition portfolio')"
             )

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import subprocess
+import statistics
 from pathlib import Path
 from onboarding.portfolio_fixtures import Portfolio, ORIGINAL, RESTATED, PERIODS
 from onboarding.portfolio_oracle import calculate
@@ -51,6 +52,17 @@ def main():
         assert r["original_publication_unchanged"] and r["original_input_membership_unchanged"]
         assert r["identity"]["cross_company_collisions"] == 0
         assert r["identity"]["companies_reusing_local_100"] == r["company_count"]
+        request_samples = [
+            c["admission_seconds"]
+            for c in r["companies"]
+            if not c["admission"].get("not_requested")
+        ]
+        assert r["metrics"]["admission_latency_seconds"] == request_samples
+        assert r["metrics"]["admission_request_count"] == len(request_samples)
+        assert r["metrics"]["admission_latency_median"] == statistics.median(request_samples)
+        assert r["metrics"]["pending_without_admission_request"] == r["company_count"] - len(
+            request_samples
+        )
         assert r["healthy_companies_completed_before_source_restart"] == sum(
             spec.expected_admitted(i) for i in range(spec.count)
         )
