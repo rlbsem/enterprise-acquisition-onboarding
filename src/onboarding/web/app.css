@@ -996,3 +996,7 @@ dialog::backdrop {
     grid-column: 1/-1;
   }
 }
+/* Existing inspection controls, wrapped for larger portfolios and mobile. */
+.portfolio-filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.portfolio-filters > div { display: grid; gap: .4rem; min-width: 0; }
+.portfolio-filters input { max-width: 100%; }

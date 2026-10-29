@@ -2,3 +2,4 @@
 # Preserve captured artifact bytes across Windows and Linux checkouts.
 docs/evidence/portable/** -text
 docs/evidence/annual/** -text
+docs/evidence/multi-company/** -text
