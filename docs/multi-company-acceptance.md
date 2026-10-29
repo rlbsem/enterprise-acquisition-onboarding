@@ -24,7 +24,7 @@ After original publication, the terminated feed restarts, its company passes adm
 
 ## Reproduction
 
-Use the existing pinned Python 3.12 environment, PostgreSQL 17 binaries and Chromium installation documented in the main README. Run as an ordinary local user. No vendor credentials are needed.
+Use a Git checkout with history available, the existing pinned Python 3.12 environment, PostgreSQL 17 binaries and Chromium installation documented in the main README. Run as an ordinary local user. No vendor credentials are needed. A source ZIP without Git history cannot establish the revision bindings used by the qualified verifier.
 
 ```text
 python scripts/verify_portfolio.py --workspace .local/portfolio-private --output .local/portfolio-evidence --sizes 3 10 25 50 --repeats 2 --browser

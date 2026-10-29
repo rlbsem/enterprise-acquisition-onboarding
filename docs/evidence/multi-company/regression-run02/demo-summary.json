@@ -1,0 +1,9 @@
+{
+  "source_commit": "947665d1341305cd3e3b67f1b1c3c29420d0be52",
+  "browser_checks": 53,
+  "accessibility_views": 7,
+  "screenshots_captured": 7,
+  "original_bundle": "../regression-run01",
+  "scope": "Current full native verification passed all four original standalone demos. Full current raw outputs are private; the previous complete scenario bundle and separately source-bound 50-company screenshots remain committed.",
+  "source_browser_record_sha256": "46516c0084f762abdfc490cd371e7502c4151f80d6fc54de4cab374c609f9c26"
+}
