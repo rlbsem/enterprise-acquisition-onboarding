@@ -1,0 +1,667 @@
+{
+  "lane": "actual_local_http_postgresql",
+  "native_vendor_calls": 0,
+  "synthetic": true,
+  "scenarios": {
+    "A_clean": {
+      "expected_included_companies": 2,
+      "observed_included_companies": 2
+    },
+    "B_ambiguity": {
+      "expected": "ambiguous_identity",
+      "observed": "ambiguous_identity"
+    },
+    "C_readiness_gate": {
+      "expected": false,
+      "observed": false,
+      "issues": [
+        "cross_domain_customer_coverage_gap",
+        "source_coverage_gap:legacy-crm",
+        "unresolved_quarantine"
+      ],
+      "invalid_legal_entity_response": {
+        "message_id": 10,
+        "status": "quarantined",
+        "duplicate": false,
+        "reason": "incorrect_legal_entity"
+      }
+    },
+    "D_replay": {
+      "expected_source_records": 8,
+      "before": 8,
+      "after": 8,
+      "response": {
+        "message_id": 1,
+        "status": "accepted",
+        "duplicate": true,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    }
+  },
+  "source_intake": [
+    {
+      "company": "cedar",
+      "source": "hubspot",
+      "event_id": "hubspot-customer-100-v1",
+      "response": {
+        "message_id": 1,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "cedar",
+      "source": "lmn",
+      "event_id": "lmn-customer-100-v1",
+      "response": {
+        "message_id": 2,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "cedar",
+      "source": "quickbooks",
+      "event_id": "quickbooks-customer-100-v1",
+      "response": {
+        "message_id": 3,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "meridian",
+      "source": "salesforce",
+      "event_id": "salesforce-customer-100-v1",
+      "response": {
+        "message_id": 4,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "meridian",
+      "source": "aspire",
+      "event_id": "aspire-customer-100-v1",
+      "response": {
+        "message_id": 5,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "meridian",
+      "source": "netsuite",
+      "event_id": "netsuite-customer-100-v1",
+      "response": {
+        "message_id": 6,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "summit",
+      "source": "legacy-crm",
+      "event_id": "legacy-crm-customer-100-v1",
+      "response": {
+        "message_id": 7,
+        "status": "quarantined",
+        "duplicate": false,
+        "reason": "ambiguous_identity"
+      }
+    },
+    {
+      "company": "summit",
+      "source": "legacy-ops",
+      "event_id": "legacy-ops-customer-100-v1",
+      "response": {
+        "message_id": 8,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    },
+    {
+      "company": "summit",
+      "source": "legacy-finance",
+      "event_id": "legacy-finance-customer-100-v1",
+      "response": {
+        "message_id": 9,
+        "status": "accepted",
+        "duplicate": false,
+        "reason": "validated_against_reviewed_mapping"
+      }
+    }
+  ],
+  "readiness_gates": [
+    {
+      "company": "cedar",
+      "mapping_version": 1,
+      "passed": true,
+      "issues": [],
+      "coverage": [
+        {
+          "source": "hubspot",
+          "domain": "crm",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:cedar:hubspot"
+        },
+        {
+          "source": "lmn",
+          "domain": "operations",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:cedar:lmn"
+        },
+        {
+          "source": "quickbooks",
+          "domain": "finance",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:cedar:quickbooks"
+        }
+      ],
+      "quarantine": [],
+      "reconciled_customer_accounts": 1,
+      "input_hash": "a2d412603ded68e344aa06f1a64fb8ebf1ddaa79db233d88ccd9aa78d6abaed3"
+    },
+    {
+      "company": "meridian",
+      "mapping_version": 1,
+      "passed": true,
+      "issues": [],
+      "coverage": [
+        {
+          "source": "aspire",
+          "domain": "operations",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:meridian:aspire"
+        },
+        {
+          "source": "netsuite",
+          "domain": "finance",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:meridian:netsuite"
+        },
+        {
+          "source": "salesforce",
+          "domain": "crm",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:meridian:salesforce"
+        }
+      ],
+      "quarantine": [],
+      "reconciled_customer_accounts": 1,
+      "input_hash": "755503eaa1de423cb666bf9e8bba1abcb57fab236fa89477936d14fd3f21b07c"
+    },
+    {
+      "company": "summit",
+      "mapping_version": 1,
+      "passed": false,
+      "issues": [
+        "cross_domain_customer_coverage_gap",
+        "source_coverage_gap:legacy-crm",
+        "unresolved_quarantine"
+      ],
+      "coverage": [
+        {
+          "source": "legacy-crm",
+          "domain": "crm",
+          "expected": 1,
+          "observed": 0,
+          "complete": false,
+          "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+        },
+        {
+          "source": "legacy-finance",
+          "domain": "finance",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+        },
+        {
+          "source": "legacy-ops",
+          "domain": "operations",
+          "expected": 1,
+          "observed": 1,
+          "complete": true,
+          "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+        }
+      ],
+      "quarantine": [
+        {
+          "id": 1,
+          "reason": "ambiguous_identity",
+          "message_id": 7
+        },
+        {
+          "id": 2,
+          "reason": "incorrect_legal_entity",
+          "message_id": 10
+        }
+      ],
+      "reconciled_customer_accounts": 1,
+      "input_hash": "1b6dd3081549700837fa901d5057c9f496083ca0f4061c21eefa2b1721496235"
+    }
+  ],
+  "portfolio": {
+    "schema_version": "portfolio-admission.v1",
+    "synthetic": true,
+    "native_vendor_execution": false,
+    "metric_definition": "Scoped customer accounts in currently admitted companies; cross-brand party identity and statutory consolidation are not inferred.",
+    "included_customer_accounts": 2,
+    "included_companies": 2,
+    "companies": [
+      {
+        "id": "cedar",
+        "parent": "harbor-platform",
+        "brand": "Cedar Services",
+        "legal_entity": "LE-CA-01",
+        "acquired_on": "2025-06-01",
+        "status": "portfolio_ready",
+        "included": true,
+        "gate": {
+          "company": "cedar",
+          "mapping_version": 1,
+          "passed": true,
+          "issues": [],
+          "coverage": [
+            {
+              "source": "hubspot",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:hubspot"
+            },
+            {
+              "source": "lmn",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:lmn"
+            },
+            {
+              "source": "quickbooks",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:cedar:quickbooks"
+            }
+          ],
+          "quarantine": [],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "a2d412603ded68e344aa06f1a64fb8ebf1ddaa79db233d88ccd9aa78d6abaed3"
+        },
+        "source_records": [
+          {
+            "source": "hubspot",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 1,
+            "raw": {
+              "version": 1,
+              "companyId": "100",
+              "dealStage": "closedwon",
+              "companyName": "Common Property Group",
+              "legalEntity": "LE-CA-01"
+            },
+            "normalized": {
+              "sales_state": "qualified",
+              "display_name": "Common Property Group"
+            }
+          },
+          {
+            "source": "lmn",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 2,
+            "raw": {
+              "entity": "LE-CA-01",
+              "clientId": "100",
+              "jobState": "In Progress",
+              "revision": 1
+            },
+            "normalized": {
+              "operations_state": "active"
+            }
+          },
+          {
+            "source": "quickbooks",
+            "source_id": "100",
+            "canonical": "85621965-a884-5f5c-8e27-45bb58766ab1",
+            "revision": 1,
+            "version": 1,
+            "message_id": 3,
+            "raw": {
+              "EntityRef": "LE-CA-01",
+              "SyncToken": 1,
+              "CustomerRef": "100",
+              "AccountState": "Reconciled"
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meridian",
+        "parent": "harbor-platform",
+        "brand": "Meridian Facilities",
+        "legal_entity": "LE-US-02",
+        "acquired_on": "2026-02-01",
+        "status": "portfolio_ready",
+        "included": true,
+        "gate": {
+          "company": "meridian",
+          "mapping_version": 1,
+          "passed": true,
+          "issues": [],
+          "coverage": [
+            {
+              "source": "aspire",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:aspire"
+            },
+            {
+              "source": "netsuite",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:netsuite"
+            },
+            {
+              "source": "salesforce",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:meridian:salesforce"
+            }
+          ],
+          "quarantine": [],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "755503eaa1de423cb666bf9e8bba1abcb57fab236fa89477936d14fd3f21b07c"
+        },
+        "source_records": [
+          {
+            "source": "aspire",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 5,
+            "raw": {
+              "sequence": 1,
+              "account_key": "100",
+              "entity_code": "LE-US-02",
+              "service_status": "SERVICING"
+            },
+            "normalized": {
+              "operations_state": "active"
+            }
+          },
+          {
+            "source": "netsuite",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 6,
+            "raw": {
+              "internalId": "100",
+              "subsidiary": "LE-US-02",
+              "controlStatus": "VERIFIED",
+              "recordVersion": 1
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          },
+          {
+            "source": "salesforce",
+            "source_id": "100",
+            "canonical": "e7c1ec2b-60f5-5286-be9a-42768fa54891",
+            "revision": 1,
+            "version": 1,
+            "message_id": 4,
+            "raw": {
+              "Id": "100",
+              "Name": "Common Property Group",
+              "Revision": 1,
+              "StageName": "Closed Won",
+              "LegalEntity": "LE-US-02"
+            },
+            "normalized": {
+              "sales_state": "qualified",
+              "display_name": "Common Property Group"
+            }
+          }
+        ]
+      },
+      {
+        "id": "summit",
+        "parent": "harbor-platform",
+        "brand": "Summit Operator",
+        "legal_entity": "LE-CA-03",
+        "acquired_on": "2026-10-01",
+        "status": "held",
+        "included": false,
+        "gate": {
+          "company": "summit",
+          "mapping_version": 1,
+          "passed": false,
+          "issues": [
+            "cross_domain_customer_coverage_gap",
+            "source_coverage_gap:legacy-crm",
+            "unresolved_quarantine"
+          ],
+          "coverage": [
+            {
+              "source": "legacy-crm",
+              "domain": "crm",
+              "expected": 1,
+              "observed": 0,
+              "complete": false,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-crm"
+            },
+            {
+              "source": "legacy-finance",
+              "domain": "finance",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-finance"
+            },
+            {
+              "source": "legacy-ops",
+              "domain": "operations",
+              "expected": 1,
+              "observed": 1,
+              "complete": true,
+              "review_reference": "independently-reviewed-source-inventory.v1:summit:legacy-ops"
+            }
+          ],
+          "quarantine": [
+            {
+              "id": 1,
+              "reason": "ambiguous_identity",
+              "message_id": 7
+            },
+            {
+              "id": 2,
+              "reason": "incorrect_legal_entity",
+              "message_id": 10
+            }
+          ],
+          "reconciled_customer_accounts": 1,
+          "input_hash": "1b6dd3081549700837fa901d5057c9f496083ca0f4061c21eefa2b1721496235"
+        },
+        "source_records": [
+          {
+            "source": "legacy-finance",
+            "source_id": "100",
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "revision": 1,
+            "version": 1,
+            "message_id": 9,
+            "raw": {
+              "entity": "LE-CA-03",
+              "version": 1,
+              "account_id": "100",
+              "verification": "checked"
+            },
+            "normalized": {
+              "finance_state": "verified"
+            }
+          },
+          {
+            "source": "legacy-ops",
+            "source_id": "100",
+            "canonical": "514a2950-ec64-50f9-967a-4e19adb5693a",
+            "revision": 1,
+            "version": 1,
+            "message_id": 8,
+            "raw": {
+              "entity": "LE-CA-03",
+              "version": 1,
+              "work_status": "working",
+              "customer_key": "100"
+            },
+            "normalized": {
+              "operations_state": "active"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "message_journal": [
+    {
+      "company": "cedar",
+      "source": "hubspot",
+      "event_id": "hubspot-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "650f0ef5a84ffe7397b0a40d28129657f0a75a26cb186d599087cfadd8822ba3"
+    },
+    {
+      "company": "cedar",
+      "source": "lmn",
+      "event_id": "lmn-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "f286cb67b2b84fb8765998b03bebb11a6005b4dfd10bde2e0d8f6af9ad421232"
+    },
+    {
+      "company": "cedar",
+      "source": "quickbooks",
+      "event_id": "quickbooks-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "fa7870327b1c9bcc4d01f846b7c57317f9362232b104254cc2d522159fe4a1d7"
+    },
+    {
+      "company": "meridian",
+      "source": "salesforce",
+      "event_id": "salesforce-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "30c69a36e40fec8fdba5be2ee43eeb3f08f81a598c9482417b6571cbf9ecb087"
+    },
+    {
+      "company": "meridian",
+      "source": "aspire",
+      "event_id": "aspire-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "f873748c4aa9c7f9a5db4a8bd68a52400a58ef103d4ab0f6e2beb79799ca22e7"
+    },
+    {
+      "company": "meridian",
+      "source": "netsuite",
+      "event_id": "netsuite-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "4345a282e4de672a63c325bb22de9b39fa38206355a58aa0806010b1f9a670f8"
+    },
+    {
+      "company": "summit",
+      "source": "legacy-crm",
+      "event_id": "legacy-crm-customer-100-v1",
+      "status": "quarantined",
+      "reason": "ambiguous_identity",
+      "hash": "a271115a64bd769c9ff6f51f0655f9fdb662ead99373bfb8a56de28587bdccc6"
+    },
+    {
+      "company": "summit",
+      "source": "legacy-ops",
+      "event_id": "legacy-ops-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "57afc56dd08b85b29dbd393e383044b6c04a0fb94d54a108bb215092d8ac6614"
+    },
+    {
+      "company": "summit",
+      "source": "legacy-finance",
+      "event_id": "legacy-finance-customer-100-v1",
+      "status": "accepted",
+      "reason": "validated_against_reviewed_mapping",
+      "hash": "f1fbfe318417cec92b1cba3e046b81986bb1a579c6f5dd9cbb93ca5f8fba8ef8"
+    },
+    {
+      "company": "summit",
+      "source": "legacy-ops",
+      "event_id": "wrong-entity-review",
+      "status": "quarantined",
+      "reason": "incorrect_legal_entity",
+      "hash": "0fa8028b3e4a4969c019ea1e3dc2ab5345e33ac5aa8ceec9359fa679196ff966"
+    }
+  ],
+  "quarantine": [
+    {
+      "company": "summit",
+      "reason": "ambiguous_identity",
+      "detail": {
+        "candidate_ids": [
+          "514a2950-ec64-50f9-967a-4e19adb5693a",
+          "9a4bd692-82b6-53d4-b662-f560cda4e6b3"
+        ]
+      }
+    },
+    {
+      "company": "summit",
+      "reason": "incorrect_legal_entity",
+      "detail": {}
+    }
+  ],
+  "owned_resources_cleaned": true
+}

@@ -1,0 +1,16 @@
+# Multi-company architectural baseline
+
+Inspected main `3b6c9442723f2af36cd65386e99c06f036ad4e2b` before extending it. The original three-company correctness and annual scenarios remain separate, unchanged fixtures.
+
+| Existing implementation | Scaling risk to test |
+|---|---|
+| Shared control tables key customer/source identities by company; deterministic canonical UUIDs include company. Financial latest-version selection keys company, kind and local source ID. | Reusing customer, opportunity and invoice IDs across companies must not join another company's facts. |
+| Intake and admission use company advisory transaction locks. Dispatch adds an effect lock and holds its company lock across HTTP. | Same-company serialization is intentional; a slow company must not prevent different company locks from progressing. Database connections, HTTP threads and server availability remain shared. |
+| Source tokens bind company and source; reviewer and browser sessions bind explicit company lists. Restricted SQL roles separate intake, review and publication. | Test forged company/legal entity and another company's review identifier through actual HTTP. These SQL roles have cross-company SELECT grants: this is API isolation, not per-company PostgreSQL RLS. |
+| Admission rereads exact reviewed source ID/revision/hash coverage and normalized provenance. | Incomplete or conflicting source observations must hold that company, rather than becoming a zero or a report-ready flag. |
+| Financial snapshots freeze all selected accepted facts, reviewed inventory and admission state at a knowledge cutoff. Acquisition dates and parent-reference eligibility apply in dbt. | An unreviewed financial inventory gap blocks the entire snapshot. Healthy admission/dispatch progress does not imply that a globally incomplete financial publication may proceed. |
+| Nine PostgreSQL dbt models build in one shared `analytics` schema; publications are immutable JSON records after source/control rechecks and Python reconciliation. | Concurrent warehouse builds are not supported. Serialize measured builds; verify old publications survive subsequent builds and corrections. |
+| The independent handoff receiver persists receipts and business records in another logical database. Dispatch has three durable attempts and reads back before retrying. | Exhausted work and ambiguous acknowledgments must not multiply effects or starve unrelated finite work. Both databases still share one PostgreSQL server. |
+| Default UI and private fixture identities explicitly enumerate three businesses. | Add an optional scenario installer and scoped identities, keeping the default unchanged. Extend existing inspection controls rather than replacing the console. |
+
+The initial design adds a configurable fixture and a bounded measurement driver. No storage partitioning, connection pool, rate limiter or production scheduling claim is justified before measurement. HTTP source-feed processes will persist observations in a third logical database so the independent oracle can inspect source facts separately from control state. A dedicated company feed process allows a real company-specific service termination; other feeds and all three databases retain shared infrastructure failure domains.

@@ -1,0 +1,8 @@
+{
+  "classification": "admission_latency_instrumentation_defect",
+  "source_commit": "fc2704b9aa371ad9106cf506a9f337cb7cac3d01",
+  "original_summary_sha256": "5911667af0bc3fb002be7722696c0bd188ac0610c381361045496b1f99533fd7",
+  "observed": "The 25/50-company latency arrays include pending-review branches that made no admission HTTP request. Underlying source, financial, recovery and cleanup checks passed; the combined latency median is not an admission-request-only metric.",
+  "correction": "Exclude not_requested observations; report request and pending counts separately, then rerun source-bound measurements. Preserve these original bytes.",
+  "scope": "Test-driver measurement defect, not a demonstrated application authorization or financial-control defect"
+}

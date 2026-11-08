@@ -1,0 +1,12 @@
+{
+  "expected": {
+    "state": "exhausted",
+    "attempts": 3,
+    "effects": 0
+  },
+  "observed": {
+    "state": "exhausted",
+    "attempts": 3,
+    "effects": 0
+  }
+}
