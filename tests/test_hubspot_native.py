@@ -1,4 +1,5 @@
 """Offline provider-contract tests: no HubSpot calls or real Service Keys."""
+
 import copy
 
 import httpx
@@ -20,7 +21,9 @@ def provider_records():
         "id": PAIR.company_id,
         "archived": False,
         "properties": {"name": PAIR.company_name},
-        "associations": {"contacts": {"results": [{"id": PAIR.contact_id, "type": "company_to_contact"}]}},
+        "associations": {
+            "contacts": {"results": [{"id": PAIR.contact_id, "type": "company_to_contact"}]}
+        },
     }
     contact = {
         "id": PAIR.contact_id,
@@ -30,7 +33,9 @@ def provider_records():
             "lastname": PAIR.lastname,
             "email": PAIR.email,
         },
-        "associations": {"companies": {"results": [{"id": PAIR.company_id, "type": "contact_to_company"}]}},
+        "associations": {
+            "companies": {"results": [{"id": PAIR.company_id, "type": "contact_to_company"}]}
+        },
     }
     return company, contact
 
@@ -109,7 +114,9 @@ def test_source_mismatch_or_ambiguous_link_fails_closed(mutation, expected_reaso
     if field in {"name", "email", "lastname"}:
         record["properties"][field] = value
     elif field == "association":
-        record["associations"]["contacts" if target == "company" else "companies"]["results"] = value
+        record["associations"]["contacts" if target == "company" else "companies"]["results"] = (
+            value
+        )
     elif field == "paging":
         record["associations"]["contacts" if target == "company" else "companies"][field] = value
     else:
