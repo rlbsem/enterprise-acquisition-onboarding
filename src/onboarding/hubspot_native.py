@@ -44,7 +44,8 @@ def _association_ids(record: dict, target_type: str) -> set[str]:
     link = associations.get(target_type)
     if not isinstance(link, dict) or not isinstance(link.get("results"), list):
         raise HubSpotBoundaryError("association_not_observed")
-    if link.get("paging", {}).get("next"):
+    paging = link.get("paging")
+    if paging is not None and (not isinstance(paging, dict) or paging.get("next")):
         raise HubSpotBoundaryError("association_page_incomplete")
     ids: list[str] = []
     for row in link["results"]:
@@ -88,7 +89,7 @@ class HubSpotReadOnlyReader:
                 f"/crm/objects/{API_VERSION}/{object_type}/{record_id}",
                 params={"properties": properties, "associations": associations},
             )
-        except httpx.RequestError as exc:
+        except httpx.RequestError:
             raise HubSpotBoundaryError("provider_transport_unavailable") from None
         if response.status_code in {401, 403}:
             raise HubSpotBoundaryError("service_key_access_denied")
