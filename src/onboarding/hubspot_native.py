@@ -48,12 +48,24 @@ def _association_ids(record: dict, target_type: str) -> set[str]:
     if paging is not None and (not isinstance(paging, dict) or paging.get("next")):
         raise HubSpotBoundaryError("association_page_incomplete")
     ids: list[str] = []
+    typed_links: set[tuple[str, str | None]] = set()
+    labels_by_id: dict[str, set[str | None]] = {}
     for row in link["results"]:
         if not isinstance(row, dict) or not isinstance(row.get("id"), str):
             raise HubSpotBoundaryError("association_schema_invalid")
-        ids.append(row["id"])
-    if len(ids) != len(set(ids)):
-        raise HubSpotBoundaryError("duplicate_association")
+        label = row.get("type")
+        if label is not None and (not isinstance(label, str) or not label.strip()):
+            raise HubSpotBoundaryError("association_schema_invalid")
+        identity = row["id"]
+        pair = (identity, label)
+        previous_labels = labels_by_id.setdefault(identity, set())
+        # HubSpot can return primary and unlabeled types for one relationship.
+        # A repeated exact pair or an untyped repeated identity is still ambiguous.
+        if pair in typed_links or (previous_labels and (label is None or None in previous_labels)):
+            raise HubSpotBoundaryError("duplicate_association")
+        typed_links.add(pair)
+        previous_labels.add(label)
+        ids.append(identity)
     return set(ids)
 
 

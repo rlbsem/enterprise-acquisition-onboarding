@@ -175,3 +175,48 @@ def test_missing_credential_and_cli_gate_do_not_call_hubspot(monkeypatch, capsys
     with pytest.raises(SystemExit) as err:
         main([])
     assert err.value.code == 2
+
+
+def test_primary_and_unlabeled_types_for_one_company_are_one_identity():
+    company, contact = provider_records()
+    contact["associations"]["companies"]["results"].append(
+        {"id": PAIR.company_id, "type": "contact_to_company_unlabeled"}
+    )
+    transport, calls = fake_transport(company, contact)
+    with HubSpotReadOnlyReader(SAMPLE_KEY, transport=transport) as reader:
+        assert reader.verify()["checks"]["contact_to_company"] == "matched"
+    assert len(calls) == 2
+
+
+def test_typed_extra_company_remains_rejected():
+    company, contact = provider_records()
+    contact["associations"]["companies"]["results"] = [
+        {"id": "other-company", "type": "contact_to_company"},
+        {"id": PAIR.company_id, "type": "contact_to_company_unlabeled"},
+        {"id": "other-company", "type": "contact_to_company_unlabeled"},
+    ]
+    transport, _ = fake_transport(company, contact)
+    with HubSpotReadOnlyReader(SAMPLE_KEY, transport=transport) as reader:
+        with pytest.raises(HubSpotBoundaryError, match="contact_company_link_diverged"):
+            reader.verify()
+
+
+@pytest.mark.parametrize("label", [None, "contact_to_company"])
+def test_repeated_exact_association_pair_is_not_silently_deduplicated(label):
+    company, contact = provider_records()
+    row = {"id": PAIR.company_id, "type": label}
+    contact["associations"]["companies"]["results"] = [row, copy.deepcopy(row)]
+    transport, _ = fake_transport(company, contact)
+    with HubSpotReadOnlyReader(SAMPLE_KEY, transport=transport) as reader:
+        with pytest.raises(HubSpotBoundaryError, match="duplicate_association"):
+            reader.verify()
+
+
+@pytest.mark.parametrize("label", [[], ""])
+def test_invalid_association_type_fails_closed(label):
+    company, contact = provider_records()
+    contact["associations"]["companies"]["results"][0]["type"] = label
+    transport, _ = fake_transport(company, contact)
+    with HubSpotReadOnlyReader(SAMPLE_KEY, transport=transport) as reader:
+        with pytest.raises(HubSpotBoundaryError, match="association_schema_invalid"):
+            reader.verify()
