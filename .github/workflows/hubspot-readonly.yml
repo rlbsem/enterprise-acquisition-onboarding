@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.12.14'
       - name: Install test-only pinned tools (no HubSpot credential)
-        run: python -m pip install httpx==0.28.1 pytest==9.0.3 ruff==0.14.2
+        run: python -m pip install httpx==0.28.1 "psycopg[binary]==3.2.12" pydantic==2.12.3 pytest==9.0.3 ruff==0.14.2
       - name: Ruff lint (bounded adapter only)
         run: python -m ruff check src/onboarding/hubspot_native.py tests/test_hubspot_native.py
       - name: Ruff format (bounded adapter only)
