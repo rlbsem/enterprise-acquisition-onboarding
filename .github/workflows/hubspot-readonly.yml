@@ -25,6 +25,6 @@ jobs:
       - name: Ruff lint (bounded adapter only)
         run: python -m ruff check src/onboarding/hubspot_native.py tests/test_hubspot_native.py
       - name: Ruff format (bounded adapter only)
-        run: python -m ruff format --check src/onboarding/hubspot_native.py tests/test_hubspot_native.py
+        run: python -m ruff format --diff src/onboarding/hubspot_native.py tests/test_hubspot_native.py
       - name: Mocked provider contract and failure matrix
         run: python -m pytest -q tests/test_hubspot_native.py
