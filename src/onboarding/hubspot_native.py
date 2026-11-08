@@ -114,9 +114,7 @@ class HubSpotReadOnlyReader:
 
     def verify(self, fixture: CedarFixture = CedarFixture()) -> dict:
         company = self._get("companies", fixture.company_id, "name", "contacts")
-        contact = self._get(
-            "contacts", fixture.contact_id, "firstname,lastname,email", "companies"
-        )
+        contact = self._get("contacts", fixture.contact_id, "firstname,lastname,email", "companies")
 
         if company["properties"].get("name") != fixture.company_name:
             raise HubSpotBoundaryError("company_name_diverged")
@@ -139,9 +137,9 @@ class HubSpotReadOnlyReader:
             "exact_expected_fields": "matched",
         }
         projection_sha256 = hashlib.sha256(
-            json.dumps(projection, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
-                "utf-8"
-            )
+            json.dumps(
+                projection, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+            ).encode("utf-8")
         ).hexdigest()
         return {
             "boundary": "native_hubspot_service_key_read_only",
