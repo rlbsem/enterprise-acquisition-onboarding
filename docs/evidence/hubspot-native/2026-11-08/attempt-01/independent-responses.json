@@ -1,0 +1,20 @@
+[
+  {
+    "method": "GET",
+    "path": "/crm/objects/2026-09/companies/229684469730",
+    "properties_requested": "name",
+    "associations_requested": "contacts",
+    "observed_at_utc": "2026-11-08T03:23:42.791862+00:00",
+    "outcome": "independent_read_failed",
+    "error_type": "URLError"
+  },
+  {
+    "method": "GET",
+    "path": "/crm/objects/2026-09/contacts/288567817180",
+    "properties_requested": "firstname,lastname,email",
+    "associations_requested": "companies",
+    "observed_at_utc": "2026-11-08T03:23:42.808241+00:00",
+    "outcome": "independent_read_failed",
+    "error_type": "URLError"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "outcome": "blocked",
+  "completed_at_utc": "2026-11-08T03:25:00.445954+00:00",
+  "source_revision": "cdb0d5bb4155466cbda5fedef46aa6503ac60f00",
+  "cli_verified": false,
+  "independent_checks": {},
+  "native_cli_requests_expected": 2,
+  "independent_requests_observed": 2,
+  "crm_writes": 0,
+  "native_provider": "actual api.hubapi.com HTTPS, no connector or mock transport",
+  "verified_portal_id_by_api": false
+}

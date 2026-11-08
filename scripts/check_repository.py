@@ -300,6 +300,7 @@ for name in names:
     assert not any(p in name.split("/") for p in [".local", ".venv", "__pycache__"]), name
     data = (ROOT / name).read_bytes().decode("utf-8", errors="ignore")
     assert not re.search(r"-----BEGIN (?:RSA )?PRIVATE KEY|(?:AKIA|ASIA)[A-Z0-9]{16}", data), name
+    assert not re.search(r"pat-[a-z]{2}\d+-[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}", data), name
     if name.startswith("docs/evidence/") and name.endswith(".json"):
         assert not re.search(r'"(?:dsn|token|password|access_token)"\s*:', data), name
         assert not re.search(r"[A-Za-z]:\\\\Users\\\\", data), name
