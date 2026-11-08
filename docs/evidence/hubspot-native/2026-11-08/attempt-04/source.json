@@ -1,0 +1,13 @@
+{
+  "source_revision": "0e6a5b6ae0ef0cf05b75f636e9ab5676499b1cf4",
+  "source_sha256": {
+    "src/onboarding/hubspot_native.py": "99f2a361c608f7853574014ae1af6a53248f241d8be449ae7aa87ae41deab1c5",
+    "requirements.lock": "2e8c72b3bed24539cebaee09e257d871e031e33211811722047a352ea5677fe5",
+    "pyproject.toml": "dd6f29aec7ae740ef47fecae667815089778f654025224a2216ff7cb2f1e8423",
+    "tests/test_hubspot_native.py": "a202134f2c1faca821959de6dde6e33bc0070b381776056fdf54d4401d2ff903"
+  },
+  "started_at_utc": "2026-11-08T03:33:20.224472+00:00",
+  "python": "3.12.14",
+  "key_storage": "process environment only; not included in artifacts",
+  "portal_identity_boundary": "Expected portal 343801908 was verified in the Service Key UI; these object GETs do not independently authenticate portal ID."
+}

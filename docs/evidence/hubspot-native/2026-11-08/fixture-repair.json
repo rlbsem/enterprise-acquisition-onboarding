@@ -1,0 +1,17 @@
+{
+  "recorded_at_utc": "2026-11-08T03:35:54.714566+00:00",
+  "authorization": "separate explicit owner approval for association-only repair",
+  "method": "authenticated HubSpot owner browser, not the read-only Service Key",
+  "portal_id": "343801908",
+  "contact_id": "288567817180",
+  "removed_company_association": "229742254061",
+  "retained_company_association": "229684469730",
+  "primary_selection_required_by_ui": true,
+  "primary_company_after": "229684469730",
+  "ui_observation": "Success notification; Companies (1), Cedar Services — Synthetic Acceptance, Primary",
+  "record_deletions": 0,
+  "property_edits_requested": 0,
+  "key_or_scope_changes": false,
+  "screenshot": "association-repair.jpg",
+  "post_repair_confirmation": "attempt-04/independent-responses.json"
+}

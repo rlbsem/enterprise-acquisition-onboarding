@@ -1,0 +1,12 @@
+{
+  "command": "python -m onboarding.hubspot_native --read-only",
+  "started_at_utc": "2026-11-08T03:25:00.183478+00:00",
+  "completed_at_utc": "2026-11-08T03:25:00.413499+00:00",
+  "returncode": 2,
+  "result": {
+    "outcome": "blocked",
+    "reason": "provider_transport_unavailable"
+  },
+  "stderr_present": false,
+  "stderr_content_retained": false
+}

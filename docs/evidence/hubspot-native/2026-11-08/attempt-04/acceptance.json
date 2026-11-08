@@ -1,0 +1,22 @@
+{
+  "outcome": "verified",
+  "completed_at_utc": "2026-11-08T03:33:21.104477+00:00",
+  "source_revision": "0e6a5b6ae0ef0cf05b75f636e9ab5676499b1cf4",
+  "cli_verified": true,
+  "independent_checks": {
+    "company_id": true,
+    "contact_id": true,
+    "neither_archived": true,
+    "company_properties": true,
+    "contact_properties": true,
+    "company_to_contact": true,
+    "contact_to_company": true,
+    "no_repeated_typed_links": true,
+    "no_paged_association": true
+  },
+  "native_cli_requests_expected": 2,
+  "independent_requests_observed": 2,
+  "crm_writes": 0,
+  "native_provider": "actual api.hubapi.com HTTPS, no connector or mock transport",
+  "verified_portal_id_by_api": false
+}

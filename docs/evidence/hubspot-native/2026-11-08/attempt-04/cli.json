@@ -1,0 +1,27 @@
+{
+  "command": "python -m onboarding.hubspot_native --read-only",
+  "started_at_utc": "2026-11-08T03:33:20.224472+00:00",
+  "completed_at_utc": "2026-11-08T03:33:20.713776+00:00",
+  "returncode": 0,
+  "result": {
+    "acquisition_admission_executed": false,
+    "api_version": "2026-09",
+    "boundary": "native_hubspot_service_key_read_only",
+    "cdc_continuity_verified": false,
+    "checks": {
+      "company_object": "matched",
+      "company_to_contact": "matched",
+      "contact_object": "matched",
+      "contact_to_company": "matched"
+    },
+    "crm_writes": 0,
+    "expected_portal_id": "343801908",
+    "observed_at_utc": "2026-11-08T03:33:20.697776+00:00",
+    "outcome": "verified",
+    "production_validation": false,
+    "sanitized_projection_sha256": "36424bb6c2c2c4f76c153044d8af90117d72e12f7ca95b7fb8ec07f2dd9722c1",
+    "verified_portal_id_by_api": false
+  },
+  "stderr_present": false,
+  "stderr_content_retained": false
+}

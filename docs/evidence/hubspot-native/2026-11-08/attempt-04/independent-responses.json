@@ -1,0 +1,66 @@
+[
+  {
+    "method": "GET",
+    "path": "/crm/objects/2026-09/companies/229684469730",
+    "properties_requested": "name",
+    "associations_requested": "contacts",
+    "observed_at_utc": "2026-11-08T03:33:20.725775+00:00",
+    "status_code": 200,
+    "correlation_id": "01a1b937-b0d8-7f4d-8f5d-6643c5e6afd7",
+    "response_date": "Sun, 08 Nov 2026 03:33:17 GMT",
+    "response_body_sha256": "5ecaca53f17279cfdbad026c9a471ab9036e0d65263f3d507b453767dd4b10a4",
+    "source": {
+      "id": "229684469730",
+      "archived": false,
+      "createdAt": "2026-11-08T00:28:00.685Z",
+      "updatedAt": "2026-11-08T03:32:17.240Z",
+      "properties": {
+        "name": "Cedar Services — Synthetic Acceptance"
+      },
+      "association_results": [
+        {
+          "id": "288567817180",
+          "type": "company_to_contact"
+        },
+        {
+          "id": "288567817180",
+          "type": "company_to_contact_unlabeled"
+        }
+      ],
+      "association_paging_present": false
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/crm/objects/2026-09/contacts/288567817180",
+    "properties_requested": "firstname,lastname,email",
+    "associations_requested": "companies",
+    "observed_at_utc": "2026-11-08T03:33:20.900917+00:00",
+    "status_code": 200,
+    "correlation_id": "01a1b937-b1ab-7f8b-bd12-e3e55799b0ad",
+    "response_date": "Sun, 08 Nov 2026 03:33:17 GMT",
+    "response_body_sha256": "f90e3514a30f4a172fe2cdd7eed4e8a5a360c32b60a987b0b856af86ac5c8e75",
+    "source": {
+      "id": "288567817180",
+      "archived": false,
+      "createdAt": "2026-11-08T00:28:06.924Z",
+      "updatedAt": "2026-11-08T03:31:12.803Z",
+      "properties": {
+        "firstname": "Cedar",
+        "lastname": "Test Contact",
+        "email": "cedar.test.contact@example.com"
+      },
+      "association_results": [
+        {
+          "id": "229684469730",
+          "type": "contact_to_company"
+        },
+        {
+          "id": "229684469730",
+          "type": "contact_to_company_unlabeled"
+        }
+      ],
+      "association_paging_present": false
+    }
+  }
+]

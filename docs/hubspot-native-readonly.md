@@ -17,9 +17,12 @@ in the **Groundbreakers — Integration Engineering Lab** portal.
 | Allowed operations | Two exact **GET** requests; no POST, PATCH, PUT or DELETE |
 | API path | `/crm/objects/2026-09/{companies|contacts}/{recordId}` |
 
-The two objects and their association were created with explicit authorization
-using the connected HubSpot CRM interface and independently read back through
-that interface. **That does not mean this Python adapter has yet run natively.**
+The two objects were created with explicit authorization through the connected
+HubSpot CRM interface. On **November 7, 2026 (November 8 UTC)**, the Python
+adapter executed successfully against the real HubSpot API. Two subsequent
+GETs using a separate standard-library HTTPS client and parser independently
+confirmed the expected records and relationship. [Exact results and retained
+failures](evidence/hubspot-native/2026-11-08/README.md).
 
 The separate, user-created **HubSpot Service Key** is intended for the native
 read-only pass and has only:
@@ -63,8 +66,10 @@ Run the offline contract regressions without credentials:
 python -m pytest -q tests/test_hubspot_native.py
 ```
 
-The GitHub CI tests inject synthetic `httpx.MockTransport` responses, **not**
-a real Service Key. CI must **never** be given the real credential. Use fresh
+The GitHub provider-contract tests inject synthetic `httpx.MockTransport`
+responses, **not** a real Service Key. CI also validates the recorded native
+artifacts offline with `python scripts/check_hubspot_native_evidence.py`.
+CI must **never** be given the real credential. Use fresh
 private evidence storage for any native acceptance record; keep historical
 Pass 1–5 bundles and the annual scenario unchanged.
 
@@ -72,7 +77,7 @@ Pass 1–5 bundles and the annual scenario unchanged.
 
 | Boundary | Status |
 |---|---|
-| Native HubSpot Service Key authentication and exact live reads | **Not yet executed by this application** until the private key is injected into a runtime and this command succeeds |
+| Native HubSpot Service Key authentication and exact live reads | **Executed and verified** at source `0e6a5b6ae0ef0cf05b75f636e9ab5676499b1cf4`; two application GETs and two independent verification GETs |
 | Existing two native HubSpot objects and association through connected CRM | Readback previously verified independently of this adapter |
 | API client enforcing read-only methods and fixed object paths | Implemented; covered by synthetic HTTP contract tests |
 | Exact record IDs, expected name/email and two-direction link | Enforced by native adapter on actual GET responses |
@@ -83,12 +88,31 @@ Pass 1–5 bundles and the annual scenario unchanged.
 The full acquisition application already demonstrates canonical identity,
 No-Regress Logic, outbox/receipt recovery and financial controls against
 **local synthetic** HTTP and PostgreSQL boundaries. This addendum is narrower:
-genuine HubSpot **read-only access** will be an additional, independently
-verified boundary once the separately authorized service-key command runs.
+genuine HubSpot **read-only access** is an additional, independently
+verified boundary recorded by the separately authorized service-key run.
 Read-only API calls do not establish idempotent **writes** or remote receipts.
+
+## Association semantics and fixture repair
+
+The first authenticated run returned HTTP 200 for both records but failed
+acceptance. The contact also referenced an unexpected company; its cause is
+not established. With separate owner approval, the owner browser removed only
+that association. HubSpot required selecting Cedar as the replacement primary
+company. No records were deleted, no properties were manually edited, and no
+key scopes or account settings changed. This fixture repair was a **write**,
+distinct from the GET-only native program.
+
+HubSpot can return both primary and unlabeled types for the same relationship.
+The corrected parser allows different types for one object identity, rejects
+repeated identical `(id, type)` pairs and ambiguous untyped repeats, and still
+requires the exact singleton company/contact identity in each direction.
+An unexpected second company remains a hard failure. The archived failed
+observations are retained rather than replaced by the corrected result.
 
 ## API references
 
 - [HubSpot 2026-09 Contacts API](https://developers.hubspot.com/docs/api-reference/latest/crm/objects/contacts/guide)
 - [HubSpot 2026-09 Companies API](https://developers.hubspot.com/docs/api-reference/latest/crm/objects/companies/guide)
 - [HubSpot Service Keys](https://developers.hubspot.com/changelog/service-keys)
+- [HubSpot association types and labels](https://developers.hubspot.com/docs/api-reference/latest/crm/associations/associate-records/guide)
+- [HubSpot primary-company associations](https://knowledge.hubspot.com/records/associate-records)
