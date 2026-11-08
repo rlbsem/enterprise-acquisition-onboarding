@@ -1,0 +1,23 @@
+{
+  "association-repair.jpg": "cd4b0985b3474aa35255f71e79e2c3a6ad55747cc0664575280defd117393669",
+  "attempt-01/acceptance.json": "ceafb774e3abf15c7fff389df30d84784244184541ff205790b8b311ec16b436",
+  "attempt-01/cli.json": "abb0de93e1b3e0b0b7b7d344c86dcea53f08165de5d0ab4d32056f690484db8a",
+  "attempt-01/independent-responses.json": "41fce02ccb8f54df90f58ab86f0f812aca212618c593c8498dba86de10815b5b",
+  "attempt-01/source.json": "8fc5e4229378b67dedc6ce816f39c0cad0b9dc241706f5c1116878096043f0c9",
+  "attempt-02/acceptance.json": "a131d8e2837be3ab83a9c0da52ce5e0b54e68e0d1d3a610210e55ed209e76d9e",
+  "attempt-02/cli.json": "7ca39d78717ad970e2d69e0c76f59fb56eaef91637b3f01a9b9f65d31f717eea",
+  "attempt-02/independent-responses.json": "c18d9ef4ddc61198e5c624b4d8bcae024366d2eb3ff7d84d8c559f0252320cf2",
+  "attempt-02/source.json": "d0f7ecfc94b67c8a9d4438bccbfc1660681e236102c2ee05c8516f5205ef48b3",
+  "attempt-03/acceptance.json": "af934bfda948530b452488a781a0a466fcf8b9565403e480b3691a2e8fc49d89",
+  "attempt-03/cli.json": "d8ee2699f6270cded853e8e85c62a1ce84cf0c4b57e952a66f022d82f744b0c7",
+  "attempt-03/independent-responses.json": "1ee4184db87a0c5a31929f3e93903c26ca6754fe43f320a4ebe6f5db4a394e72",
+  "attempt-03/source.json": "c17603795f0926a70b8a49c73cec6aabe9cd08ac2094aa34231b11771c7fc026",
+  "attempt-04/acceptance.json": "0d3365a6ce7c87471612bbfbc7f5946e8459dce7fb463c5a90258e74788f82d5",
+  "attempt-04/cli.json": "4c6265f3d737bf5836451284b58c734854b9a05346fa301efeaa69c2d0ece7de",
+  "attempt-04/independent-responses.json": "46b05a29aa7e4efb6bacc46d498d28fa1b6390ba859d5ba2a280cb53be5a9e4f",
+  "attempt-04/source.json": "4539f6ef51815864908d0ecc7556fb0458bfa843ad25d12c67203142709e2be9",
+  "execute_private.py": "6c58ffd8aeadd9242d55f513117a3b25bef6664e27ec8ea985e004e800832819",
+  "fixture-repair.json": "eb8d251098d073a4448ec87341b2c891cae7515db8b07b77451dcff723c82ae1",
+  "provenance.json": "eb4d54725f44b11b604c4a811f478cfd44331faccc1443ef371cd13f4d046bc9",
+  "secure_launch.py": "9e2a65736a26f49876dd77693f8fffcd7f9288a7f138042ee36346a8bea9a064"
+}
