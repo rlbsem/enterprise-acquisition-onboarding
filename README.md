@@ -6,6 +6,12 @@ A parent platform needs to attach acquired companies to shared infrastructure wh
 
 Three fictional companies use different local CRM, operations and finance contracts. All data is synthetic. HubSpot, Salesforce, LMN, Aspire, QuickBooks and NetSuite names identify limited representative contracts; **no native vendor API, client system or cloud resource is used**.
 
+## Native HubSpot read-only boundary (new, separate acceptance lane)
+
+A [GET-only HubSpot Service Key adapter](docs/hubspot-native-readonly.md) is now implemented for the isolated **Groundbreakers — Integration Engineering Lab** portal's explicitly authorized synthetic **Cedar Services** company and contact. It requests the two known records via HubSpot's dated **2026-09 CRM API**, checks exact fields and **both directions of the company–contact association**, and fails closed on unexpected identity, missing permissions, stale/missing evidence, paging or rate limits. Offline HTTP contract tests cover this path without credentials or vendor writes.
+
+**Execution status:** The two synthetic records and their association were independently verified through the connected CRM interface. The **repository's own Service Key adapter has not yet performed an authenticated native run**; that requires securely injecting the privately held read-only key into an authorized runtime. This lane makes **zero CRM writes** and does not replace the local three-company integration, prove HubSpot CDC, authorize acquisition admission or validate native retry-safe writes. Historical Pass 1–5 evidence stays unchanged.
+
 **Two deliberately separate scenarios:** the default selected-month correctness fixture preserves its USD $550,000 bookings and verified exceptions. The optional [annual operating scenario](docs/annual-scenario.md) generates twelve months for the same three companies, with assumed gross billing profiles of $8.4M, $12.6M and $6.3M. Neither scenario claims recognized annual revenue. Acquisition-effective exclusions and held companies prevent unsupported portfolio reporting.
 
 ## Quick start with Docker
