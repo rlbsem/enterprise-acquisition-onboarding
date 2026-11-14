@@ -1,8 +1,8 @@
 # Native lakehouse acceptance ledger
 
-The owner authorized up to USD300 of existing Databricks trial credits, starting
-with a native pilot targeting no more than USD20. No payment method, account
-upgrade, external AWS infrastructure or recurring workload is permitted.
+The owner authorized an overall USD300 resource-consumption envelope, starting
+with a native pilot targeting no more than USD20. No account upgrade, external
+AWS infrastructure or recurring workload is permitted.
 
 The first pilot uses the existing three-company `Portfolio` fixture and its
 independent `portfolio_oracle.calculate` implementation. Admission is a frozen
@@ -59,7 +59,7 @@ separately executed restricted-principal access, lineage and actual usage.
 Only then measure larger distributed synthetic datasets. Each execution uses
 finite inputs, a timeout and no automatic retry. Failed observations are retained;
 there is no unlimited full-run retry. Preserve budget headroom for export and
-cleanup before the trial ends.
+cleanup before the approved execution window ends.
 
 ## Reproduction
 
@@ -108,8 +108,8 @@ observed independently; actual workload billing remains unverified.
 
 Databricks documents [up to a 24-hour reporting delay](https://docs.databricks.com/aws/en/compute/serverless),
 and [new-workspace delivery can take longer](https://docs.databricks.com/aws/en/admin/system-tables/billing).
-Completed-run wall time is reserved at 75 DBU/hour times USD0.35 (the documented
-possible 50 DBU/hour trial limit plus a 50% margin). Those padded pending
+Completed-run wall time is reserved at 75 DBU/hour times USD0.35 (a conservative
+50 DBU/hour scenario assumption plus a 50% margin). Those padded pending
 estimates are not billed amounts. Future task timeouts remain reserved and a
 separate cleanup/storage reserve is retained. Scale expansion stays blocked
 until actual usage, applicable rates and successful pilot acceptance are observed.

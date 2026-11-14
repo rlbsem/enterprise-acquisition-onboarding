@@ -33,18 +33,15 @@ Public projections omit account IDs, workspace endpoints, emails and storage pat
 | Unity Catalog | Attached metastore and managed workspace catalog observed |
 | Jobs and service-principal listing | Authenticated GETs succeeded; both inventories empty |
 | Existing starter warehouse | Serverless Small, stopped, zero clusters, ten-minute auto-stop |
-| Trial balance | Owner reported USD400; not verified by these management endpoints |
-| Expiry | Owner reported 14 days remaining; the current gate deducts a full day and requires an observation no older than 24 hours, without claiming an exact provider expiry |
-| Payment arrangement | Owner subsequently confirmed no linked payment method; no billing change made |
+| Execution eligibility | Owner-observed financial and timing constraints are maintained in the preserved preflight record, separate from API-verified metadata |
 | Native restricted-principal denials | Not executed; listing identities proves no write/run-as permissions |
 
-The first source-bound record predates that payment confirmation and retains its
-original closed-gate reasons unchanged. Later code supports the conservative
-remaining-days window and explicit no-payment confirmation. These observations
-do not create a trial-spending allowance or a native run.
+The original source-bound preflight retains its closed-gate reasons unchanged.
+Later code incorporates refreshed financial and execution-window observations.
+Neither a successful metadata preflight nor eligibility checks establish native execution.
 
 The gate rejects missing/stale observations, mismatched target bindings, ambiguous
-expiry/window inputs, unconfirmed no-payment trial arrangements, inapplicable price plans,
+execution-window inputs, unconfirmed billing safeguards, inapplicable price plans,
 non-finite/negative amounts and consumption beyond explicit approval or credit
 headroom. It is an eligibility check, not an API mutation or general spending
 authorization. The recorded gate remains **blocked**.
@@ -54,7 +51,7 @@ including underlying compute. A provisional four-hour, 50-DBU/hour model gives
 USD70 for jobs, plus USD5 storage reserve, USD20 rerun reserve and USD25 delayed
 usage reserve: **USD120 proposed total**. The initial snapshot predates the additional
 [storage/request/retention cost review](lakehouse-cost-review.md). Actual DBU
-consumption remains unmeasured; payment-method absence is owner-reported. This is not a guaranteed
+consumption was unmeasured at this preflight checkpoint. This is not a guaranteed
 maximum, measured bill, owner-approved spending allowance or a claim of zero cost.
 It does not authorize starting the existing SQL warehouse.
 
@@ -69,7 +66,7 @@ No schema, principal, job, table or permission was created in this phase.
 Install the official checksum-verified CLI, then use supported OAuth profiles:
 
 ```text
-databricks auth login --host <workspace-url> --profile acquisition-trial
+databricks auth login --host <workspace-url> --profile acquisition-workspace
 databricks auth login --host https://accounts.cloud.databricks.com --account-id <account-id> --skip-workspace --profile acquisition-account-read
 ```
 
@@ -91,9 +88,9 @@ python -m onboarding.lakehouse_preflight --read-only --cli <official-cli-path> -
 
 The collector returns success when the metadata reads pass, even if its explicit
 `native_gate` is blocked. Exit zero must never be treated as Spark acceptance
-or authorization to launch a job. Re-check the expiry/conservative window, payment arrangement,
-applicable costs and a bounded owner-approved trial allowance before any native
-compute. Credit/usage observations can lag; alerts are not a hard cap.
+or authorization to launch a job. Re-check the execution window, billing safeguards,
+applicable costs and the owner-approved consumption allowance before any native
+compute. Usage observations can lag; alerts are not a hard cap.
 
 Credential-free checks:
 
@@ -125,7 +122,7 @@ Databricks or supplies vendor credentials.
    become published. No cross-table atomicity or arbitrary exactly-once claim.
 6. Use real separately authenticated/run-as restricted principals for raw-read,
    write and company-scope denials. An owner-only test is not equivalent. If
-   trial restrictions prevent this, retain a clearly reduced acceptance verdict.
+   workspace permission restrictions prevent this, retain a clearly reduced acceptance verdict.
 7. Capture actual Jobs/task identifiers, Delta versions, lineage, profiles where
    available, independently read results and usage. Export sanitized evidence,
    remove only exact-run resources and verify residuals without altering the
@@ -139,7 +136,7 @@ current read-only checkpoint demonstrates none of these native data outcomes.
 
 - [Official CLI installation](https://docs.databricks.com/aws/en/dev-tools/cli/install)
 - [OAuth and secure token storage](https://docs.databricks.com/aws/en/dev-tools/cli/authentication)
-- [Trial and billing arrangements](https://docs.databricks.com/aws/en/getting-started/free-trial)
+- [Budget controls](https://docs.databricks.com/aws/en/admin/account-settings/budgets)
 - [Jobs price list](https://www.databricks.com/product/pricing/lakeflow-jobs)
 - [Serverless Jobs and automatic retries](https://docs.databricks.com/aws/en/jobs/run-serverless-jobs)
 - [Predictive optimization and billing](https://docs.databricks.com/aws/en/optimizations/predictive-optimization)
