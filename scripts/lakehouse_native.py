@@ -40,6 +40,7 @@ def source_revision():
         "src/onboarding/lakehouse_plan.py",
         "src/onboarding/portfolio_oracle.py",
         "src/onboarding/portfolio_fixtures.py",
+        "src/onboarding/lakehouse_eliminations.sql",
     ]:
         original = subprocess.check_output(["git", "show", revision + ":" + name], cwd=ROOT)
         if original != (ROOT / name).read_bytes():
@@ -109,6 +110,7 @@ def main():
             "observer",
             "recovery",
             "postcheck",
+            "audit",
             "chain",
             "governance",
             "scale",
@@ -135,6 +137,12 @@ def main():
             "import hashlib",
             f"import base64\nimport json\nFIXTURE = json.loads(base64.b64decode('{encoded}'))\nimport hashlib",
             1,
+        )
+        elimination = (ROOT / "src/onboarding/lakehouse_eliminations.sql").read_text(
+            encoding="utf-8"
+        )
+        notebook = notebook.replace(
+            "import hashlib", "ELIMINATION_SQL = " + repr(elimination) + "\nimport hashlib", 1
         )
         path = "/Shared/acquisition-lakehouse/" + a.schema + "/acceptance-" + revision[:12]
         write(work / "fixture.json", fixture)

@@ -73,6 +73,7 @@ def job_spec(path, schema, phase, revision, fixture_hash, seconds=900):
         "fault",
         "recovery",
         "postcheck",
+        "audit",
         "observer",
         "governance",
         "scale",
