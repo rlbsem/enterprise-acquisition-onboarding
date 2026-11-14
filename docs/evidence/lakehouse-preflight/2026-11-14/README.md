@@ -47,3 +47,12 @@ These checks use the committed record without vendor credentials or compute.
 They validate the original source bytes, explicit unexecuted boundaries and
 closed gate. Native data acceptance remains a later, gated milestone.
 [Reproduction and acceptance contract](../../../lakehouse-acceptance.md).
+
+## Subsequent owner observation
+
+After this API capture, the owner confirmed that no payment method is linked.
+The owner-reported balance remains USD400 with 14 days remaining. This updates
+the current feasibility assessment without rewriting the earlier JSON, its
+timestamps or closed-gate reasons. Exact expiry, complete cost assumptions and
+a bounded trial-consumption allowance still need to be established before a
+native pilot. No account or infrastructure changes followed the confirmation.

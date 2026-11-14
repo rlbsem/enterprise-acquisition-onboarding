@@ -34,8 +34,12 @@ Public projections omit account IDs, workspace endpoints, emails and storage pat
 | Existing starter warehouse | Serverless Small, stopped, zero clusters, ten-minute auto-stop |
 | Trial balance | Owner reported USD400; not verified by these management endpoints |
 | Expiry | Owner reported 14 days remaining; exact instant not supplied |
-| Payment arrangement | Not established; no payment method or billing change made |
+| Payment arrangement | Owner subsequently confirmed no linked payment method; no billing change made |
 | Native restricted-principal denials | Not executed; listing identities proves no write/run-as permissions |
+
+The first source-bound record predates that payment confirmation and retains its
+original closed-gate reasons unchanged. The owner report resolves the linked
+payment question; it does not create a trial-spending allowance or a native run.
 
 The gate rejects missing/stale observations, mismatched target bindings, ambiguous
 expiry, unconfirmed no-payment trial arrangements, inapplicable price plans,
@@ -47,7 +51,7 @@ The public AWS Premium Oregon Jobs Serverless price was observed at **USD0.35/DB
 including underlying compute. A provisional four-hour, 50-DBU/hour model gives
 USD70 for jobs, plus USD5 storage reserve, USD20 rerun reserve and USD25 delayed
 usage reserve: **USD120 proposed total**. The DBU rate of consumption, storage
-pricing and payment arrangement remain unverified. This is not a guaranteed
+pricing remain unverified; payment-method absence is owner-reported. This is not a guaranteed
 maximum, measured bill, owner-approved spending allowance or a claim of zero cost.
 It does not authorize starting the existing SQL warehouse.
 
