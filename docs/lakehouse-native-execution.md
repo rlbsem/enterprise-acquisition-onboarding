@@ -10,6 +10,25 @@ synthetic control export, not a live connection to PostgreSQL or a replacement
 for its current authorization. Existing financial definitions and fixtures are
 unchanged. All monetary values are integer USD minor units.
 
+```mermaid
+flowchart LR
+  S[Frozen synthetic source versions] --> B[Bronze Delta history]
+  C[Frozen PostgreSQL control expectations] --> V[Company / entity / source authority checks]
+  B --> V --> I[Incremental Silver MERGE]
+  I --> G[Recomputed Gold financial projections]
+  O[Existing independent Python oracle] --> R[Exact content and source reconciliation]
+  G --> R --> K[Immutable candidate]
+  K --> P[Publication marker after verification]
+  P --> U[Scoped consumer view of published versions]
+  B --> F[Bounded CDF stream and durable checkpoint]
+```
+
+Gold is recomputed from validated Silver. Incremental claims apply to source
+history, Silver MERGE and the bounded CDF consumer; this is not a fully incremental
+Gold financial engine. Company isolation uses a scoped view with base-table
+access denied to the dedicated consumer, not a claim of base-table row filters
+or production SSO. The public app requires no Databricks credentials.
+
 ## Pilot contract
 
 - One isolated `workspace.acq_lh_*` schema, comment-bound to the fixture hash.
