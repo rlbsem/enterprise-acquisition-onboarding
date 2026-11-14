@@ -33,16 +33,17 @@ Public projections omit account IDs, workspace endpoints, emails and storage pat
 | Jobs and service-principal listing | Authenticated GETs succeeded; both inventories empty |
 | Existing starter warehouse | Serverless Small, stopped, zero clusters, ten-minute auto-stop |
 | Trial balance | Owner reported USD400; not verified by these management endpoints |
-| Expiry | Owner reported 14 days remaining; exact instant not supplied |
+| Expiry | Owner reported 14 days remaining; the current gate deducts a full day and requires an observation no older than 24 hours, without claiming an exact provider expiry |
 | Payment arrangement | Owner subsequently confirmed no linked payment method; no billing change made |
 | Native restricted-principal denials | Not executed; listing identities proves no write/run-as permissions |
 
 The first source-bound record predates that payment confirmation and retains its
-original closed-gate reasons unchanged. The owner report resolves the linked
-payment question; it does not create a trial-spending allowance or a native run.
+original closed-gate reasons unchanged. Later code supports the conservative
+remaining-days window and explicit no-payment confirmation. These observations
+do not create a trial-spending allowance or a native run.
 
 The gate rejects missing/stale observations, mismatched target bindings, ambiguous
-expiry, unconfirmed no-payment trial arrangements, inapplicable price plans,
+expiry/window inputs, unconfirmed no-payment trial arrangements, inapplicable price plans,
 non-finite/negative amounts and consumption beyond explicit approval or credit
 headroom. It is an eligibility check, not an API mutation or general spending
 authorization. The recorded gate remains **blocked**.
@@ -88,7 +89,7 @@ python -m onboarding.lakehouse_preflight --read-only --cli <official-cli-path> -
 
 The collector returns success when the metadata reads pass, even if its explicit
 `native_gate` is blocked. Exit zero must never be treated as Spark acceptance
-or authorization to launch a job. Re-check exact expiry, payment arrangement,
+or authorization to launch a job. Re-check the expiry/conservative window, payment arrangement,
 applicable costs and a bounded owner-approved trial allowance before any native
 compute. Credit/usage observations can lag; alerts are not a hard cap.
 

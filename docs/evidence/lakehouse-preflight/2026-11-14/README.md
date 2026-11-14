@@ -53,6 +53,8 @@ closed gate. Native data acceptance remains a later, gated milestone.
 After this API capture, the owner confirmed that no payment method is linked.
 The owner-reported balance remains USD400 with 14 days remaining. This updates
 the current feasibility assessment without rewriting the earlier JSON, its
-timestamps or closed-gate reasons. Exact expiry, complete cost assumptions and
-a bounded trial-consumption allowance still need to be established before a
-native pilot. No account or infrastructure changes followed the confirmation.
+timestamps or closed-gate reasons. The current gate supports a conservative
+window from a fresh remaining-days observation, deducting a complete day rather
+than presenting a calculated time as the provider's exact expiry. Complete cost
+assumptions and a bounded trial-consumption allowance still need to be established
+before a native pilot. No account or infrastructure changes followed the confirmation.

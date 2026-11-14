@@ -152,7 +152,15 @@ def native_gate(report: dict, owner: dict, cost: dict, now: datetime) -> dict:
     try:
         observation = aware(report["observed_at_utc"])
         owner_at = aware(owner["observed_at_utc"])
-        expiry = aware(owner["expires_at_utc"])
+        if owner.get("expires_at_utc"):
+            expiry = aware(owner["expires_at_utc"])
+        else:
+            remaining = owner.get("reported_remaining_days")
+            if type(remaining) is not int or not 2 <= remaining <= 14:
+                raise ValueError("bounded_remaining_days_required")
+            # A rounded owner-console badge is not a precise provider expiry.
+            # Deduct one complete day and require a fresh owner observation.
+            expiry = owner_at + timedelta(days=remaining - 1)
         if not timedelta(0) <= now - observation <= timedelta(hours=24) or not timedelta(
             0
         ) <= now - owner_at <= timedelta(hours=24):
@@ -160,14 +168,17 @@ def native_gate(report: dict, owner: dict, cost: dict, now: datetime) -> dict:
         if expiry < now + timedelta(hours=4):
             reasons.append("insufficient_execution_and_cleanup_window")
     except (KeyError, ValueError, TypeError):
-        reasons.append("exact_trial_expiry_or_observation_missing")
+        reasons.append("trial_expiry_or_conservative_window_missing")
     if owner.get("target_binding") != report.get("target_binding") or not report.get(
         "target_binding"
     ):
         reasons.append("owner_observation_target_not_bound")
     if owner.get("trial_active") is not True or owner.get("currency") != "USD":
         reasons.append("active_usd_trial_not_confirmed")
-    if owner.get("payment_arrangement") != "express_no_payment_method":
+    if owner.get("payment_arrangement") not in {
+        "express_no_payment_method",
+        "no_payment_method_linked",
+    }:
         reasons.append("no_out_of_pocket_billing_boundary_unconfirmed")
     if cost.get("target_binding") != report.get("target_binding"):
         reasons.append("cost_plan_target_not_bound")

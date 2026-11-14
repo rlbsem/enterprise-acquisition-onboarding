@@ -160,6 +160,28 @@ def test_complete_bounded_pilot_gate_is_not_execution_authorization():
     }
 
 
+def test_owner_remaining_days_supports_a_conservative_window_not_an_exact_expiry():
+    report, owner, cost = gate_inputs()
+    owner.pop("expires_at_utc")
+    owner.update(reported_remaining_days=14, payment_arrangement="no_payment_method_linked")
+    assert native_gate(report, owner, cost, NOW)["eligible_for_separately_authorized_bounded_pilot"]
+    # The window never overrides explicit consumption approval.
+    owner.pop("approved_trial_consumption_usd")
+    result = native_gate(report, owner, cost, NOW)
+    assert not result["eligible_for_separately_authorized_bounded_pilot"]
+    assert "bounded_trial_consumption_not_approved" in result["reasons"]
+
+
+@pytest.mark.parametrize("remaining", [1, "14", True, 15])
+def test_relative_expiry_rejects_ambiguous_or_insufficient_days(remaining):
+    report, owner, cost = gate_inputs()
+    owner.pop("expires_at_utc")
+    owner["reported_remaining_days"] = remaining
+    assert not native_gate(report, owner, cost, NOW)[
+        "eligible_for_separately_authorized_bounded_pilot"
+    ]
+
+
 @pytest.mark.parametrize(
     "location,key,value",
     [
