@@ -20,10 +20,10 @@ auto-stop. No resource creation, compute start or SQL submission occurred.
 Predictive optimization was inherited as enabled; future isolated schemas must
 disable background optimization before accepting cost-bounded table workloads.
 
-[feasibility.json](feasibility.json) separates the owner-reported USD400/14-day
-trial observation, actual public Oregon pricing observation, separate account
-usage probe and provisional cost model. Exact expiry, payment arrangement,
-remaining storage costs and a native spending allowance are **not established**.
+[feasibility.json](feasibility.json) preserves owner-reported execution eligibility
+and capacity observations separately from regional pricing, the account usage
+probe and a provisional cost model. Management endpoints did not independently
+verify the funding arrangement, remaining storage costs or full execution eligibility.
 The account usage download returned no rows; this is not billing clearance.
 The recorded launch gate therefore stays closed for four explicit reasons.
 
@@ -48,13 +48,10 @@ They validate the original source bytes, explicit unexecuted boundaries and
 closed gate. Native data acceptance remains a later, gated milestone.
 [Reproduction and acceptance contract](../../../lakehouse-acceptance.md).
 
-## Subsequent owner observation
+## Subsequent execution eligibility review
 
-After this API capture, the owner confirmed that no payment method is linked.
-The owner-reported balance remains USD400 with 14 days remaining. This updates
-the current feasibility assessment without rewriting the earlier JSON, its
-timestamps or closed-gate reasons. The current gate supports a conservative
-window from a fresh remaining-days observation, deducting a complete day rather
-than presenting a calculated time as the provider's exact expiry. Complete cost
-assumptions and a bounded trial-consumption allowance still need to be established
-before a native pilot. No account or infrastructure changes followed the confirmation.
+Owner observations were refreshed after the initial API capture. The original
+JSON, timestamps and recorded closed-gate reasons remain unchanged. The current
+gate conservatively handles the permitted execution window and budget controls,
+without mistaking a successful read-only API call for native execution authority.
+No account or infrastructure changes followed that observation.

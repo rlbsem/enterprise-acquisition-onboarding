@@ -43,7 +43,7 @@ Those private-response hashes are not provider-signed attestations. The original
 failure bytes remain unchanged as later execution records are added.
 
 See the [execution contract and current ledger](../../../lakehouse-native-execution.md)
-and [credit/lifecycle controls](../../../lakehouse-cost-review.md).
+and [resource and lifecycle controls](../../../lakehouse-cost-review.md).
 
 ```text
 python scripts/check_lakehouse_native.py
