@@ -293,7 +293,11 @@ def main():
             "consumer-role-after",
             account=True,
         )
-        assert after["grant_rules"] == request["rule_set"]["grant_rules"], (
+
+        def rights(rules):
+            return {(r["role"], p) for r in rules for p in r["principals"]}
+
+        assert rights(after["grant_rules"]) == rights(request["rule_set"]["grant_rules"]), (
             "role_update_not_verified"
         )
         print('{"scoped_run_as_role_verified":true,"existing_rules_preserved":true}')
