@@ -5,9 +5,9 @@ with a native pilot targeting no more than USD20. No account upgrade, external
 AWS infrastructure or recurring workload is permitted.
 
 The first pilot uses the existing three-company `Portfolio` fixture and its
-independent `portfolio_oracle.calculate` implementation. Admission is a frozen
-synthetic control export, not a live connection to PostgreSQL or a replacement
-for its current authorization. Existing financial definitions and fixtures are
+independent `portfolio_oracle.calculate` implementation. Admission uses the
+fixture's frozen expected control state. This is not an extraction from a running
+PostgreSQL deployment or a replacement for its authorization. Existing financial definitions and fixtures are
 unchanged. All monetary values are integer USD minor units.
 
 ```mermaid
@@ -27,13 +27,14 @@ Gold is recomputed from validated Silver. Incremental claims apply to source
 history, Silver MERGE and the bounded CDF consumer; this is not a fully incremental
 Gold financial engine. Company isolation uses a scoped view with base-table
 access denied to the dedicated consumer, not a claim of base-table row filters
-or production SSO. The public app requires no Databricks credentials.
+or production SSO. The reproducible local application and offline evidence
+checks require no Databricks credentials.
 
 ## Pilot contract
 
 - One isolated `workspace.acq_lh_*` schema, comment-bound to the fixture hash.
 - Disable predictive optimization before creating managed tables.
-- Serverless Spark notebook task, 900-second timeout, zero automatic retries;
+- Serverless Spark notebook task, bounded timeout and explicit retry controls;
   separate bounded observer/cleanup tasks. No SQL warehouse start or schedule.
 - Bronze Delta history, same-revision content conflict protection, replay and
   reordered-input checks, late corrections, cutoff-specific Silver/Gold SQL.
@@ -57,7 +58,8 @@ Native pilot success is required before recovery, governance and scale tasks.
 Next verify durable CDF checkpoint replay, independent publication readback,
 separately executed restricted-principal access, lineage and actual usage.
 Only then measure larger distributed synthetic datasets. Each execution uses
-finite inputs, a timeout and no automatic retry. Failed observations are retained;
+finite inputs and a timeout. Current submissions disable both explicit retries
+and serverless auto-optimization retries. Failed observations are retained;
 there is no unlimited full-run retry. Preserve budget headroom for export and
 cleanup before the approved execution window ends.
 
@@ -102,9 +104,9 @@ retroactively change what an older run proved.
 
 Usage reads returned no rows. This is pending reporting, not zero consumption.
 The first native rate query also returned no rows because its SKU pattern
-assumed the words SERVERLESS and JOBS were in the wrong order; the corrected
-query is part of subsequent execution. The applicable public regional price was
-observed independently; actual workload billing remains unverified.
+assumed the words SERVERLESS and JOBS were in the wrong order. The corrected
+query subsequently confirmed Premium Oregon Jobs at USD0.35/DBU in the native
+price table. Actual workload quantities and billing remain unverified.
 
 Databricks documents [up to a 24-hour reporting delay](https://docs.databricks.com/aws/en/compute/serverless),
 and [new-workspace delivery can take longer](https://docs.databricks.com/aws/en/admin/system-tables/billing).
@@ -114,7 +116,60 @@ estimates are not billed amounts. Future task timeouts remain reserved and a
 separate cleanup/storage reserve is retained. Scale expansion stays blocked
 until actual usage, applicable rates and successful pilot acceptance are observed.
 
-A bounded native Jobs dependency chain is testing a real task failure after a
-durable Delta journal commit, followed by guarded recovery and CDF checkpoint
-replay. Restricted-principal access tests, that recovery verdict and the full
-50-company/scale lane are not claimed as passed in this checkpoint.
+## Recovery, authorization and final state
+
+The [bounded Jobs chain](evidence/lakehouse-native/2026-11-14/05-recovery-chain-failure.json)
+recorded a real task failure after a durable Delta journal commit. Recovery
+published the corrected version, but its later constraint probe used unsupported
+SQL syntax. That failed job is retained as **failed**. Serverless auto-optimization
+also generated additional attempts despite `max_retries=0`; subsequent submissions
+explicitly set `disable_auto_optimization=true`. See the [provider retry behavior](https://docs.databricks.com/aws/en/jobs/run-serverless-jobs).
+
+The [successful continuation](evidence/lakehouse-native/2026-11-14/06-postcheck.json)
+reconciled both existing publications and independently reproduced the corrected
+source-membership hash before continuing. It did not republish financial effects.
+Conflicting replay and wrong-entity/source inputs were rejected. The corrected
+probe produced `DELTA_VIOLATE_CONSTRAINT_WITH_VALUES`, with no partial write.
+The CDF consumer processed 165 records and, after restart from its durable
+checkpoint, retained the same 165 rows. This is a bounded checkpoint/replay test,
+not a claim that Gold is continuously streamed.
+
+The [restricted-consumer run](evidence/lakehouse-native/2026-11-14/08-restricted-consumer.json)
+used an actual separate service principal. Its executing identity fingerprint
+matched the created test identity. Four approved company/period/publication
+rows matched the independent oracle. Direct Bronze reads and publication writes
+returned `INSUFFICIENT_PERMISSIONS`; schema creation returned `UNAUTHORIZED_ACCESS`.
+The initial workspace-access failure is retained separately. The deployer received
+only the use role on this new principal, and only that principal received the
+basic workspace-access entitlement; existing grants were preserved.
+
+These are known-fixture Unity Catalog data-plane conformance tests. The harness
+contains public synthetic expectations and is not a production confidentiality,
+SSO or complete workspace-security assessment. Producer privilege remains trusted.
+
+The [final SQL audit](evidence/lakehouse-native/2026-11-14/09-financial-sql-audit.json)
+executed the final shared bilateral SQL on Spark, reconciled the corrected
+financial snapshot and confirmed unchanged publications. Offset-aware timestamp
+comparison also passed. The same SQL additionally passed local SQLite comparisons
+against the 50-company independent oracle, including unmatched extra charge and
+acceptance cases. Those 50-company tests are **local**, not native Spark results.
+
+All nine uploaded source assets matched independent API readbacks before retirement.
+The owned schema (11 managed tables, one view and one managed checkpoint volume),
+both run notebook directories and the dedicated identity were retired.
+[Fresh management-only inventory](evidence/lakehouse-native/2026-11-14/post-teardown.json)
+confirmed logical absence, nine terminal parent runs, no active/saved owned jobs,
+and the pre-existing warehouse still stopped. Workspace identity removal alone
+left the account identity discoverable; exact account-level deletion was completed
+and both inventories then confirmed absence. No extra compute was started for cleanup.
+
+Physical storage expiry and final billing are not cleared by logical deletion.
+The [cost observation](evidence/lakehouse-native/2026-11-14/cost-observation.json)
+keeps actual billed cost and DBUs unknown, padded pending estimates separate,
+and the preserved interoperability failures in the bounded controlled-rerun reserve.
+
+**Remaining native milestone:** run the full 50-company financial lane and the
+prepared distributed scale probe after actual consumption is observable. The
+probe measures Delta writes and grouped financial arithmetic at 100K/1M rows;
+it is not a benchmark of all financial transformations. No native scale timing,
+throughput, DBU quantity or production reliability is claimed here.

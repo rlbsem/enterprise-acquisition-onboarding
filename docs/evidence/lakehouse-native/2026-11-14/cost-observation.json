@@ -1,0 +1,18 @@
+{
+  "actual_billed_cost_usd": null,
+  "actual_dbu_quantity": null,
+  "applicable_list_price": {
+    "native_record": "06-postcheck.json",
+    "sku": "PREMIUM_JOBS_SERVERLESS_COMPUTE_US_WEST_OREGON",
+    "usd_per_dbu": "0.35"
+  },
+  "billing_data_status": "No rows returned by native billing query; later account usage export returned an empty response. Not zero consumption or billing clearance.",
+  "cleanup_compute_started": false,
+  "larger_workloads_executed": false,
+  "observed_at_utc": "2026-11-14T17:18:28.122584+00:00",
+  "pending_controlled_rerun_estimate_usd": "6.94",
+  "pending_core_estimate_usd": "16.22",
+  "pending_estimate_basis": "Entire observed run wall time times 75 DBU/hour times USD0.35; planning assumption, not measured DBUs or a provider cap.",
+  "protected_cleanup_storage_estimate_usd": "2.00",
+  "schema": "lakehouse-cost-observation.v1"
+}

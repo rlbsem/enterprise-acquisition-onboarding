@@ -6,6 +6,17 @@ native HubSpot read-only proof.
 
 ## Preserved observations
 
+| Record | Actual boundary |
+|---|---|
+| `05-recovery-chain-failure.json` | Controlled post-commit task failure, provider retry attempts and a later SQL-probe failure; retained as failed. |
+| `06-postcheck.json` | Successful receipt-first continuation, exact source hash, constraint rejection, authority/replay negatives and durable CDF restart. |
+| `07-consumer-workspace-denial.json` | Missing workspace-access prerequisite; not a passed data-permission test. |
+| `08-restricted-consumer.json` | Real restricted-identity financial readback and three native authorization denials. |
+| `09-financial-sql-audit.json` | Final shared SQL reconciled on Spark; offset-aware instants and unchanged publications verified. |
+| `source-bindings.json` | Nine exact source-asset readbacks, source revisions, submitted task controls and consumer identity fingerprint. |
+| `schema-retirement.json`, `consumer-retirement.json`, `post-teardown.json` | Ownership-checked removal and separate management-only residual inspection; physical storage and billing clearance remain unverified. |
+| `cost-observation.json` | Verified native unit price, pending usage, padded planning reserves; no invented billed quantity. |
+
 `02-pilot.json` records actual native Spark/Delta financial acceptance at
 `1ca1e232ae3b963c467b15fd89d7774cf6673d48`. Original and corrected financial
 snapshots matched the independent oracle. Replay, incremental/full-snapshot

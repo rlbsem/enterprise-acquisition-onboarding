@@ -15,6 +15,7 @@ def main():
     directory = ROOT / "docs/evidence/lakehouse-native/2026-11-14"
     hashes = json.loads((directory / "artifact-sha256.json").read_bytes())
     native_results = 0
+    consumer_hashes = []
     actual_files = {p.name for p in directory.glob("*.json") if p.name != "artifact-sha256.json"}
     if actual_files != set(hashes):
         raise ValueError("unlisted_or_missing_native_artifact")
@@ -40,6 +41,12 @@ def main():
                 if not result:
                     continue
                 validate_native_financial_result(result)
+                if result["phase"] == "governance":
+                    consumer_hashes.extend(
+                        o["result"]
+                        for o in result["observations"]
+                        if o["check"] == "executing_principal_sha256"
+                    )
                 fixture = export_fixture(result.get("company_count", 3))
                 if result["fixture_sha256"] != sha(fixture):
                     raise ValueError("native_fixture_changed")
@@ -51,6 +58,27 @@ def main():
                             != fixture["expected"][label]
                         ):
                             raise ValueError("native_result_disagrees_with_independent_oracle")
+    bindings = json.loads((directory / "source-bindings.json").read_bytes())
+    assert consumer_hashes == [bindings["consumer_identity_sha256"]], (
+        "native_consumer_identity_mismatch"
+    )
+    assert all(a["exact_after_run_readback"] for a in bindings["assets"]), (
+        "source_asset_not_verified"
+    )
+    retirement = json.loads((directory / "post-teardown.json").read_bytes())
+    assert (
+        retirement["logical_owned_resources_absent"]
+        and retirement["read_only"]
+        and not retirement["compute_started"]
+    )
+    assert (
+        not retirement["remaining_owned_schemas"]
+        and not retirement["owned_account_principal_present"]
+        and not retirement["owned_workspace_principal_present"]
+    )
+    assert (
+        not retirement["billing_clearance"] and not retirement["physical_storage_erasure_verified"]
+    )
     print(
         json.dumps(
             dict(
