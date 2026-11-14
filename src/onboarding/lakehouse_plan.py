@@ -216,6 +216,7 @@ def validate_schema_retirement(manifest, schema, actor, tables, volumes):
         "gold",
         "fault_journal",
         "cdf_audit",
+        "company_view",
         "scale_facts",
         "unapproved",
     }

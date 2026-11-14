@@ -187,7 +187,10 @@ def test_cleanup_requires_owned_comment_identity_and_exact_child_types(wrong):
         comment="synthetic acquisition acceptance " + "a" * 64,
         owner=actor["userName"],
     )
-    tables = [dict(name="bronze", table_type="MANAGED")]
+    tables = [
+        dict(name="bronze", table_type="MANAGED"),
+        dict(name="company_view", table_type="VIEW"),
+    ]
     volumes = [dict(name="checkpoints", volume_type="MANAGED")]
     if wrong == "owner":
         schema["owner"] = "unrelated"
