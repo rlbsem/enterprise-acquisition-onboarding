@@ -14,6 +14,8 @@ A [GET-only HubSpot Service Key adapter](docs/hubspot-native-readonly.md) is now
 
 The native API runner performs **GETs only** with two read scopes; the separate fixture repair is explicitly recorded as a relationship write. This acceptance does not replace the local three-company integration, prove HubSpot CDC, authorize acquisition admission or validate native retry-safe writes. Portal identity was checked in the Service Key UI, not independently authenticated by these object GETs. Historical Pass 1–5 evidence stays unchanged; CI verifies the recorded native evidence offline without a Service Key.
 
+[Databricks lakehouse acceptance](docs/lakehouse-acceptance.md) is an additive, gated lane: supported OAuth and seven management API reads are recorded; **Spark/Delta/Jobs data acceptance has not executed**. The stopped warehouse remains stopped, and the spending gate stays closed. Existing PostgreSQL and native HubSpot evidence remains separate.
+
 **Two deliberately separate scenarios:** the default selected-month correctness fixture preserves its USD $550,000 bookings and verified exceptions. The optional [annual operating scenario](docs/annual-scenario.md) generates twelve months for the same three companies, with assumed gross billing profiles of $8.4M, $12.6M and $6.3M. Neither scenario claims recognized annual revenue. Acquisition-effective exclusions and held companies prevent unsupported portfolio reporting.
 
 ## Quick start with Docker
