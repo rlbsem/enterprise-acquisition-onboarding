@@ -91,7 +91,7 @@ def run(spark, dbutils, fixture):
             ),
             (
                 "rates",
-                "SELECT sku_name,currency_code,usage_unit,cast(pricing.default as string) default_price,price_start_time,price_end_time FROM system.billing.list_prices WHERE cloud='AWS' AND sku_name LIKE '%SERVERLESS%JOBS%' AND price_end_time IS NULL",
+                "SELECT sku_name,currency_code,usage_unit,cast(pricing.default as string) default_price,price_start_time,price_end_time FROM system.billing.list_prices WHERE cloud='AWS' AND sku_name LIKE '%SERVERLESS%' AND sku_name LIKE '%JOBS%' AND price_end_time IS NULL",
             ),
             (
                 "lineage",
@@ -529,6 +529,12 @@ def run(spark, dbutils, fixture):
                     "SELECT DISTINCT publication_id FROM {ns}.company_view ORDER BY publication_id"
                 ),
                 [dict(publication_id="original"), dict(publication_id="restated")],
+            )
+            observe(
+                "native_job_price_rows",
+                rows(
+                    "SELECT sku_name,currency_code,usage_unit,cast(pricing.default as string) default_price FROM system.billing.list_prices WHERE cloud='AWS' AND sku_name LIKE '%SERVERLESS%' AND sku_name LIKE '%JOBS%' AND price_end_time IS NULL"
+                ),
             )
         else:
             raise ValueError("unknown_phase")
