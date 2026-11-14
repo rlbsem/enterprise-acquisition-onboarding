@@ -90,6 +90,7 @@ def main():
             "observe",
             "governance-setup",
             "governance-bind",
+            "governance-entitle",
             "governance-retire",
             "notebook-retire",
         ],
@@ -301,6 +302,64 @@ def main():
             "role_update_not_verified"
         )
         print('{"scoped_run_as_role_verified":true,"existing_rules_preserved":true}')
+    elif a.action == "governance-entitle":
+        principal = json.loads((work / "principal.private.json").read_bytes())
+        before = cli.call(
+            ["service-principals", "get", str(principal["id"])], "consumer-before-entitlement"
+        )
+        if (
+            before.get("applicationId") != principal["applicationId"]
+            or before.get("displayName") != m["schema"] + "-consumer"
+        ):
+            raise ValueError("principal_ownership_mismatch")
+        entitlements = {e["value"] for e in before.get("entitlements", [])}
+        if "workspace-access" not in entitlements:
+            request = work / "consumer-entitlement.private.json"
+            write(
+                request,
+                dict(
+                    schemas=["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+                    Operations=[
+                        dict(op="add", path="entitlements", value=[dict(value="workspace-access")])
+                    ],
+                ),
+            )
+            cli.call(
+                ["service-principals", "patch", str(principal["id"]), "--json", "@" + str(request)],
+                "consumer-add-workspace-access",
+            )
+        after = cli.call(
+            ["service-principals", "get", str(principal["id"])], "consumer-after-entitlement"
+        )
+        assert {e["value"] for e in after.get("entitlements", [])} == entitlements | {
+            "workspace-access"
+        }, "unexpected_entitlement_change"
+        assert after.get("roles", []) == before.get("roles", []), "unexpected_role_change"
+        info = cli.call(["workspace", "get-status", m["notebook_path"]], "consumer-notebook-status")
+        request = work / "consumer-new-notebook.private.json"
+        write(
+            request,
+            dict(
+                access_control_list=[
+                    dict(
+                        service_principal_name=principal["applicationId"],
+                        permission_level="CAN_READ",
+                    )
+                ]
+            ),
+        )
+        cli.call(
+            [
+                "permissions",
+                "update",
+                "notebooks",
+                str(info["object_id"]),
+                "--json",
+                "@" + str(request),
+            ],
+            "consumer-new-notebook-read",
+        )
+        print('{"workspace_access_verified":true,"cluster_create_not_added":true}')
     elif a.action == "governance-retire":
         principal = json.loads((work / "principal.private.json").read_bytes())
         actual = cli.call(
@@ -474,7 +533,10 @@ def main():
             json.dumps(
                 dict(
                     run_id=a.run_id,
-                    state=state.get("state"),
+                    state={
+                        k: state.get("state", {}).get(k)
+                        for k in ["life_cycle_state", "result_state"]
+                    },
                     task_results=[
                         t.get("result", {}).get("status", t.get("error")) for t in public["tasks"]
                     ],
