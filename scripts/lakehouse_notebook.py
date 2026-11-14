@@ -395,11 +395,13 @@ def run(spark, dbutils, fixture):
                 ),
             )
             observe("versions", {t: version(t) for t in ["bronze", "candidates", "publications"]})
-        elif phase == "recovery":
+        elif phase in ["recovery", "postcheck"]:
             require(
                 "remote_ahead_candidate",
                 rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
-                [dict(publication_id="original")],
+                [dict(publication_id="original")]
+                if phase == "recovery"
+                else [dict(publication_id="original"), dict(publication_id="restated")],
             )
             fault_exists = spark.catalog.tableExists(ns + ".fault_journal")
             if dbutils.widgets.get("expected_fault") == "1":
@@ -411,24 +413,53 @@ def run(spark, dbutils, fixture):
                     [dict(boundary="committed_before_task_failure")],
                 )
             company, entity = [fixture["controls"][0][k] for k in ["company", "legal_entity"]]
-            sql(f"UPDATE {{ns}}.controls SET admitted=false WHERE company='{company}'").collect()
-            try:
+            if phase == "recovery":
+                sql(
+                    f"UPDATE {{ns}}.controls SET admitted=false WHERE company='{company}'"
+                ).collect()
+                try:
+                    project("restated")
+                except AssertionError as e:
+                    require("changed_admission_blocks_recovery", str(e), "frozen_control_unchanged")
+                else:
+                    raise AssertionError("changed_admission_recovery_allowed")
+                finally:
+                    sql(
+                        f"UPDATE {{ns}}.controls SET admitted=true WHERE company='{company}'"
+                    ).collect()
+                require(
+                    "changed_admission_did_not_publish",
+                    rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
+                    [dict(publication_id="original")],
+                )
+                ingest(fixture["corrections"])
                 project("restated")
-            except AssertionError as e:
-                require("changed_admission_blocks_recovery", str(e), "frozen_control_unchanged")
+                publish("restated")
+                publish("restated")
             else:
-                raise AssertionError("changed_admission_recovery_allowed")
-            finally:
-                sql(f"UPDATE {{ns}}.controls SET admitted=true WHERE company='{company}'").collect()
-            require(
-                "changed_admission_did_not_publish",
-                rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
-                [dict(publication_id="original")],
-            )
-            ingest(fixture["corrections"])
-            project("restated")
-            publish("restated")
-            publish("restated")
+                # Reconcile the already completed effect; do not publish or replay it.
+                require(
+                    "current_control_unchanged",
+                    rows("SELECT * FROM {ns}.controls ORDER BY company"),
+                    sorted(fixture["controls"], key=lambda r: r["company"]),
+                )
+                for label in ["original", "restated"]:
+                    stored = rows(
+                        f"SELECT result_json FROM {{ns}}.publications WHERE publication_id='{label}'"
+                    )[0]["result_json"]
+                    require(
+                        label + "_continuation_readback",
+                        json.loads(stored),
+                        fixture["expected"][label],
+                    )
+                stored_hash = rows(
+                    "SELECT source_hash FROM {ns}.publications WHERE publication_id='restated'"
+                )[0]["source_hash"]
+                require(
+                    "restated_source_hash_readback",
+                    stored_hash,
+                    sha(rows("SELECT * FROM {ns}.bronze ORDER BY company,kind,source_id,revision")),
+                )
             require(
                 "recovery_single_marker",
                 rows("SELECT count(*) n FROM {ns}.publications WHERE publication_id='restated'")[0][
@@ -460,9 +491,15 @@ def run(spark, dbutils, fixture):
             ]
             require("entity_authority_rejected", ingest(invalid), 2)
             count_before = rows("SELECT count(*) n FROM {ns}.bronze")[0]["n"]
+            explicit_columns = ",".join(
+                "cast(NULL as bigint) AS amount_minor" if c == "amount_minor" else "`" + c + "`"
+                for c in spark.table(ns + ".bronze").columns
+            )
             try:
                 sql(
-                    "INSERT INTO {ns}.bronze SELECT * REPLACE(cast(NULL as bigint) AS amount_minor) FROM {ns}.bronze LIMIT 1"
+                    "INSERT INTO {ns}.bronze SELECT "
+                    + explicit_columns
+                    + " FROM {ns}.bronze LIMIT 1"
                 ).collect()
             except Exception as e:
                 code = e.getErrorClass() if hasattr(e, "getErrorClass") else type(e).__name__

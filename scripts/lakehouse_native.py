@@ -105,6 +105,7 @@ def main():
             "fault",
             "observer",
             "recovery",
+            "postcheck",
             "chain",
             "governance",
             "scale",
