@@ -1,0 +1,47 @@
+{
+  "recorded_at_utc": "2026-11-14T03:24:21.130230+00:00",
+  "owner_console_observation": {
+    "observed_at_utc": "2026-11-14T03:23:00.452843+00:00",
+    "target_binding": {
+      "account_sha256": "9395f2d1794147144bd30e10d4dd7c7d39c76efebd66c44d5e26cd569ea09e73",
+      "workspace_sha256": "3ffe5bdcd558cd09495219e73aa217f97230bd55d556cb011e153bf98b4f56e4",
+      "host_sha256": "31370c72941cc2f2817bf12e05749f97984de7b526b2cdc7a85564171dfa80c9"
+    },
+    "trial_active": true,
+    "currency": "USD",
+    "remaining_credit_usd": "400",
+    "expiry_description": "14 days from owner observation; exact instant not supplied",
+    "payment_arrangement": "unknown"
+  },
+  "public_jobs_rate": {
+    "source": "https://www.databricks.com/product/pricing/lakeflow-jobs",
+    "cloud": "aws",
+    "region": "us-west-2",
+    "plan": "PREMIUM",
+    "product": "Jobs Serverless",
+    "usd_per_dbu": "0.35",
+    "underlying_compute_included": true,
+    "capture": "actual rendered public price list, AWS Premium and US West (Oregon) selected",
+    "storage_and_transfer_rates_established": false
+  },
+  "native_execution_authorized": false,
+  "usage_download": {
+    "method": "account billable-usage download",
+    "month": "2026-11",
+    "rows_returned": 0,
+    "billing_clearance": false,
+    "source": "separate CLI metadata probe before committed automated collector; not a source-bound Jobs execution"
+  },
+  "principal_creation_and_effective_denials": "not exercised; GET list succeeded with zero identities",
+  "proposed_cost_model": {
+    "assumed_job_compute_hours": "4",
+    "assumed_dbu_per_hour": "50",
+    "verified_unit_price_usd": "0.35",
+    "job_allowance_usd": "70",
+    "storage_reserve_usd": "5",
+    "rerun_reserve_usd": "20",
+    "delayed_usage_reserve_usd": "25",
+    "total_planned_usd": "120",
+    "status": "proposal only; rate of DBU consumption and storage costs unverified; not a hard cap or owner spending authorization"
+  }
+}

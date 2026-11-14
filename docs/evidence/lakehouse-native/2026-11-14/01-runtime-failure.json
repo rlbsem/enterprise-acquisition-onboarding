@@ -1,0 +1,33 @@
+{
+  "private_observation_sha256": "0378fbea35168f28d4b9dc6fee8eb972505cdfd470dd40de7cc71b67123096b1",
+  "run_id": 376042101469046,
+  "source_commit": "9ee5faec9c32a39954f77c987c932c3da5f670e8",
+  "state": {
+    "life_cycle_state": "INTERNAL_ERROR",
+    "result_state": "FAILED"
+  },
+  "tasks": [
+    {
+      "execution_duration_ms": 16000,
+      "failure_observation": "ImportError: cannot import name 'UTC' from 'datetime' (/usr/lib/python3.10/datetime.py)",
+      "run_id": 500710735177327,
+      "setup_duration_ms": 126000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "pilot"
+    },
+    {
+      "execution_duration_ms": 10000,
+      "failure_observation": "ImportError: cannot import name 'UTC' from 'datetime' (/usr/lib/python3.10/datetime.py)",
+      "run_id": 487050690758512,
+      "setup_duration_ms": 2000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "pilot"
+    }
+  ]
+}
