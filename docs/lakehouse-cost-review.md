@@ -1,10 +1,9 @@
-# Databricks credit and lifecycle cost review
+# Databricks execution cost and lifecycle controls
 
-The owner subsequently authorized up to USD300 of existing trial credits,
+The owner authorized up to USD300 of bounded Databricks resource consumption,
 starting with a native pilot targeting no more than USD20. The original
 read-only observations remain preserved. See the [native execution ledger](lakehouse-native-execution.md)
-for actual run status. The owner reports USD400 trial credits, 14 days remaining
-and no linked payment method. No upgrade or external AWS resources are permitted.
+for actual run status. No account upgrade or external AWS resources are permitted.
 
 ## Public rates observed
 
@@ -26,10 +25,10 @@ storage price page also identifies possible transfer/networking charges. Avoid
 cross-region data, customer-managed AWS resources and private networking; bound
 any evidence export.
 
-The [Express trial documentation](https://docs.databricks.com/aws/en/getting-started/express-setup)
-requires adding a payment method to continue after credits expire or are
-exhausted. Preserve the unupgraded no-payment trial and export evidence early;
-trial assets may later be deleted. This is not a final-accounting guarantee.
+Execution eligibility and approved account billing restrictions are prerequisites
+for running workloads. Export evidence before access to the workspace ends;
+workspace assets may subsequently be deleted. Resource deletion does not
+establish final billing clearance.
 
 ## Authorized planning envelope
 
@@ -40,15 +39,14 @@ trial assets may later be deleted. This is not a final-accounting guarantee.
 | Meaningful scale and failure measurements | Only after correctness and usage gates | 80 |
 | Controlled reruns | Finite retry plan required | 20 |
 | Evidence export, storage tail and cleanup | Protected final reserve | 20 |
-| Total allowance | Existing trial credits only; not a hard provider cap | 300 |
+| Total allowance | Owner-approved execution envelope; not a hard provider cap | 300 |
 
-The assumed 50 DBU/hour is a documented possible personal-email trial limit,
-not an observed/enforced account cap. Actual usage is workload-dependent. A
+The assumed 50 DBU/hour is a planning reference, not an observed or enforced account cap. Actual usage is workload-dependent. A
 finite native plan must bind task count, timeout, automatic-retry behavior,
 source sizes and resource ownership. Start with a small measured pilot before
 scaling. Budget alerts and timeouts are not hard financial caps.
 
-Sensitivity, **not observed consumption**: five binary GB retained for 14 trial
+Sensitivity, **not observed consumption**: five binary GB retained for 14 active
 days plus a 30-day deletion tail cost approximately USD0.1664. Hypothetical
 100,000 tier 1 requests add USD0.50002; 1,000,000 tier 2 requests add USD0.4002.
 The combined USD1.0666 illustrates the storage reserve, before transfer/other
@@ -71,5 +69,5 @@ successful management read or an available workspace.
 
 Sources: [Jobs price list](https://www.databricks.com/product/pricing/lakeflow-jobs),
 [storage rates and lifecycle FAQ](https://www.databricks.com/product/pricing/storage),
-[trial limits](https://docs.databricks.com/aws/en/getting-started/free-trial),
+[serverless limitations](https://docs.databricks.com/aws/en/compute/serverless/limitations),
 [usage and reporting delay](https://docs.databricks.com/aws/en/compute/serverless/).
