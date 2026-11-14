@@ -32,6 +32,16 @@ def test_original_financial_oracle_and_correction_are_separate():
     assert sha(changed) != sha(f)
 
 
+def test_full_fixture_exercises_held_entities_and_intercompany_eliminations():
+    f = export_fixture(50)
+    assert len(f["controls"]) == 50
+    assert any(not c["admitted"] for c in f["controls"])
+    assert any(b["kind"] == "intercompany_acceptance" for b in f["baseline"])
+    assert sum(r["elimination_minor"] for r in f["expected"]["original"]["totals"]) > 0
+    assert any(v[2] == "intercompany_unresolved" for v in f["expected"]["restated"]["variances"])
+    assert any(v[2] == "erp_posting_difference" for v in f["expected"]["restated"]["variances"])
+
+
 @pytest.mark.parametrize(
     "value", ["production", "acq_lh_a;DROP", "workspace.x", "acq_lh_", "acq_lh_../x"]
 )
