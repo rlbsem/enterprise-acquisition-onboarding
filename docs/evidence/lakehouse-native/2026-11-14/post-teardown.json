@@ -1,0 +1,72 @@
+{
+  "active_owned_runs": [],
+  "billing_clearance": false,
+  "classic_cluster_count": 0,
+  "compute_started": false,
+  "empty_shared_parent_retained": true,
+  "existing_warehouses": [
+    {
+      "active_clusters": 0,
+      "serverless": true,
+      "state": "STOPPED"
+    }
+  ],
+  "logical_owned_resources_absent": true,
+  "observed_at_utc": "2026-11-14T17:13:50.285866+00:00",
+  "owned_account_principal_present": false,
+  "owned_workspace_principal_present": false,
+  "physical_storage_erasure_verified": false,
+  "read_only": true,
+  "remaining_owned_notebook_directories": [],
+  "remaining_owned_schemas": [],
+  "run_states": [
+    {
+      "life_cycle_state": "INTERNAL_ERROR",
+      "result_state": "FAILED",
+      "run_id": 376042101469046
+    },
+    {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "run_id": 165257131529869
+    },
+    {
+      "life_cycle_state": "INTERNAL_ERROR",
+      "result_state": "TIMEDOUT",
+      "run_id": 365544213277342
+    },
+    {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "run_id": 1066881425859697
+    },
+    {
+      "life_cycle_state": "INTERNAL_ERROR",
+      "result_state": "FAILED",
+      "run_id": 531633830400363
+    },
+    {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "run_id": 249606355532099
+    },
+    {
+      "life_cycle_state": "INTERNAL_ERROR",
+      "result_state": "FAILED",
+      "run_id": 637625391938057
+    },
+    {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "run_id": 832159734464835
+    },
+    {
+      "life_cycle_state": "TERMINATED",
+      "result_state": "SUCCESS",
+      "run_id": 586280165587994
+    }
+  ],
+  "saved_owned_jobs": [],
+  "schema": "lakehouse-post-teardown.v1",
+  "source_commit": "d8438224fa541662e582ac3b918ecaefea504641"
+}

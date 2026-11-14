@@ -1,0 +1,72 @@
+{
+  "all_submitted_runs_exported": true,
+  "all_submitted_runs_terminal": true,
+  "billing_clearance": false,
+  "compute_started": false,
+  "deleted": true,
+  "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+  "independent_namespace_absence_verified": true,
+  "namespace": "workspace.acq_lh_20261114b",
+  "observed_at_utc": "2026-11-14T17:08:29.997242+00:00",
+  "physical_storage_erasure_verified": false,
+  "private_schema_response_sha256": "1dc7491d7f0815fedce65caed0f059f00e92ff0b7dee53165b090ef80d23f96a",
+  "remaining_workspace_schemas": 2,
+  "schema": "lakehouse-retirement.v1",
+  "source_commit": "bf0239041dd57e8e4d823d67a13ddc6edb7cbd21",
+  "tables": [
+    {
+      "name": "bronze",
+      "type": "MANAGED"
+    },
+    {
+      "name": "candidates",
+      "type": "MANAGED"
+    },
+    {
+      "name": "cdf_audit",
+      "type": "MANAGED"
+    },
+    {
+      "name": "company_view",
+      "type": "VIEW"
+    },
+    {
+      "name": "controls",
+      "type": "MANAGED"
+    },
+    {
+      "name": "eligible",
+      "type": "MANAGED"
+    },
+    {
+      "name": "eliminations",
+      "type": "MANAGED"
+    },
+    {
+      "name": "fault_journal",
+      "type": "MANAGED"
+    },
+    {
+      "name": "gold",
+      "type": "MANAGED"
+    },
+    {
+      "name": "invoices",
+      "type": "MANAGED"
+    },
+    {
+      "name": "publications",
+      "type": "MANAGED"
+    },
+    {
+      "name": "silver",
+      "type": "MANAGED"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "checkpoints",
+      "type": "MANAGED"
+    }
+  ]
+}

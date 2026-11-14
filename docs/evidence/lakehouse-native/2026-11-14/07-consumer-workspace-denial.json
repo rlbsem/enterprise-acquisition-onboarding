@@ -1,0 +1,23 @@
+{
+  "private_observation_sha256": "08b1fb4f3f2ddf58f2c75bf050ccebf096182760a14d8d55e4786cd64d531ca3",
+  "run_id": 637625391938057,
+  "source_commit": "b94b1300274413fa1c9bbb0c006b0ebb0c5244ae",
+  "state": {
+    "life_cycle_state": "INTERNAL_ERROR",
+    "result_state": "FAILED"
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "execution_duration_ms": 0,
+      "failure_observation": "Run failed with error message",
+      "run_id": 144677478770297,
+      "setup_duration_ms": 0,
+      "state": {
+        "life_cycle_state": "INTERNAL_ERROR",
+        "result_state": "FAILED"
+      },
+      "task_key": "governance"
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "assets": [
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "a",
+      "notebook_sha256": "71b1fc5f6240b739086e621d1974086de9e4e9dd0e9ffcfc0262d6ca98b081d3",
+      "requests": [
+        {
+          "phase": "pilot-request",
+          "request_sha256": "1a187dc1928cbe146b36979d0e0ba840214ce8841ccd27ee1dbf2bf352075bb2",
+          "tasks": [
+            {
+              "max_retries": 0,
+              "task_key": "pilot",
+              "timeout_seconds": 900
+            }
+          ]
+        }
+      ],
+      "source_commit": "9ee5faec9c32a39954f77c987c932c3da5f670e8"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "b",
+      "notebook_sha256": "647147fb845541ed8c84b96743b003b43e9f731ab8de7815edfff9fface9161e",
+      "requests": [
+        {
+          "phase": "pilot-request",
+          "request_sha256": "a46894f35f7f801cf69a3c9c4f72bcdbe0807befc8d044b6232b01ebae7b359d",
+          "tasks": [
+            {
+              "max_retries": 0,
+              "task_key": "pilot",
+              "timeout_seconds": 900
+            }
+          ]
+        }
+      ],
+      "source_commit": "1ca1e232ae3b963c467b15fd89d7774cf6673d48"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "c",
+      "notebook_sha256": "d1c98ed7747ea799a39065341322b288d37b1df92bce99e5077cec85985ea946",
+      "requests": [
+        {
+          "phase": "observer-request",
+          "request_sha256": "831189177503753196d7ca338035c468c823c107d9d1108ff2e4463181ea13cc",
+          "tasks": [
+            {
+              "max_retries": 0,
+              "task_key": "observer",
+              "timeout_seconds": 300
+            }
+          ]
+        }
+      ],
+      "source_commit": "0bef0fb2a9f72cbf197a54cebc51c2f9c48c9140"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "d",
+      "notebook_sha256": "d1c98ed7747ea799a39065341322b288d37b1df92bce99e5077cec85985ea946",
+      "requests": [
+        {
+          "phase": "observer-request",
+          "request_sha256": "7af44c21f2ee2f157d7b4b8167fe97a40c802a0725318ce1704a53fb356250ae",
+          "tasks": [
+            {
+              "max_retries": 0,
+              "task_key": "observer",
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "source_commit": "2220c059ae77772e8eee3c6c293de2810391f2b3"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "e",
+      "notebook_sha256": "e2e23f422830bab7735e9b2a9ffc966aed86b254b6f0a15cbb8352b003b6b964",
+      "requests": [
+        {
+          "phase": "chain-request",
+          "request_sha256": "3ac81ac8652eb91cccbef65859409c6170834d74212eea6e951e6dbc667ac28f",
+          "tasks": [
+            {
+              "max_retries": 0,
+              "task_key": "fault",
+              "timeout_seconds": 600
+            },
+            {
+              "depends_on": [
+                {
+                  "task_key": "fault"
+                }
+              ],
+              "max_retries": 0,
+              "run_if": "ALL_DONE",
+              "task_key": "recovery",
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "source_commit": "259fdb77d2facbd61600a2816b6f95cdd7a4c736"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "f",
+      "notebook_sha256": "f25161399d952d06870ff23e57ae75a072da4be20913538ee323f6f901e9003a",
+      "requests": [
+        {
+          "phase": "postcheck-request",
+          "request_sha256": "047f5856f71a93cf59d970aec8f8fb5ef4ea642ae7351e5ce8e65ff04b4a1fb7",
+          "tasks": [
+            {
+              "disable_auto_optimization": true,
+              "max_retries": 0,
+              "retry_on_timeout": false,
+              "task_key": "postcheck",
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "source_commit": "971b4a9138f19634c3898a5463ecfb1bf605eb34"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "g",
+      "notebook_sha256": "f25161399d952d06870ff23e57ae75a072da4be20913538ee323f6f901e9003a",
+      "requests": [
+        {
+          "phase": "governance-request",
+          "request_sha256": "6313139e06bab9f4768a6585287944d66b93d35f629c65af3a617b065be6066f",
+          "tasks": [
+            {
+              "disable_auto_optimization": true,
+              "max_retries": 0,
+              "retry_on_timeout": false,
+              "task_key": "governance",
+              "timeout_seconds": 450
+            }
+          ]
+        }
+      ],
+      "source_commit": "b94b1300274413fa1c9bbb0c006b0ebb0c5244ae"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "h",
+      "notebook_sha256": "f25161399d952d06870ff23e57ae75a072da4be20913538ee323f6f901e9003a",
+      "requests": [
+        {
+          "phase": "governance-request",
+          "request_sha256": "6b9791ec6794fee551735c21744885a0e6c60fa1cfb9d6adc273eaef1e499df6",
+          "tasks": [
+            {
+              "disable_auto_optimization": true,
+              "max_retries": 0,
+              "retry_on_timeout": false,
+              "task_key": "governance",
+              "timeout_seconds": 450
+            }
+          ]
+        }
+      ],
+      "source_commit": "01ab0ae65b2639e10239c8b93e244e04d8504096"
+    },
+    {
+      "exact_after_run_readback": true,
+      "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+      "label": "i",
+      "notebook_sha256": "9d8b8289c358b13bb9c0a6db23ee473819499dba7f0809794d49d2b1daf7ca06",
+      "requests": [
+        {
+          "phase": "audit-request",
+          "request_sha256": "6315678f0edf146a704b9278dfb8ba8f2a3e7e952524f663d1aa65b0d5d413b3",
+          "tasks": [
+            {
+              "disable_auto_optimization": true,
+              "max_retries": 0,
+              "retry_on_timeout": false,
+              "task_key": "audit",
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "source_commit": "20d5c2840e2f16e6de53fb54e7271b0e87a17251"
+    }
+  ],
+  "consumer_identity_sha256": "93e1f00310c9a53d3892e0fcf05e4e5f98ed982dbaec0e5aa721815af39ed8fc",
+  "observed_at_utc": "2026-11-14T17:05:03.693143+00:00",
+  "provider_signed_attestation": false,
+  "schema": "lakehouse-source-bindings.v1"
+}

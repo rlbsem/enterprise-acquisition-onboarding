@@ -1,0 +1,219 @@
+{
+  "private_observation_sha256": "03352c649b9e5a522787d0b50c1046a992143996fe5264e3250157889674d2b7",
+  "run_id": 832159734464835,
+  "source_commit": "01ab0ae65b2639e10239c8b93e244e04d8504096",
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS"
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "execution_duration_ms": 145000,
+      "result": {
+        "completed_at_utc": "2026-11-14T16:51:16.686197+00:00",
+        "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+        "observations": [
+          {
+            "check": "executing_principal_sha256",
+            "result": "93e1f00310c9a53d3892e0fcf05e4e5f98ed982dbaec0e5aa721815af39ed8fc"
+          },
+          {
+            "check": "company_scoped_read",
+            "result": {
+              "actual": [
+                {
+                  "company": "acq-aaa",
+                  "legal_entity": "SYN-LE-0001"
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "company": "acq-aaa",
+                  "legal_entity": "SYN-LE-0001"
+                }
+              ]
+            }
+          },
+          {
+            "check": "restricted_financial_readback",
+            "result": {
+              "actual": [
+                {
+                  "allocated_cash_minor": 3265801,
+                  "bookings_minor": 12118000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 5937820,
+                  "consolidated_invoice_minor": 5937820,
+                  "credits_minor": 121180,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 5937820,
+                  "gross_invoice_minor": 6059000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 5937820,
+                  "period": "2026-01-01",
+                  "publication_id": "original"
+                },
+                {
+                  "allocated_cash_minor": 3372523,
+                  "bookings_minor": 12514000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 6131860,
+                  "consolidated_invoice_minor": 6131860,
+                  "credits_minor": 125140,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 6131860,
+                  "gross_invoice_minor": 6257000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 6131860,
+                  "period": "2026-10-01",
+                  "publication_id": "original"
+                },
+                {
+                  "allocated_cash_minor": 3265801,
+                  "bookings_minor": 12118000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 5937820,
+                  "consolidated_invoice_minor": 5937820,
+                  "credits_minor": 121180,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 5937820,
+                  "gross_invoice_minor": 6059000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 5937820,
+                  "period": "2026-01-01",
+                  "publication_id": "restated"
+                },
+                {
+                  "allocated_cash_minor": 3372523,
+                  "bookings_minor": 12514000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 6131860,
+                  "consolidated_invoice_minor": 6131860,
+                  "credits_minor": 125140,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 6131860,
+                  "gross_invoice_minor": 6257000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 6131860,
+                  "period": "2026-10-01",
+                  "publication_id": "restated"
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "allocated_cash_minor": 3265801,
+                  "bookings_minor": 12118000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 5937820,
+                  "consolidated_invoice_minor": 5937820,
+                  "credits_minor": 121180,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 5937820,
+                  "gross_invoice_minor": 6059000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 5937820,
+                  "period": "2026-01-01",
+                  "publication_id": "original"
+                },
+                {
+                  "allocated_cash_minor": 3372523,
+                  "bookings_minor": 12514000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 6131860,
+                  "consolidated_invoice_minor": 6131860,
+                  "credits_minor": 125140,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 6131860,
+                  "gross_invoice_minor": 6257000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 6131860,
+                  "period": "2026-10-01",
+                  "publication_id": "original"
+                },
+                {
+                  "allocated_cash_minor": 3265801,
+                  "bookings_minor": 12118000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 5937820,
+                  "consolidated_invoice_minor": 5937820,
+                  "credits_minor": 121180,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 5937820,
+                  "gross_invoice_minor": 6059000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 5937820,
+                  "period": "2026-01-01",
+                  "publication_id": "restated"
+                },
+                {
+                  "allocated_cash_minor": 3372523,
+                  "bookings_minor": 12514000,
+                  "company": "acq-aaa",
+                  "consolidated_erp_minor": 6131860,
+                  "consolidated_invoice_minor": 6131860,
+                  "credits_minor": 125140,
+                  "currency": "USD",
+                  "elimination_minor": 0,
+                  "erp_posted_minor": 6131860,
+                  "gross_invoice_minor": 6257000,
+                  "legal_entity": "SYN-LE-0001",
+                  "net_invoice_minor": 6131860,
+                  "period": "2026-10-01",
+                  "publication_id": "restated"
+                }
+              ]
+            }
+          },
+          {
+            "check": "raw_read_denied",
+            "result": {
+              "denied": true,
+              "error_class": "INSUFFICIENT_PERMISSIONS"
+            }
+          },
+          {
+            "check": "write_denied",
+            "result": {
+              "denied": true,
+              "error_class": "INSUFFICIENT_PERMISSIONS"
+            }
+          },
+          {
+            "check": "schema_create_denied",
+            "result": {
+              "denied": true,
+              "error_class": "UNAUTHORIZED_ACCESS"
+            }
+          }
+        ],
+        "phase": "governance",
+        "runtime": {
+          "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+          "spark": "4.2.0"
+        },
+        "schema": "lakehouse-native.v1",
+        "source_commit": "01ab0ae65b2639e10239c8b93e244e04d8504096",
+        "started_at_utc": "2026-11-14T16:49:11.526437+00:00",
+        "status": "passed",
+        "synthetic": true
+      },
+      "run_id": 762149170252054,
+      "setup_duration_ms": 276000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS"
+      },
+      "task_key": "governance"
+    }
+  ]
+}

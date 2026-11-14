@@ -1,0 +1,7 @@
+{
+  "account_consumer_absent": true,
+  "observed_at_utc": "2026-11-14T17:11:24.026436+00:00",
+  "removed_only_owned_identity": true,
+  "source_commit": "059e39aed12df7d833d755c9c1cc5419ce57a569",
+  "workspace_consumer_absent": true
+}
