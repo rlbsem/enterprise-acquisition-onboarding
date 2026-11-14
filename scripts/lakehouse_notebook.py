@@ -343,9 +343,13 @@ def run(spark, dbutils, fixture):
             ).collect()
             # Independently compare committed candidate bytes before exposing its immutable marker.
             actual = rows(
-                f"SELECT result_json FROM {{ns}}.candidates WHERE publication_id='{label}'"
+                f"SELECT result_json,source_hash FROM {{ns}}.candidates WHERE publication_id='{label}'"
             )
-            require(label + "_candidate_readback", actual, [dict(result_json=result_json)])
+            require(
+                label + "_candidate_readback",
+                actual,
+                [dict(result_json=result_json, source_hash=source_hash)],
+            )
             return result
 
         def publish(label):
