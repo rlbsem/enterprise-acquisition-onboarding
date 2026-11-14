@@ -1,8 +1,10 @@
 # Databricks credit and lifecycle cost review
 
-Read-only planning, not native execution authorization. No job, table, volume,
-principal, warehouse start or billing change has occurred. The owner reports
-USD400 trial credits, 14 days remaining and no linked payment method.
+The owner subsequently authorized up to USD300 of existing trial credits,
+starting with a native pilot targeting no more than USD20. The original
+read-only observations remain preserved. See the [native execution ledger](lakehouse-native-execution.md)
+for actual run status. The owner reports USD400 trial credits, 14 days remaining
+and no linked payment method. No upgrade or external AWS resources are permitted.
 
 ## Public rates observed
 
@@ -29,15 +31,16 @@ requires adding a payment method to continue after credits expire or are
 exhausted. Preserve the unupgraded no-payment trial and export evidence early;
 trial assets may later be deleted. This is not a final-accounting guarantee.
 
-## Proposed envelope
+## Authorized planning envelope
 
 | Item | Assumption/reserve | USD |
 |---|---|---:|
-| Job compute | Four aggregate compute-hours at assumed 50 DBU/hour, times 0.35 | 70 |
-| Storage lifecycle and requests | Includes retained versions and deletion tail | 5 |
+| Bounded native pilot | Correctness, rates and actual usage before expansion | 20 |
+| Core native engineering | Delta, financial reconciliation, recovery and governance | 160 |
+| Meaningful scale and failure measurements | Only after correctness and usage gates | 80 |
 | Controlled reruns | Finite retry plan required | 20 |
-| Delayed usage and uncertainty | Reserve | 25 |
-| Total proposal | Not owner spending approval or a hard cap | 120 |
+| Evidence export, storage tail and cleanup | Protected final reserve | 20 |
+| Total allowance | Existing trial credits only; not a hard provider cap | 300 |
 
 The assumed 50 DBU/hour is a documented possible personal-email trial limit,
 not an observed/enforced account cap. Actual usage is workload-dependent. A
@@ -58,12 +61,13 @@ Deletion and delayed usage must be checked separately from job correctness.
 
 ## Remaining gate
 
-OAuth and management API access work. Next prepare a source-bound native pilot
-with an explicit trial-credit allowance, ownership-checked teardown and an
-independent observer. Restricted principal creation/run-as and actual access
-denials remain unexecuted. Do not infer spending authorization from credits,
-this estimate or a successful metadata preflight: the latest owner instruction
-authorizes read-only feasibility and preparation.
+OAuth and management API access work, and a bounded native pilot is authorized.
+Expansion requires successful pilot acceptance, actual usage and applicable
+rate observations. Empty delayed usage exports do not establish zero cost.
+Retain pending-consumption reserves and stop submitting work if projected or
+delayed exposure could exceed the allowance. Current execution status and
+uncompleted controls are in the native ledger; do not infer acceptance from a
+successful management read or an available workspace.
 
 Sources: [Jobs price list](https://www.databricks.com/product/pricing/lakeflow-jobs),
 [storage rates and lifecycle FAQ](https://www.databricks.com/product/pricing/storage),

@@ -12,7 +12,7 @@ UTC = timezone.utc
 
 
 def canonical(value):
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, default=str)
 
 
 def sha(value):
@@ -172,6 +172,7 @@ def run(spark, dbutils, fixture):
                     "EXPLAIN FORMATTED SELECT company,sum(amount_minor) FROM {ns}.scale_facts GROUP BY company"
                 ).collect()
             )
+            plan = re.sub(r"(?:s3[a-z0-9]*|abfss|gs)://[^\s\]\)]+", "[managed-storage-path]", plan)
             metrics.append(
                 dict(
                     rows=size,
@@ -438,7 +439,17 @@ def run(spark, dbutils, fixture):
                     .toTable(ns + ".cdf_audit")
                 )
                 assert query.awaitTermination(180), "stream_timeout"
-                return query.lastProgress
+                progress = query.lastProgress or {}
+                return {
+                    k: progress.get(k)
+                    for k in [
+                        "batchId",
+                        "numInputRows",
+                        "durationMs",
+                        "inputRowsPerSecond",
+                        "processedRowsPerSecond",
+                    ]
+                }
 
             observe("stream_first", stream_once())
             before = rows("SELECT count(*) n FROM {ns}.cdf_audit")[0]["n"]

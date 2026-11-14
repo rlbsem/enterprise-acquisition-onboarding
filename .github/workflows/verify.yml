@@ -38,6 +38,7 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - run: python scripts/check_repository.py
       - run: python scripts/check_lakehouse_preflight.py
+      - run: python scripts/check_lakehouse_native.py
       - run: python scripts/check_portfolio_evidence.py docs/evidence/multi-company/windows-run01 --require-scale
       - run: python scripts/verify.py --workspace .local/ci --output .local/ci-evidence
       - if: failure()

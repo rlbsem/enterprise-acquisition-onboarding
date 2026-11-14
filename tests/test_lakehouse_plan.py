@@ -6,7 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from onboarding.lakehouse_plan import export_fixture, sha, namespace, job_spec, credit_projection
+from onboarding.lakehouse_plan import (
+    export_fixture,
+    sha,
+    namespace,
+    job_spec,
+    credit_projection,
+    admit_credit_step,
+)
 
 
 def test_original_financial_oracle_and_correction_are_separate():
@@ -77,3 +84,29 @@ def test_native_notebook_parses_without_local_spark_dependency():
     assert "VERSION AS OF" in source
     assert "readChangeFeed" in source and "availableNow=True" in source
     assert "same_revision_content_conflict" in source
+
+
+def test_pending_usage_is_reserved_and_never_treated_as_zero():
+    ledger = dict(observed_usd="0", pending_reserved_usd="12", cleanup_reserved_usd="2")
+    assert admit_credit_step(ledger, "5") == "19"
+    with pytest.raises(ValueError):
+        admit_credit_step(ledger, "7")
+    with pytest.raises(ValueError):
+        admit_credit_step(ledger, "1", expansion=True)
+
+
+def test_expansion_requires_success_actual_usage_and_verified_rate():
+    ledger = dict(
+        observed_usd="1",
+        pending_reserved_usd="10",
+        cleanup_reserved_usd="10",
+        pilot_accepted=True,
+        actual_usage_observed=True,
+        applicable_rate_verified=True,
+    )
+    assert admit_credit_step(ledger, "100", expansion=True) == "121"
+    for field in ["pilot_accepted", "actual_usage_observed", "applicable_rate_verified"]:
+        with pytest.raises(ValueError):
+            admit_credit_step(ledger | {field: False}, "1", expansion=True)
+    with pytest.raises(ValueError):
+        admit_credit_step(ledger, "290", expansion=True)

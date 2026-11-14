@@ -6,8 +6,9 @@ existing PostgreSQL admission, mapping and approval controls. PostgreSQL remains
 the operational authority. No financial definition, fixture or existing dbt
 model is changed by the feasibility work.
 
-**Current boundary: real management API reads passed; native Spark/Delta/Jobs
-acceptance has not executed.** The [recorded preflight](evidence/lakehouse-preflight/2026-11-14/README.md)
+**Phase 1 boundary: real management API reads passed; that record does not prove
+Spark/Delta/Jobs acceptance.** Subsequent authorized native work is recorded in
+the [native execution ledger](lakehouse-native-execution.md). The [recorded preflight](evidence/lakehouse-preflight/2026-11-14/README.md)
 is deliberately separate from the existing PostgreSQL/dbt financial proof and
 native HubSpot reads.
 

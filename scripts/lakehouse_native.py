@@ -8,9 +8,17 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from decimal import Decimal
 from datetime import UTC, datetime
 
-from onboarding.lakehouse_plan import export_fixture, sha, job_spec, namespace, credit_projection
+from onboarding.lakehouse_plan import (
+    export_fixture,
+    sha,
+    job_spec,
+    namespace,
+    credit_projection,
+    admit_credit_step,
+)
 from onboarding.lakehouse_preflight import native_gate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -71,7 +79,18 @@ class CLI:
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("action", choices=["prepare", "upload", "submit", "observe"])
+    p.add_argument(
+        "action",
+        choices=[
+            "prepare",
+            "upload",
+            "submit",
+            "observe",
+            "governance-setup",
+            "governance-retire",
+            "notebook-retire",
+        ],
+    )
     p.add_argument("--work", required=True)
     p.add_argument("--config", required=True)
     p.add_argument("--schema")
@@ -146,7 +165,100 @@ def main():
             "upload",
         )
         print('{"status":"uploaded_no_compute_started"}')
+    elif a.action == "governance-setup":
+        pilot = json.loads((work / "pilot-submitted.json").read_bytes())["run_id"]
+        observed = json.loads((work / f"run-{pilot}-observation.json").read_bytes())
+        if observed.get("state", {}).get("result_state") != "SUCCESS":
+            raise ValueError("pilot_acceptance_required")
+        principal_path = work / "principal.private.json"
+        if principal_path.exists():
+            raise ValueError("dedicated_principal_already_recorded")
+        principal = cli.call(
+            [
+                "service-principals",
+                "create",
+                "--display-name",
+                m["schema"] + "-consumer",
+                "--active",
+            ],
+            "create-consumer",
+        )
+        write(principal_path, principal)
+        app = principal["applicationId"]
+        for kind, name, privileges in [
+            ("catalog", "workspace", ["USE_CATALOG"]),
+            ("schema", namespace(m["schema"]), ["USE_SCHEMA"]),
+            ("table", namespace(m["schema"]) + ".company_view", ["SELECT"]),
+        ]:
+            request = work / ("grant-" + kind + ".private.json")
+            write(request, dict(changes=[dict(principal=app, add=privileges)]))
+            cli.call(
+                ["grants", "update", kind, name, "--json", "@" + str(request)], "grant-" + kind
+            )
+        info = cli.call(["workspace", "get-status", m["notebook_path"]], "notebook-status")
+        request = work / "notebook-permission.private.json"
+        write(
+            request,
+            dict(
+                access_control_list=[dict(service_principal_name=app, permission_level="CAN_READ")]
+            ),
+        )
+        cli.call(
+            [
+                "permissions",
+                "update",
+                "notebooks",
+                str(info["object_id"]),
+                "--json",
+                "@" + str(request),
+            ],
+            "grant-notebook",
+        )
+        print('{"dedicated_consumer_created":true,"scope":"catalog-use/schema-use/one-view-read"}')
+    elif a.action == "governance-retire":
+        principal = json.loads((work / "principal.private.json").read_bytes())
+        actual = cli.call(
+            ["service-principals", "get", str(principal["id"])], "consumer-before-retire"
+        )
+        if (
+            actual.get("displayName") != m["schema"] + "-consumer"
+            or actual.get("applicationId") != principal["applicationId"]
+        ):
+            raise ValueError("principal_ownership_mismatch")
+        request = work / "revoke-catalog.private.json"
+        write(
+            request,
+            dict(changes=[dict(principal=principal["applicationId"], remove=["USE_CATALOG"])]),
+        )
+        cli.call(
+            ["grants", "update", "catalog", "workspace", "--json", "@" + str(request)],
+            "revoke-catalog",
+        )
+        cli.call(["service-principals", "delete", str(principal["id"])], "retire-consumer")
+        remaining = cli.call(["service-principals", "list"], "consumer-after-retire")
+        assert all(r["id"] != principal["id"] for r in remaining), "consumer_still_present"
+        print(
+            '{"dedicated_workspace_consumer_absent":true,"account_identity_absence_not_assumed":true}'
+        )
+    elif a.action == "notebook-retire":
+        # Only the exact run directory, after evidence export and namespace teardown.
+        directory = m["notebook_path"].rsplit("/", 1)[0]
+        assert directory == "/Shared/acquisition-lakehouse/" + m["schema"]
+        cli.call(["workspace", "delete", directory, "--recursive"], "retire-notebook")
+        listing = cli.call(
+            ["workspace", "list", "/Shared/acquisition-lakehouse"], "notebook-after-retire"
+        )
+        assert all(r["path"] != directory for r in listing), "notebook_directory_still_present"
+        print('{"exact_notebook_directory_absent":true}')
     elif a.action == "submit":
+        ledger = json.loads(Path(cfg["credit_ledger"]).read_bytes())
+        expansion = (
+            a.phase == "scale"
+            or json.loads((work / "fixture.json").read_bytes())["company_count"] > 3
+        )
+        seconds = 300 if a.phase in ["observer", "cleanup", "fault", "governance"] else 900
+        reserve = credit_projection(seconds, reserve="0")
+        admit_credit_step(ledger, reserve, expansion=expansion)
         preflight = json.loads(Path(cfg["preflight_record"]).read_bytes())
         gate = native_gate(preflight, cfg["owner_observation"], cfg["cost_plan"], datetime.now(UTC))
         if not gate["eligible_for_separately_authorized_bounded_pilot"]:
@@ -162,9 +274,12 @@ def main():
             a.phase,
             m["source_commit"],
             m["fixture_sha256"],
-            seconds=300 if a.phase in ["observer", "cleanup"] else 900,
+            seconds=seconds,
         )
         spec["idempotency_token"] = sha([m["schema"], a.phase, m["source_commit"]])
+        if a.phase == "governance":
+            principal = json.loads((work / "principal.private.json").read_bytes())
+            spec["run_as"] = dict(service_principal_name=principal["applicationId"])
         destination = work / (a.phase + "-submitted.json")
         if destination.exists():
             raise ValueError("run_already_submitted_observe_existing_id")
@@ -180,6 +295,13 @@ def main():
             a.phase + "-submit",
         )
         write(destination, response)
+        ledger["pending_reserved_usd"] = str(
+            Decimal(str(ledger["pending_reserved_usd"])) + Decimal(reserve)
+        )
+        ledger.setdefault("submissions", []).append(
+            dict(run_id=response["run_id"], phase=a.phase, reserved_usd=reserve)
+        )
+        write(Path(cfg["credit_ledger"]), ledger)
         print(json.dumps(dict(phase=a.phase, run_id=response["run_id"])))
     else:
         if not a.run_id:

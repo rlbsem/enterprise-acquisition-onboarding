@@ -106,3 +106,24 @@ def credit_projection(compute_seconds, dbu_per_hour="50", rate="0.35", reserve="
     if any(not x.is_finite() or x < 0 for x in values):
         raise ValueError("finite_nonnegative_cost_inputs_required")
     return str(values[0] / Decimal(3600) * values[1] * values[2] + values[3])
+
+
+def admit_credit_step(ledger, proposed_reserve, *, expansion=False):
+    """Pending exposure is additive; an empty delayed report is not zero cost."""
+    amounts = [
+        Decimal(str(ledger[k]))
+        for k in ["observed_usd", "pending_reserved_usd", "cleanup_reserved_usd"]
+    ]
+    amounts.append(Decimal(str(proposed_reserve)))
+    if any(not v.is_finite() or v < 0 for v in amounts):
+        raise ValueError("invalid_credit_observation")
+    limit = Decimal("300" if expansion else "20")
+    if expansion and (
+        not ledger.get("pilot_accepted")
+        or not ledger.get("actual_usage_observed")
+        or not ledger.get("applicable_rate_verified")
+    ):
+        raise ValueError("measured_pilot_required_before_expansion")
+    if sum(amounts) > limit:
+        raise ValueError("pending_or_projected_exposure_exceeds_allowance")
+    return str(sum(amounts))
