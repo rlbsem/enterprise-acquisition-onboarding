@@ -18,6 +18,7 @@ from onboarding.lakehouse_plan import (
     namespace,
     credit_projection,
     admit_credit_step,
+    reserve_completed_duration,
 )
 from onboarding.lakehouse_preflight import native_gate
 
@@ -298,6 +299,11 @@ def main():
         expansion = (
             a.phase == "scale"
             or json.loads((work / "fixture.json").read_bytes())["company_count"] > 3
+            or (
+                ledger.get("pilot_accepted")
+                and ledger.get("actual_usage_observed")
+                and ledger.get("applicable_rate_verified")
+            )
         )
         seconds = 300 if a.phase in ["observer", "cleanup", "fault", "governance"] else 900
         if a.task_seconds is not None:
@@ -305,7 +311,12 @@ def main():
                 raise ValueError("bounded_task_timeout_required")
             seconds = a.task_seconds
         reserve = credit_projection(seconds, reserve="0")
-        admit_credit_step(ledger, reserve, expansion=expansion)
+        if a.phase == "cleanup":
+            if Decimal(str(ledger["cleanup_reserved_usd"])) < Decimal(reserve):
+                raise ValueError("cleanup_reserve_insufficient")
+            admit_credit_step(ledger, "0", expansion=expansion)
+        else:
+            admit_credit_step(ledger, reserve, expansion=expansion)
         preflight = json.loads(Path(cfg["preflight_record"]).read_bytes())
         gate = native_gate(preflight, cfg["owner_observation"], cfg["cost_plan"], datetime.now(UTC))
         if not gate["eligible_for_separately_authorized_bounded_pilot"]:
@@ -370,6 +381,10 @@ def main():
         ledger["pending_reserved_usd"] = str(
             Decimal(str(ledger["pending_reserved_usd"])) + Decimal(reserve)
         )
+        if a.phase == "cleanup":
+            ledger["cleanup_reserved_usd"] = str(
+                Decimal(str(ledger["cleanup_reserved_usd"])) - Decimal(reserve)
+            )
         ledger.setdefault("submissions", []).append(
             dict(run_id=response["run_id"], phase=a.phase, reserved_usd=reserve)
         )
@@ -404,6 +419,14 @@ def main():
                     task["error"] = result.get("error", "no_notebook_result")
             public["tasks"].append(task)
         write(work / ("run-" + str(a.run_id) + "-observation.json"), public)
+        if (
+            state.get("state", {}).get("life_cycle_state")
+            in ["TERMINATED", "INTERNAL_ERROR", "SKIPPED"]
+            and state.get("run_duration", 0) > 0
+        ):
+            ledger_path = Path(cfg["credit_ledger"])
+            ledger = json.loads(ledger_path.read_bytes())
+            write(ledger_path, reserve_completed_duration(ledger, a.run_id, state["run_duration"]))
         print(
             json.dumps(
                 dict(

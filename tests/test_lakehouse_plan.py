@@ -13,6 +13,7 @@ from onboarding.lakehouse_plan import (
     job_spec,
     credit_projection,
     admit_credit_step,
+    reserve_completed_duration,
 )
 
 
@@ -123,3 +124,18 @@ def test_expansion_requires_success_actual_usage_and_verified_rate():
             admit_credit_step(ledger | {field: False}, "1", expansion=True)
     with pytest.raises(ValueError):
         admit_credit_step(ledger, "290", expansion=True)
+
+
+def test_completed_runtime_replaces_pending_estimate_once_without_claiming_billing():
+    ledger = dict(
+        pending_reserved_usd="5",
+        observed_usd="0",
+        actual_usage_observed=False,
+        submissions=[dict(run_id=1, reserved_usd="5")],
+    )
+    reserve_completed_duration(ledger, 1, 120000)
+    assert float(ledger["pending_reserved_usd"]) == 0.875
+    assert ledger["observed_usd"] == "0" and not ledger["actual_usage_observed"]
+    assert "not measured billing" in ledger["submissions"][0]["estimate_basis"]
+    reserve_completed_duration(ledger, 1, 120000)
+    assert float(ledger["pending_reserved_usd"]) == 0.875

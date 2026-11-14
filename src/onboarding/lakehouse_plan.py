@@ -127,3 +127,29 @@ def admit_credit_step(ledger, proposed_reserve, *, expansion=False):
     if sum(amounts) > limit:
         raise ValueError("pending_or_projected_exposure_exceeds_allowance")
     return str(sum(amounts))
+
+
+def reserve_completed_duration(ledger, run_id, milliseconds):
+    """Replace timeout exposure with a padded wall-time estimate, never a bill claim."""
+    if type(milliseconds) is not int or milliseconds <= 0:
+        raise ValueError("positive_observed_duration_required")
+    for entry in ledger.get("submissions", []):
+        if entry["run_id"] != run_id or entry.get("observed_wall_time_ms") is not None:
+            continue
+        amount = max(
+            Decimal("0.25"),
+            Decimal(
+                credit_projection(Decimal(milliseconds) / 1000, dbu_per_hour="75", reserve="0")
+            ),
+        )
+        ledger["pending_reserved_usd"] = str(
+            Decimal(str(ledger["pending_reserved_usd"]))
+            - Decimal(str(entry["reserved_usd"]))
+            + amount
+        )
+        entry.update(
+            reserved_usd=str(amount),
+            observed_wall_time_ms=milliseconds,
+            estimate_basis="observed entire wall time times 75 DBU/hour times USD0.35; pending estimate, not measured billing",
+        )
+    return ledger
