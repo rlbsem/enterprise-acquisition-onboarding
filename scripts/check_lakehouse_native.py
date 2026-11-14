@@ -18,7 +18,6 @@ def main():
     actual_files = {p.name for p in directory.glob("*.json") if p.name != "artifact-sha256.json"}
     if actual_files != set(hashes):
         raise ValueError("unlisted_or_missing_native_artifact")
-    fixture = export_fixture(3)
     for name, expected in hashes.items():
         path = directory / name
         if path.parent != directory or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
@@ -40,6 +39,7 @@ def main():
                 result = task.get("result")
                 if not result:
                     continue
+                fixture = export_fixture(result.get("company_count", 3))
                 if result["fixture_sha256"] != sha(fixture):
                     raise ValueError("native_fixture_changed")
                 if result["phase"] == "pilot":

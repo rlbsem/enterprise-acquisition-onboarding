@@ -39,6 +39,7 @@ def run(spark, dbutils, fixture):
         started_at_utc=datetime.now(UTC).isoformat(),
     )
     out["runtime"] = dict(python=sys.version, spark=spark.version)
+    out["company_count"] = fixture["company_count"]
 
     def sql(query):
         return spark.sql(query.replace("{ns}", ns))
@@ -274,7 +275,7 @@ def run(spark, dbutils, fixture):
                 sorted(fixture["controls"], key=lambda r: r["company"]),
             )
             sql(
-                f"""CREATE OR REPLACE TEMP VIEW latest_snapshot AS SELECT * EXCEPT(rn) FROM (SELECT b.*,row_number() OVER(PARTITION BY company,kind,source_id ORDER BY revision DESC) rn FROM {{ns}}.bronze b WHERE observed_at<='{cutoff}') WHERE rn=1"""
+                f"""CREATE OR REPLACE TEMP VIEW latest_snapshot AS SELECT * EXCEPT(rn) FROM (SELECT b.*,row_number() OVER(PARTITION BY company,kind,source_id ORDER BY revision DESC) rn FROM {{ns}}.bronze b WHERE to_timestamp(observed_at)<=to_timestamp('{cutoff}')) WHERE rn=1"""
             ).collect()
             if not spark.catalog.tableExists(ns + ".silver"):
                 sql(
@@ -297,7 +298,10 @@ def run(spark, dbutils, fixture):
                 """CREATE OR REPLACE TABLE {ns}.invoices USING DELTA AS SELECT h.company,h.legal_entity,h.source_id invoice_id,concat(substring(h.transaction_date,1,7),'-01') period,h.currency,h.amount_minor gross_minor,h.counterparty_company,h.counterparty_entity,coalesce(sum(CASE WHEN c.kind='invoice_line' THEN c.amount_minor END),0) lines_minor,coalesce(sum(CASE WHEN c.kind='credit' THEN c.amount_minor END),0) credits_minor,h.amount_minor-coalesce(sum(CASE WHEN c.kind='credit' THEN c.amount_minor END),0) net_minor,coalesce(sum(CASE WHEN c.kind='erp_posting' THEN c.amount_minor END),0) erp_minor,count(CASE WHEN c.kind='erp_posting' THEN 1 END) erp_count FROM {ns}.eligible h LEFT JOIN {ns}.eligible c ON h.company=c.company AND h.source_id=c.invoice_id AND c.kind IN ('invoice_line','credit','erp_posting') WHERE h.kind='invoice' GROUP BY ALL"""
             ).collect()
             sql(
-                """CREATE OR REPLACE TABLE {ns}.eliminations USING DELTA AS SELECT i.company,i.invoice_id,i.period,i.net_minor,CASE WHEN i.erp_minor=i.net_minor AND (SELECT count(*) FROM {ns}.eligible a WHERE a.company=i.company AND a.kind='allocation' AND a.invoice_id=i.invoice_id)=0 AND (SELECT count(*) FROM {ns}.eligible c JOIN {ns}.eligible a ON a.company=i.counterparty_company AND a.kind='intercompany_acceptance' AND a.invoice_id=i.invoice_id AND a.counterparty_company=i.company AND a.counterparty_entity=i.legal_entity AND a.link_id=c.link_id AND a.amount_minor=i.net_minor AND a.currency=i.currency WHERE c.company=i.company AND c.kind='intercompany_charge' AND c.invoice_id=i.invoice_id AND c.counterparty_company=i.counterparty_company AND c.counterparty_entity=i.counterparty_entity AND c.amount_minor=i.net_minor AND c.currency=i.currency)=1 THEN i.net_minor ELSE 0 END elimination_minor FROM {ns}.invoices i WHERE i.counterparty_company IS NOT NULL"""
+                """CREATE OR REPLACE TABLE {ns}.eliminations USING DELTA AS SELECT i.company,i.invoice_id,i.period,i.net_minor,CASE WHEN i.erp_minor=i.net_minor
+                AND (SELECT count(*) FROM {ns}.eligible c WHERE c.company=i.company AND c.kind='intercompany_charge' AND c.invoice_id=i.invoice_id AND c.counterparty_company=i.counterparty_company AND c.counterparty_entity=i.counterparty_entity)=1
+                AND (SELECT count(*) FROM {ns}.eligible a WHERE a.company=i.counterparty_company AND a.kind='intercompany_acceptance' AND a.invoice_id=i.invoice_id AND a.counterparty_company=i.company AND a.counterparty_entity=i.legal_entity AND EXISTS(SELECT 1 FROM {ns}.eligible c WHERE c.company=i.company AND c.kind='intercompany_charge' AND c.invoice_id=i.invoice_id AND c.counterparty_company=i.counterparty_company AND c.counterparty_entity=i.counterparty_entity AND c.link_id=a.link_id))=1
+                AND (SELECT count(*) FROM {ns}.eligible a WHERE a.company=i.company AND a.kind='allocation' AND a.invoice_id=i.invoice_id)=0 AND (SELECT count(*) FROM {ns}.eligible c JOIN {ns}.eligible a ON a.company=i.counterparty_company AND a.kind='intercompany_acceptance' AND a.invoice_id=i.invoice_id AND a.counterparty_company=i.company AND a.counterparty_entity=i.legal_entity AND a.link_id=c.link_id AND a.amount_minor=i.net_minor AND a.currency=i.currency WHERE c.company=i.company AND c.kind='intercompany_charge' AND c.invoice_id=i.invoice_id AND c.counterparty_company=i.counterparty_company AND c.counterparty_entity=i.counterparty_entity AND c.amount_minor=i.net_minor AND c.currency=i.currency)=1 THEN i.net_minor ELSE 0 END elimination_minor FROM {ns}.invoices i WHERE i.counterparty_company IS NOT NULL"""
             ).collect()
             # Every legal entity/period is retained, including excluded zero rows.
             sql(
