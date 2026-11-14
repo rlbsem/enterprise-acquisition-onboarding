@@ -51,8 +51,9 @@ authorization. The recorded gate remains **blocked**.
 The public AWS Premium Oregon Jobs Serverless price was observed at **USD0.35/DBU**,
 including underlying compute. A provisional four-hour, 50-DBU/hour model gives
 USD70 for jobs, plus USD5 storage reserve, USD20 rerun reserve and USD25 delayed
-usage reserve: **USD120 proposed total**. The DBU rate of consumption, storage
-pricing remain unverified; payment-method absence is owner-reported. This is not a guaranteed
+usage reserve: **USD120 proposed total**. The initial snapshot predates the additional
+[storage/request/retention cost review](lakehouse-cost-review.md). Actual DBU
+consumption remains unmeasured; payment-method absence is owner-reported. This is not a guaranteed
 maximum, measured bill, owner-approved spending allowance or a claim of zero cost.
 It does not authorize starting the existing SQL warehouse.
 
