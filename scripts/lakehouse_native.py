@@ -96,6 +96,7 @@ def main():
     p.add_argument("--schema")
     p.add_argument("--companies", type=int, default=3)
     p.add_argument("--from-pilot")
+    p.add_argument("--task-seconds", type=int)
     p.add_argument(
         "--phase",
         choices=["pilot", "fault", "observer", "recovery", "governance", "scale", "cleanup"],
@@ -290,6 +291,10 @@ def main():
             or json.loads((work / "fixture.json").read_bytes())["company_count"] > 3
         )
         seconds = 300 if a.phase in ["observer", "cleanup", "fault", "governance"] else 900
+        if a.task_seconds is not None:
+            if not 60 <= a.task_seconds <= 900:
+                raise ValueError("bounded_task_timeout_required")
+            seconds = a.task_seconds
         reserve = credit_projection(seconds, reserve="0")
         admit_credit_step(ledger, reserve, expansion=expansion)
         preflight = json.loads(Path(cfg["preflight_record"]).read_bytes())
