@@ -191,3 +191,37 @@ def add_consumer_run_as_role(rules, expected_name, username):
     if identity not in role["principals"]:
         role["principals"].append(identity)
     return dict(name=expected_name, rule_set=result)
+
+
+def validate_schema_retirement(manifest, schema, actor, tables, volumes):
+    ns = namespace(manifest["schema"])
+    if (
+        schema.get("full_name") != ns
+        or schema.get("comment") != "synthetic acquisition acceptance " + manifest["fixture_sha256"]
+        or schema.get("owner", "").casefold() != actor.get("userName", "").casefold()
+        or actor.get("active") is not True
+    ):
+        raise ValueError("exact_owned_schema_required")
+    allowed = {
+        "controls",
+        "publications",
+        "candidates",
+        "bronze",
+        "silver",
+        "eligible",
+        "invoices",
+        "eliminations",
+        "gold",
+        "fault_journal",
+        "cdf_audit",
+        "scale_facts",
+        "unapproved",
+    }
+    if any(
+        t.get("name") not in allowed or t.get("table_type") not in {"MANAGED", "VIEW"}
+        for t in tables
+    ):
+        raise ValueError("unexpected_child_object_refuses_cascade")
+    if any(v.get("name") != "checkpoints" or v.get("volume_type") != "MANAGED" for v in volumes):
+        raise ValueError("unexpected_volume_refuses_cascade")
+    return ns

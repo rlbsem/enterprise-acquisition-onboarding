@@ -15,6 +15,7 @@ from onboarding.lakehouse_plan import (
     admit_credit_step,
     reserve_completed_duration,
     add_consumer_run_as_role,
+    validate_schema_retirement,
 )
 
 
@@ -175,3 +176,32 @@ def test_run_as_binding_preserves_manager_and_other_principal_roles():
     assert original["grant_rules"][1]["principals"] == ["users/other"]
     with pytest.raises(ValueError):
         add_consumer_run_as_role(original, "unowned-target", "deployer")
+
+
+@pytest.mark.parametrize("wrong", [None, "owner", "comment", "table", "volume"])
+def test_cleanup_requires_owned_comment_identity_and_exact_child_types(wrong):
+    manifest = dict(schema="acq_lh_20261114test", fixture_sha256="a" * 64)
+    actor = dict(userName="synthetic-test-operator", active=True)
+    schema = dict(
+        full_name="workspace." + manifest["schema"],
+        comment="synthetic acquisition acceptance " + "a" * 64,
+        owner=actor["userName"],
+    )
+    tables = [dict(name="bronze", table_type="MANAGED")]
+    volumes = [dict(name="checkpoints", volume_type="MANAGED")]
+    if wrong == "owner":
+        schema["owner"] = "unrelated"
+    if wrong == "comment":
+        schema["comment"] = "unowned"
+    if wrong == "table":
+        tables[0]["name"] = "unrelated"
+    if wrong == "volume":
+        volumes[0]["volume_type"] = "EXTERNAL"
+    if wrong:
+        with pytest.raises(ValueError):
+            validate_schema_retirement(manifest, schema, actor, tables, volumes)
+    else:
+        assert (
+            validate_schema_retirement(manifest, schema, actor, tables, volumes)
+            == schema["full_name"]
+        )
