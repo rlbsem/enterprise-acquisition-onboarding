@@ -180,6 +180,23 @@ def main():
             ],
             "upload",
         )
+        exported = work / "notebook-readback.py"
+        cli.call(
+            [
+                "workspace",
+                "export",
+                m["notebook_path"],
+                "--format",
+                "SOURCE",
+                "--file",
+                str(exported),
+            ],
+            "notebook-readback",
+        )
+        actual_hash = hashlib.sha256(exported.read_bytes()).hexdigest()
+        if actual_hash != m["notebook_sha256"]:
+            raise ValueError("native_notebook_readback_mismatch")
+        write(work / "notebook-readback.json", dict(exact_match=True, sha256=actual_hash))
         print('{"status":"uploaded_no_compute_started"}')
     elif a.action == "governance-setup":
         pilot = json.loads((work / "pilot-submitted.json").read_bytes())["run_id"]
