@@ -81,9 +81,12 @@ def test_pilot_projection_includes_cleanup_and_delayed_usage_reserve():
 def test_native_notebook_parses_without_local_spark_dependency():
     source = Path("scripts/lakehouse_notebook.py").read_text()
     ast.parse(source)
+    ast.parse(source, feature_version=(3, 10))
+    assert "from datetime import UTC" not in source
     assert "VERSION AS OF" in source
     assert "readChangeFeed" in source and "availableNow=True" in source
     assert "same_revision_content_conflict" in source
+    assert "FROM {{ns}}.publications p LATERAL VIEW" in source
 
 
 def test_pending_usage_is_reserved_and_never_treated_as_zero():

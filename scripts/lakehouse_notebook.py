@@ -124,6 +124,7 @@ def run(spark, dbutils, fixture):
         for name, query in [
             ("raw_read_denied", "SELECT * FROM {ns}.bronze LIMIT 1"),
             ("write_denied", "DELETE FROM {ns}.publications WHERE publication_id='never'"),
+            ("schema_create_denied", "CREATE VIEW {ns}.unapproved AS SELECT 1 n"),
         ]:
             try:
                 sql(query).collect()
@@ -170,6 +171,14 @@ def run(spark, dbutils, fixture):
                 summary,
                 dict(n=size, total=(size // 1000) * (1000 * 10000 + 999 * 1000 // 2), companies=50),
             )
+            grouped = rows(
+                "SELECT company,sum(amount_minor) total FROM {ns}.scale_facts GROUP BY company ORDER BY company"
+            )
+            expected_groups = sorted(
+                [dict(company=f"company-{c}", total=(size // 50) * (10475 + c)) for c in range(50)],
+                key=lambda r: r["company"],
+            )
+            require(f"scale_{size}_company_separation", grouped, expected_groups)
             plan = "\n".join(
                 r[0]
                 for r in sql(
@@ -181,6 +190,7 @@ def run(spark, dbutils, fixture):
                 dict(
                     rows=size,
                     seconds=time.monotonic() - start,
+                    measurement_scope="Delta write, independent financial checks and plan capture; not an ingestion-only benchmark",
                     plan=plan,
                     table_version=version("scale_facts"),
                 )
@@ -377,6 +387,21 @@ def run(spark, dbutils, fixture):
                     rows("SELECT * FROM {ns}.fault_journal"),
                     [dict(boundary="committed_before_task_failure")],
                 )
+            company, entity = [fixture["controls"][0][k] for k in ["company", "legal_entity"]]
+            sql(f"UPDATE {{ns}}.controls SET admitted=false WHERE company='{company}'").collect()
+            try:
+                project("restated")
+            except AssertionError as e:
+                require("changed_admission_blocks_recovery", str(e), "frozen_control_unchanged")
+            else:
+                raise AssertionError("changed_admission_recovery_allowed")
+            finally:
+                sql(f"UPDATE {{ns}}.controls SET admitted=true WHERE company='{company}'").collect()
+            require(
+                "changed_admission_did_not_publish",
+                rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
+                [dict(publication_id="original")],
+            )
             ingest(fixture["corrections"])
             project("restated")
             publish("restated")
@@ -467,10 +492,25 @@ def run(spark, dbutils, fixture):
                 "native_lineage_tables",
                 [ns + ".bronze", ns + ".silver", ns + ".eligible", ns + ".gold"],
             )
-            company, entity = [fixture["controls"][0][k] for k in ["company", "legal_entity"]]
+            metrics = [
+                k
+                for k in fixture["expected"]["restated"]["legal"][0]
+                if k not in ["company", "legal_entity", "period", "currency"]
+            ]
+            fields = "company:string,legal_entity:string,period:string,currency:string," + ",".join(
+                k + ":bigint" for k in metrics
+            )
+            result_type = "struct<legal:array<struct<" + fields + ">>>"
             sql(
-                f"CREATE VIEW {{ns}}.company_view AS SELECT * FROM {{ns}}.gold WHERE company='{company}' AND legal_entity='{entity}'"
+                f"CREATE VIEW {{ns}}.company_view AS SELECT p.publication_id,f.* FROM {{ns}}.publications p LATERAL VIEW explode(from_json(p.result_json,'{result_type}').legal) x AS f WHERE f.company='{company}' AND f.legal_entity='{entity}'"
             ).collect()
+            require(
+                "view_only_published_versions",
+                rows(
+                    "SELECT DISTINCT publication_id FROM {ns}.company_view ORDER BY publication_id"
+                ),
+                [dict(publication_id="original"), dict(publication_id="restated")],
+            )
         else:
             raise ValueError("unknown_phase")
 
