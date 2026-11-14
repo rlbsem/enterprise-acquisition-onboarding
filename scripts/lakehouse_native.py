@@ -93,6 +93,7 @@ def main():
             "governance-bind",
             "governance-entitle",
             "governance-retire",
+            "governance-retire-account",
             "notebook-retire",
         ],
     )
@@ -393,6 +394,47 @@ def main():
         print(
             '{"dedicated_workspace_consumer_absent":true,"account_identity_absence_not_assumed":true}'
         )
+    elif a.action == "governance-retire-account":
+        principal = json.loads((work / "principal.private.json").read_bytes())
+        before = cli.call(
+            ["account", "service-principals", "get", str(principal["id"])],
+            "account-consumer-before-retire",
+            account=True,
+        )
+        if (
+            before.get("applicationId") != principal["applicationId"]
+            or before.get("displayName") != m["schema"] + "-consumer"
+        ):
+            raise ValueError("account_principal_ownership_mismatch")
+        cli.call(
+            ["account", "service-principals", "delete", str(principal["id"])],
+            "account-consumer-retire",
+            account=True,
+        )
+        after = cli.call(
+            ["account", "service-principals", "list"], "account-consumer-after-retire", account=True
+        )
+        assert not any(
+            str(r.get("id")) == str(principal["id"])
+            or r.get("applicationId") == principal["applicationId"]
+            for r in after
+        ), "account_consumer_still_present"
+        workspace = cli.call(["service-principals", "list"], "workspace-consumer-final")
+        absent = not any(
+            str(r.get("id")) == str(principal["id"])
+            or r.get("applicationId") == principal["applicationId"]
+            for r in workspace
+        )
+        write(
+            work / "consumer-retirement.json",
+            dict(
+                account_consumer_absent=True,
+                workspace_consumer_absent=absent,
+                removed_only_owned_identity=True,
+                observed_at_utc=datetime.now(UTC).isoformat(),
+            ),
+        )
+        print(json.dumps(dict(account_consumer_absent=True, workspace_consumer_absent=absent)))
     elif a.action == "notebook-retire":
         # Only the exact run directory, after evidence export and namespace teardown.
         directory = m["notebook_path"].rsplit("/", 1)[0]
