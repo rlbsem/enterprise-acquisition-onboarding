@@ -1,4 +1,6 @@
 {
   "01-runtime-failure.json": "585e2aa5f2a56c46de86c8cf3a98edad6cc5b305f0751a8c11da259f15099fd1",
-  "02-pilot.json": "e3dcd379095ced95fb66e302dd2344c6deaf5ae978f8e2dd81156a63cf26f79b"
+  "02-pilot.json": "e3dcd379095ced95fb66e302dd2344c6deaf5ae978f8e2dd81156a63cf26f79b",
+  "03-observer-timeout.json": "c0e0e0c114c268dcfcb8beec0e3ca58bfb8a352f55f66dc1efab1794c9be80f3",
+  "04-observer.json": "28f93ac95b95e9cc95cc5576b37427cee1f6e0207b535ccf4feabf5b39439607"
 }

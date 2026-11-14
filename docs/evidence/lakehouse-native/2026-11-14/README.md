@@ -6,6 +6,18 @@ native HubSpot read-only proof.
 
 ## Preserved observations
 
+`02-pilot.json` records actual native Spark/Delta financial acceptance at
+`1ca1e232ae3b963c467b15fd89d7774cf6673d48`. Original and corrected financial
+snapshots matched the independent oracle. Replay, incremental/full-snapshot
+parity, time travel, CDF and withheld publication were executed. No restricted
+consumer or process-crash recovery result is implied by this pilot.
+
+`03-observer-timeout.json` retains the failed five-minute observer attempt.
+`04-observer.json` records a separate successful readback at
+`2220c059ae77772e8eee3c6c293de2810391f2b3`, including 66 returned native lineage
+records. Usage was empty/pending, not zero cost. Its initial rate query's SKU
+pattern returned no rows; no measured billing claim is made.
+
 `01-runtime-failure.json` records the first actual run at source
 `9ee5faec9c32a39954f77c987c932c3da5f670e8`. The default notebook environment
 rejected the Python 3.11 `datetime.UTC` alias under Python 3.10, before the

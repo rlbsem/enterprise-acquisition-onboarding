@@ -62,5 +62,40 @@ Before cleanup, export results and table history. Cleanup verifies the exact
 fixture ownership comment before dropping only that schema. Remove the exact
 run's notebook and dedicated principal/job, then verify absence separately.
 
-Current status: implementation prepared and offline contracts executed. Native
-execution results will be added as new immutable records after actual runs.
+## Executed checkpoint
+
+Actual native results are preserved in the [evidence directory](evidence/lakehouse-native/2026-11-14/README.md).
+
+| Execution | Actual result |
+|---|---|
+| Initial pilot `376042101469046` | Failed on the default Python 3.10 runtime's unsupported `datetime.UTC` import, before table creation code. Original failure retained. |
+| Corrected pilot `165257131529869` | Passed on Spark 4.2.0/Python 3.10.12; 162 original source rows plus three corrections; all nine financial metrics at company/period and portfolio grains matched the existing independent oracle. |
+| Incremental and historical state | Silver MERGE matched independent full-snapshot results; duplicate/reordered delivery did not change source membership; earlier Delta table-version readback matched the baseline. |
+| Publication boundary | Original publication remained visible while the corrected candidate was committed but deliberately unpublished. This first pilot withheld a marker; it did not crash a process. |
+| First observer `365544213277342` | Timed out with a five-minute total allowance after 236 seconds of setup. No successful readback is attributed to this record. |
+| Corrected observer `1066881425859697` | Passed; original publication independently read back and reconciled, actual history observed and 66 native lineage records returned. These are records, not 66 distinct dependencies. |
+
+The corrected pilot took 135 seconds to set up and 238 seconds to execute.
+The successful observer took 266 seconds to set up and 194 seconds to execute.
+These are acceptance-task durations including checks, not ingestion throughput
+benchmarks. Immutable records retain exact source commits; later fixes do not
+retroactively change what an older run proved.
+
+Usage reads returned no rows. This is pending reporting, not zero consumption.
+The first native rate query also returned no rows because its SKU pattern
+assumed the words SERVERLESS and JOBS were in the wrong order; the corrected
+query is part of subsequent execution. The applicable public regional price was
+observed independently; actual workload billing remains unverified.
+
+Databricks documents [up to a 24-hour reporting delay](https://docs.databricks.com/aws/en/compute/serverless),
+and [new-workspace delivery can take longer](https://docs.databricks.com/aws/en/admin/system-tables/billing).
+Completed-run wall time is reserved at 75 DBU/hour times USD0.35 (the documented
+possible 50 DBU/hour trial limit plus a 50% margin). Those padded pending
+estimates are not billed amounts. Future task timeouts remain reserved and a
+separate cleanup/storage reserve is retained. Scale expansion stays blocked
+until actual usage, applicable rates and successful pilot acceptance are observed.
+
+A bounded native Jobs dependency chain is testing a real task failure after a
+durable Delta journal commit, followed by guarded recovery and CDF checkpoint
+replay. Restricted-principal access tests, that recovery verdict and the full
+50-company/scale lane are not claimed as passed in this checkpoint.

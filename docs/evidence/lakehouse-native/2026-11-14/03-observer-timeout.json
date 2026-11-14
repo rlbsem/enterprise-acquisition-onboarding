@@ -1,0 +1,22 @@
+{
+  "private_observation_sha256": "b59d83835b9000a29e1008180b74b53fe382eb8bc3726b07736585b604ab3a61",
+  "run_id": 365544213277342,
+  "source_commit": "0bef0fb2a9f72cbf197a54cebc51c2f9c48c9140",
+  "state": {
+    "life_cycle_state": "INTERNAL_ERROR",
+    "result_state": "TIMEDOUT"
+  },
+  "tasks": [
+    {
+      "execution_duration_ms": 114000,
+      "failure_observation": "no_notebook_result",
+      "run_id": 685272133017585,
+      "setup_duration_ms": 236000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "TIMEDOUT"
+      },
+      "task_key": "observer"
+    }
+  ]
+}

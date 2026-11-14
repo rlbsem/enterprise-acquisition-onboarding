@@ -1,0 +1,929 @@
+{
+  "private_observation_sha256": "52e0bb04d06dc1acef8bf727e9abe7a60a254f14f8314ff2e4d56d7974c84d8d",
+  "run_id": 1066881425859697,
+  "source_commit": "2220c059ae77772e8eee3c6c293de2810391f2b3",
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS"
+  },
+  "tasks": [
+    {
+      "execution_duration_ms": 194000,
+      "result": {
+        "completed_at_utc": "2026-11-14T05:00:25.052696+00:00",
+        "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+        "observations": [
+          {
+            "check": "published",
+            "result": [
+              {
+                "publication_id": "original",
+                "result_json": "{\"legal\":[{\"allocated_cash_minor\":3265801,\"bookings_minor\":12118000,\"company\":\"acq-aaa\",\"consolidated_erp_minor\":5937820,\"consolidated_invoice_minor\":5937820,\"credits_minor\":121180,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":5937820,\"gross_invoice_minor\":6059000,\"legal_entity\":\"SYN-LE-0001\",\"net_invoice_minor\":5937820,\"period\":\"2026-01-01\"},{\"allocated_cash_minor\":3372523,\"bookings_minor\":12514000,\"company\":\"acq-aaa\",\"consolidated_erp_minor\":6131860,\"consolidated_invoice_minor\":6131860,\"credits_minor\":125140,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":6131860,\"gross_invoice_minor\":6257000,\"legal_entity\":\"SYN-LE-0001\",\"net_invoice_minor\":6131860,\"period\":\"2026-10-01\"},{\"allocated_cash_minor\":0,\"bookings_minor\":0,\"company\":\"acq-aab\",\"consolidated_erp_minor\":0,\"consolidated_invoice_minor\":0,\"credits_minor\":0,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":0,\"gross_invoice_minor\":0,\"legal_entity\":\"SYN-LE-0002\",\"net_invoice_minor\":0,\"period\":\"2026-01-01\"},{\"allocated_cash_minor\":0,\"bookings_minor\":0,\"company\":\"acq-aab\",\"consolidated_erp_minor\":0,\"consolidated_invoice_minor\":0,\"credits_minor\":0,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":0,\"gross_invoice_minor\":0,\"legal_entity\":\"SYN-LE-0002\",\"net_invoice_minor\":0,\"period\":\"2026-10-01\"},{\"allocated_cash_minor\":0,\"bookings_minor\":0,\"company\":\"acq-aac\",\"consolidated_erp_minor\":0,\"consolidated_invoice_minor\":0,\"credits_minor\":0,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":0,\"gross_invoice_minor\":0,\"legal_entity\":\"SYN-LE-0003\",\"net_invoice_minor\":0,\"period\":\"2026-01-01\"},{\"allocated_cash_minor\":7485525,\"bookings_minor\":53560000,\"company\":\"acq-aac\",\"consolidated_erp_minor\":13082502,\"consolidated_invoice_minor\":13132502,\"credits_minor\":257498,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":13082502,\"gross_invoice_minor\":13390000,\"legal_entity\":\"SYN-LE-0003\",\"net_invoice_minor\":13132502,\"period\":\"2026-10-01\"}],\"totals\":[{\"allocated_cash_minor\":3265801,\"bookings_minor\":12118000,\"consolidated_erp_minor\":5937820,\"consolidated_invoice_minor\":5937820,\"credits_minor\":121180,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":5937820,\"gross_invoice_minor\":6059000,\"net_invoice_minor\":5937820,\"period\":\"2026-01-01\"},{\"allocated_cash_minor\":10858048,\"bookings_minor\":66074000,\"consolidated_erp_minor\":19214362,\"consolidated_invoice_minor\":19264362,\"credits_minor\":382638,\"currency\":\"USD\",\"elimination_minor\":0,\"erp_posted_minor\":19214362,\"gross_invoice_minor\":19647000,\"net_invoice_minor\":19264362,\"period\":\"2026-10-01\"}],\"variances\":[[\"acq-aaa\",\"PAY-100-01\",\"unallocated_payment\",2500],[\"acq-aaa\",\"PAY-100-10\",\"unallocated_payment\",2500],[\"acq-aaa\",\"PAY-101-01\",\"unallocated_payment\",2500],[\"acq-aaa\",\"PAY-101-10\",\"unallocated_payment\",2500],[\"acq-aac\",\"I-100-10\",\"erp_posting_difference\",12500],[\"acq-aac\",\"I-101-10\",\"erp_posting_difference\",12500],[\"acq-aac\",\"I-102-10\",\"erp_posting_difference\",12500],[\"acq-aac\",\"I-103-10\",\"erp_posting_difference\",12500],[\"acq-aac\",\"PAY-100-10\",\"unallocated_payment\",2500],[\"acq-aac\",\"PAY-101-10\",\"unallocated_payment\",2500],[\"acq-aac\",\"PAY-102-10\",\"unallocated_payment\",2500],[\"acq-aac\",\"PAY-103-10\",\"unallocated_payment\",2500]]}",
+                "source_hash": "55cab39122ccb2ed8a0f9a6815807bbd879104cb7db33a04196bb43df8624ea7"
+              }
+            ]
+          },
+          {
+            "check": "history",
+            "result": {
+              "bronze": [
+                {
+                  "metrics": {
+                    "executionTimeMs": "1457",
+                    "materializeSourceTimeMs": "10",
+                    "numOutputRows": "3",
+                    "numSourceRows": "3",
+                    "numTargetBytesAdded": "6699",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "1",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "3",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "1414",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 4
+                },
+                {
+                  "metrics": {
+                    "executionTimeMs": "1440",
+                    "materializeSourceTimeMs": "10",
+                    "numOutputRows": "0",
+                    "numSourceRows": "162",
+                    "numTargetBytesAdded": "0",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "0",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "0",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "1396",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 3
+                },
+                {
+                  "metrics": {
+                    "executionTimeMs": "2337",
+                    "materializeSourceTimeMs": "16",
+                    "numOutputRows": "162",
+                    "numSourceRows": "162",
+                    "numTargetBytesAdded": "14272",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "1",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "162",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "2258",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 2
+                },
+                {
+                  "metrics": {},
+                  "operation": "ADD CONSTRAINT",
+                  "version": 1
+                },
+                {
+                  "metrics": {
+                    "numFiles": "0",
+                    "numOutputBytes": "0",
+                    "numOutputRows": "0"
+                  },
+                  "operation": "CREATE TABLE AS SELECT",
+                  "version": 0
+                }
+              ],
+              "candidates": [
+                {
+                  "metrics": {
+                    "executionTimeMs": "849",
+                    "materializeSourceTimeMs": "9",
+                    "numOutputRows": "1",
+                    "numSourceRows": "1",
+                    "numTargetBytesAdded": "10228",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "1",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "1",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "799",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 2
+                },
+                {
+                  "metrics": {
+                    "executionTimeMs": "921",
+                    "materializeSourceTimeMs": "8",
+                    "numOutputRows": "1",
+                    "numSourceRows": "1",
+                    "numTargetBytesAdded": "10231",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "1",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "1",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "875",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 1
+                },
+                {
+                  "metrics": {},
+                  "operation": "CREATE TABLE",
+                  "version": 0
+                }
+              ],
+              "publications": [
+                {
+                  "metrics": {
+                    "executionTimeMs": "968",
+                    "materializeSourceTimeMs": "7",
+                    "numOutputRows": "1",
+                    "numSourceRows": "1",
+                    "numTargetBytesAdded": "10223",
+                    "numTargetBytesRemoved": "0",
+                    "numTargetChangeFilesAdded": "0",
+                    "numTargetDeletionVectorsAdded": "0",
+                    "numTargetDeletionVectorsRemoved": "0",
+                    "numTargetDeletionVectorsUpdated": "0",
+                    "numTargetFilesAdded": "1",
+                    "numTargetFilesRemoved": "0",
+                    "numTargetRowsCopied": "0",
+                    "numTargetRowsDeleted": "0",
+                    "numTargetRowsInserted": "1",
+                    "numTargetRowsMatchedDeleted": "0",
+                    "numTargetRowsMatchedUpdated": "0",
+                    "numTargetRowsNotMatchedBySourceDeleted": "0",
+                    "numTargetRowsNotMatchedBySourceUpdated": "0",
+                    "numTargetRowsUpdated": "0",
+                    "rewriteTimeMs": "929",
+                    "scanTimeMs": "0"
+                  },
+                  "operation": "MERGE",
+                  "version": 1
+                },
+                {
+                  "metrics": {},
+                  "operation": "CREATE TABLE",
+                  "version": 0
+                }
+              ]
+            }
+          },
+          {
+            "check": "bronze_rows",
+            "result": 165
+          },
+          {
+            "check": "original_independent_readback",
+            "result": {
+              "actual": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              },
+              "equal": true,
+              "expected": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              }
+            }
+          },
+          {
+            "check": "usage",
+            "result": []
+          },
+          {
+            "check": "rates",
+            "result": []
+          },
+          {
+            "check": "lineage",
+            "result": [
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.invoices"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.candidates",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.silver",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eligible"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eliminations",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eliminations",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": null,
+                "target_table_full_name": "workspace.acq_lh_20261114b.publications"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eligible"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.silver",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": "workspace.acq_lh_20261114b.silver"
+              },
+              {
+                "source_table_full_name": null,
+                "target_table_full_name": "workspace.acq_lh_20261114b.candidates"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eliminations"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": "workspace.acq_lh_20261114b.silver"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.gold",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": "workspace.acq_lh_20261114b.silver"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.bronze"
+              },
+              {
+                "source_table_full_name": null,
+                "target_table_full_name": "workspace.acq_lh_20261114b.candidates"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.candidates",
+                "target_table_full_name": "workspace.acq_lh_20261114b.publications"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.bronze"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.gold",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.bronze"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eliminations"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.bronze"
+              },
+              {
+                "source_table_full_name": null,
+                "target_table_full_name": "workspace.acq_lh_20261114b.controls"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eliminations",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.silver",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eligible"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.gold",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eliminations",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.invoices"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.silver",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.publications",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eliminations"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.gold"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.gold",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eliminations"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.controls",
+                "target_table_full_name": "workspace.acq_lh_20261114b.eligible"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.eligible",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.bronze",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": null,
+                "target_table_full_name": "workspace.acq_lh_20261114b.candidates"
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.candidates",
+                "target_table_full_name": null
+              },
+              {
+                "source_table_full_name": "workspace.acq_lh_20261114b.invoices",
+                "target_table_full_name": null
+              }
+            ]
+          }
+        ],
+        "phase": "observer",
+        "runtime": {
+          "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+          "spark": "4.2.0"
+        },
+        "schema": "lakehouse-native.v1",
+        "source_commit": "2220c059ae77772e8eee3c6c293de2810391f2b3",
+        "started_at_utc": "2026-11-14T04:57:31.143803+00:00",
+        "status": "passed",
+        "synthetic": true
+      },
+      "run_id": 259593377940864,
+      "setup_duration_ms": 266000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS"
+      },
+      "task_key": "observer"
+    }
+  ]
+}
