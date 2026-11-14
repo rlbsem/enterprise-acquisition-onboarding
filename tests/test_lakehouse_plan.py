@@ -62,6 +62,8 @@ def test_native_job_is_unscheduled_bounded_and_has_no_cluster_or_retry():
     assert spec["timeout_seconds"] == 900
     assert "schedule" not in spec and "job_clusters" not in spec
     assert spec["tasks"][0]["max_retries"] == 0
+    assert spec["tasks"][0]["disable_auto_optimization"] is True
+    assert spec["tasks"][0]["retry_on_timeout"] is False
     assert not {"new_cluster", "existing_cluster_id"} & spec["tasks"][0].keys()
     assert spec["tasks"][0]["notebook_task"]["base_parameters"]["fixture_hash"] == "b" * 64
 

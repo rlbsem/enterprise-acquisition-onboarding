@@ -401,6 +401,7 @@ def main():
             task = dict(
                 task_key=t["task_key"],
                 run_id=t["run_id"],
+                attempt_number=t.get("attempt_number"),
                 state=t.get("state"),
                 execution_duration_ms=t.get("execution_duration"),
                 setup_duration_ms=t.get("setup_duration"),

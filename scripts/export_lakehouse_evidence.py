@@ -18,7 +18,13 @@ def project(raw):
     for t in raw["tasks"]:
         item = {
             k: t.get(k)
-            for k in ["task_key", "run_id", "execution_duration_ms", "setup_duration_ms"]
+            for k in [
+                "task_key",
+                "run_id",
+                "attempt_number",
+                "execution_duration_ms",
+                "setup_duration_ms",
+            ]
         }
         item["state"] = {k: t["state"].get(k) for k in ["life_cycle_state", "result_state"]}
         if "result" in t:
