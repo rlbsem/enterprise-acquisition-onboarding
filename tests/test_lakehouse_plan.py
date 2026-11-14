@@ -14,6 +14,7 @@ from onboarding.lakehouse_plan import (
     credit_projection,
     admit_credit_step,
     reserve_completed_duration,
+    add_consumer_run_as_role,
 )
 
 
@@ -155,3 +156,22 @@ def test_controlled_interoperability_reruns_have_a_separate_finite_allowance():
         admit_credit_step(ledger | dict(controlled_rerun_reserved_usd="21"), "1")
     with pytest.raises(ValueError):
         admit_credit_step(ledger, "7")
+
+
+def test_run_as_binding_preserves_manager_and_other_principal_roles():
+    name = "accounts/test-only/servicePrincipals/owned-only/ruleSets/default"
+    original = dict(
+        name=name,
+        etag="test-only-version",
+        grant_rules=[
+            dict(role="roles/servicePrincipal.manager", principals=["users/existing"]),
+            dict(role="roles/servicePrincipal.user", principals=["users/other"]),
+        ],
+    )
+    patch = add_consumer_run_as_role(original, name, "deployer")
+    assert patch["rule_set"]["etag"] == "test-only-version"
+    assert patch["rule_set"]["grant_rules"][0] == original["grant_rules"][0]
+    assert patch["rule_set"]["grant_rules"][1]["principals"] == ["users/other", "users/deployer"]
+    assert original["grant_rules"][1]["principals"] == ["users/other"]
+    with pytest.raises(ValueError):
+        add_consumer_run_as_role(original, "unowned-target", "deployer")

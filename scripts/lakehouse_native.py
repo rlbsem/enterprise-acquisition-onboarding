@@ -19,6 +19,7 @@ from onboarding.lakehouse_plan import (
     credit_projection,
     admit_credit_step,
     reserve_completed_duration,
+    add_consumer_run_as_role,
 )
 from onboarding.lakehouse_preflight import native_gate
 
@@ -88,6 +89,7 @@ def main():
             "submit",
             "observe",
             "governance-setup",
+            "governance-bind",
             "governance-retire",
             "notebook-retire",
         ],
@@ -260,6 +262,41 @@ def main():
             "grant-notebook",
         )
         print('{"dedicated_consumer_created":true,"scope":"catalog-use/schema-use/one-view-read"}')
+    elif a.action == "governance-bind":
+        principal = json.loads((work / "principal.private.json").read_bytes())
+        actual = cli.call(
+            ["service-principals", "get", str(principal["id"])], "consumer-before-binding"
+        )
+        if (
+            actual.get("applicationId") != principal["applicationId"]
+            or actual.get("displayName") != m["schema"] + "-consumer"
+        ):
+            raise ValueError("principal_ownership_mismatch")
+        actor = cli.call(["current-user", "me"], "consumer-bind-actor")
+        rule_name = (
+            "accounts/"
+            + cfg["target"]["account_id"]
+            + "/servicePrincipals/"
+            + principal["applicationId"]
+            + "/ruleSets/default"
+        )
+        prior = cli.call(
+            ["account", "access-control", "get-rule-set", rule_name, ""],
+            "consumer-role-before",
+            account=True,
+        )
+        request = add_consumer_run_as_role(prior, rule_name, actor["userName"])
+        destination = work / "consumer-role-request.private.json"
+        write(destination, request)
+        after = cli.call(
+            ["account", "access-control", "update-rule-set", "--json", "@" + str(destination)],
+            "consumer-role-after",
+            account=True,
+        )
+        assert after["grant_rules"] == request["rule_set"]["grant_rules"], (
+            "role_update_not_verified"
+        )
+        print('{"scoped_run_as_role_verified":true,"existing_rules_preserved":true}')
     elif a.action == "governance-retire":
         principal = json.loads((work / "principal.private.json").read_bytes())
         actual = cli.call(

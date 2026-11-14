@@ -170,3 +170,23 @@ def reserve_completed_duration(ledger, run_id, milliseconds):
             estimate_basis="observed entire wall time times 75 DBU/hour times USD0.35; pending estimate, not measured billing",
         )
     return ledger
+
+
+def add_consumer_run_as_role(rules, expected_name, username):
+    """ETag-protected update of one owned principal; preserve all existing grants."""
+    import copy
+
+    if rules.get("name") != expected_name or not rules.get("etag") or not username:
+        raise ValueError("exact_owned_principal_ruleset_required")
+    result = copy.deepcopy(rules)
+    role = next(
+        (g for g in result.get("grant_rules", []) if g["role"] == "roles/servicePrincipal.user"),
+        None,
+    )
+    if role is None:
+        role = dict(role="roles/servicePrincipal.user", principals=[])
+        result.setdefault("grant_rules", []).append(role)
+    identity = "users/" + username
+    if identity not in role["principals"]:
+        role["principals"].append(identity)
+    return dict(name=expected_name, rule_set=result)
