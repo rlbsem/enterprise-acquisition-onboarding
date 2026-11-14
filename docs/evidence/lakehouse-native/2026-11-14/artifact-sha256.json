@@ -6,5 +6,7 @@
   "05-recovery-chain-failure.json": "1f6c798a73d590daaaf444daca0dede436574d866f04c966d55be45922d4f876",
   "06-postcheck.json": "ae539b8c008dfb26bdd11f93a0fedd385cea9f2d463ade5123eace9e3ccaf6f2",
   "07-consumer-workspace-denial.json": "acccc66aaf4e9a681842c6b36038942e23f9916e5e99291c50ddcb8b761ffb9f",
-  "08-restricted-consumer.json": "0329d8f5d36a45a48565ee31b5b5fa4eb3e82657e11d2dc90b2040caee6a8731"
+  "08-restricted-consumer.json": "0329d8f5d36a45a48565ee31b5b5fa4eb3e82657e11d2dc90b2040caee6a8731",
+  "09-financial-sql-audit.json": "766f334015e211f6a89af948155916936610b871bde9a4b665802a3151cf3a31",
+  "source-bindings.json": "b9e2d2f047709f2e41a7d4f97be9108a064066682340a783e36f75169b57608e"
 }

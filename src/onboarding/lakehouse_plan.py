@@ -227,3 +227,44 @@ def validate_schema_retirement(manifest, schema, actor, tables, volumes):
     if any(v.get("name") != "checkpoints" or v.get("volume_type") != "MANAGED" for v in volumes):
         raise ValueError("unexpected_volume_refuses_cascade")
     return ns
+
+
+def validate_native_financial_result(result):
+    """Recalculate archived results from original fixtures, not their own expected fields."""
+    fixture = export_fixture(result.get("company_count", 3))
+    if result["fixture_sha256"] != sha(fixture):
+        raise ValueError("native_fixture_changed")
+    observations = {o["check"]: o["result"] for o in result["observations"]}
+    for label in ["original", "restated"]:
+        for suffix in [
+            "_full_financial_oracle",
+            "_continuation_readback",
+            "_publication_still_unchanged",
+            "_independent_readback",
+        ]:
+            value = observations.get(label + suffix)
+            if value and value["actual"] != fixture["expected"][label]:
+                raise ValueError("native_financial_result_disagrees_with_independent_oracle")
+    if "restated_source_hash_readback" in observations:
+        bronze = [b | dict(event_hash=sha(b)) for b in fixture["baseline"] + fixture["corrections"]]
+        bronze.sort(key=lambda r: (r["company"], r["kind"], r["source_id"], r["revision"]))
+        if observations["restated_source_hash_readback"]["actual"] != sha(bronze):
+            raise ValueError("native_source_membership_hash_mismatch")
+    if result["phase"] == "governance":
+        expected = sorted(
+            [
+                dict(publication_id=label, **r)
+                for label in ["original", "restated"]
+                for r in fixture["expected"][label]["legal"]
+                if r["company"] == fixture["controls"][0]["company"]
+            ],
+            key=lambda r: (r["publication_id"], r["period"]),
+        )
+        if observations["restricted_financial_readback"]["actual"] != expected:
+            raise ValueError("restricted_financial_scope_or_content_mismatch")
+        for name in ["raw_read_denied", "write_denied", "schema_create_denied"]:
+            if observations[name].get("denied") is not True or observations[name].get(
+                "error_class"
+            ) not in {"INSUFFICIENT_PERMISSIONS", "UNAUTHORIZED_ACCESS"}:
+                raise ValueError("unrelated_failure_is_not_permission_proof")
+    return True

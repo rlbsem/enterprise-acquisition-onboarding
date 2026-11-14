@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 
 from export_lakehouse_evidence import verify
-from onboarding.lakehouse_plan import export_fixture, sha
+from onboarding.lakehouse_plan import export_fixture, sha, validate_native_financial_result
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,6 +39,7 @@ def main():
                 result = task.get("result")
                 if not result:
                     continue
+                validate_native_financial_result(result)
                 fixture = export_fixture(result.get("company_count", 3))
                 if result["fixture_sha256"] != sha(fixture):
                     raise ValueError("native_fixture_changed")
