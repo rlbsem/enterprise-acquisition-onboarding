@@ -126,8 +126,11 @@ def admit_credit_step(ledger, proposed_reserve, *, expansion=False):
         for k in ["observed_usd", "pending_reserved_usd", "cleanup_reserved_usd"]
     ]
     amounts.append(Decimal(str(proposed_reserve)))
-    if any(not v.is_finite() or v < 0 for v in amounts):
+    reruns = Decimal(str(ledger.get("controlled_rerun_reserved_usd", "0")))
+    if any(not v.is_finite() or v < 0 for v in [*amounts, reruns]):
         raise ValueError("invalid_credit_observation")
+    if reruns > 20 or sum(amounts) + reruns > 300:
+        raise ValueError("controlled_rerun_or_total_allowance_exceeded")
     limit = Decimal("300" if expansion else "20")
     if expansion and (
         not ledger.get("pilot_accepted")
@@ -135,9 +138,9 @@ def admit_credit_step(ledger, proposed_reserve, *, expansion=False):
         or not ledger.get("applicable_rate_verified")
     ):
         raise ValueError("measured_pilot_required_before_expansion")
-    if sum(amounts) > limit:
+    if sum(amounts) + (reruns if expansion else 0) > limit:
         raise ValueError("pending_or_projected_exposure_exceeds_allowance")
-    return str(sum(amounts))
+    return str(sum(amounts) + reruns)
 
 
 def reserve_completed_duration(ledger, run_id, milliseconds):
@@ -153,10 +156,13 @@ def reserve_completed_duration(ledger, run_id, milliseconds):
                 credit_projection(Decimal(milliseconds) / 1000, dbu_per_hour="75", reserve="0")
             ),
         )
-        ledger["pending_reserved_usd"] = str(
-            Decimal(str(ledger["pending_reserved_usd"]))
-            - Decimal(str(entry["reserved_usd"]))
-            + amount
+        field = (
+            "controlled_rerun_reserved_usd"
+            if entry.get("budget_bucket") == "controlled_rerun"
+            else "pending_reserved_usd"
+        )
+        ledger[field] = str(
+            Decimal(str(ledger.get(field, "0"))) - Decimal(str(entry["reserved_usd"])) + amount
         )
         entry.update(
             reserved_usd=str(amount),

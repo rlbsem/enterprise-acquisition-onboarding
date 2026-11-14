@@ -141,3 +141,17 @@ def test_completed_runtime_replaces_pending_estimate_once_without_claiming_billi
     assert "not measured billing" in ledger["submissions"][0]["estimate_basis"]
     reserve_completed_duration(ledger, 1, 120000)
     assert float(ledger["pending_reserved_usd"]) == 0.875
+
+
+def test_controlled_interoperability_reruns_have_a_separate_finite_allowance():
+    ledger = dict(
+        observed_usd="0",
+        pending_reserved_usd="12",
+        cleanup_reserved_usd="2",
+        controlled_rerun_reserved_usd="7",
+    )
+    assert admit_credit_step(ledger, "5") == "26"
+    with pytest.raises(ValueError):
+        admit_credit_step(ledger | dict(controlled_rerun_reserved_usd="21"), "1")
+    with pytest.raises(ValueError):
+        admit_credit_step(ledger, "7")
