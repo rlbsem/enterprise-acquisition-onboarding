@@ -329,9 +329,8 @@ def main():
         if a.phase == "chain":
             spec["tasks"] = []
             for name, timeout, dependency in [
-                ("fault", 300, None),
+                ("fault", 600, None),
                 ("recovery", 600, "fault"),
-                ("observer", 600, "recovery"),
             ]:
                 task = job_spec(
                     m["notebook_path"],

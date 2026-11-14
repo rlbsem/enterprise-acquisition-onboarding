@@ -122,6 +122,21 @@ def run(spark, dbutils, fixture):
             visible,
             [{k: fixture["controls"][0][k] for k in ["company", "legal_entity"]}],
         )
+        company = fixture["controls"][0]["company"]
+        expected_rows = sorted(
+            [
+                dict(publication_id=label, **r)
+                for label in ["original", "restated"]
+                for r in fixture["expected"][label]["legal"]
+                if r["company"] == company
+            ],
+            key=lambda r: (r["publication_id"], r["period"]),
+        )
+        require(
+            "restricted_financial_readback",
+            rows("SELECT * FROM {ns}.company_view ORDER BY publication_id,period"),
+            expected_rows,
+        )
         for name, query in [
             ("raw_read_denied", "SELECT * FROM {ns}.bronze LIMIT 1"),
             ("write_denied", "DELETE FROM {ns}.publications WHERE publication_id='never'"),
