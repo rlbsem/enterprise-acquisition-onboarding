@@ -22,6 +22,7 @@ def sha(value):
 def run(spark, dbutils, fixture):
     for name in ["schema", "phase", "revision", "fixture_hash"]:
         dbutils.widgets.text(name, "")
+    dbutils.widgets.text("expected_fault", "0")
     schema, phase, revision, expected_hash = [
         dbutils.widgets.get(n) for n in ["schema", "phase", "revision", "fixture_hash"]
     ]
@@ -381,7 +382,10 @@ def run(spark, dbutils, fixture):
                 rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
                 [dict(publication_id="original")],
             )
-            if spark.catalog.tableExists(ns + ".fault_journal"):
+            fault_exists = spark.catalog.tableExists(ns + ".fault_journal")
+            if dbutils.widgets.get("expected_fault") == "1":
+                assert fault_exists, "upstream_fault_did_not_reach_commit"
+            if fault_exists:
                 require(
                     "failed_task_durable_commit",
                     rows("SELECT * FROM {ns}.fault_journal"),

@@ -99,7 +99,16 @@ def main():
     p.add_argument("--task-seconds", type=int)
     p.add_argument(
         "--phase",
-        choices=["pilot", "fault", "observer", "recovery", "governance", "scale", "cleanup"],
+        choices=[
+            "pilot",
+            "fault",
+            "observer",
+            "recovery",
+            "chain",
+            "governance",
+            "scale",
+            "cleanup",
+        ],
         default="pilot",
     )
     p.add_argument("--run-id", type=int)
@@ -312,11 +321,34 @@ def main():
         spec = job_spec(
             m["notebook_path"],
             m["schema"],
-            a.phase,
+            "fault" if a.phase == "chain" else a.phase,
             m["source_commit"],
             m["fixture_sha256"],
             seconds=seconds,
         )
+        if a.phase == "chain":
+            spec["tasks"] = []
+            for name, timeout, dependency in [
+                ("fault", 300, None),
+                ("recovery", 600, "fault"),
+                ("observer", 600, "recovery"),
+            ]:
+                task = job_spec(
+                    m["notebook_path"],
+                    m["schema"],
+                    name,
+                    m["source_commit"],
+                    m["fixture_sha256"],
+                    seconds=timeout,
+                )["tasks"][0]
+                if dependency:
+                    task["depends_on"] = [dict(task_key=dependency)]
+                if name == "recovery":
+                    task["run_if"] = "ALL_DONE"
+                    task["notebook_task"]["base_parameters"]["expected_fault"] = "1"
+                spec["tasks"].append(task)
+            spec["timeout_seconds"] = 900
+            spec["run_name"] = m["schema"] + "-bounded-recovery-chain"
         spec["idempotency_token"] = sha([m["schema"], a.phase, m["source_commit"]])
         if a.phase == "governance":
             principal = json.loads((work / "principal.private.json").read_bytes())
