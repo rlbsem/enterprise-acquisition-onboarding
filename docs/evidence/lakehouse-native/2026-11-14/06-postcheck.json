@@ -1,0 +1,1647 @@
+{
+  "private_observation_sha256": "90265e2bf6abf3bd76133366b4ff9e582e46cdeeca4f9fa1c90539e376d0cc80",
+  "run_id": 249606355532099,
+  "source_commit": "971b4a9138f19634c3898a5463ecfb1bf605eb34",
+  "state": {
+    "life_cycle_state": "TERMINATED",
+    "result_state": "SUCCESS"
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "execution_duration_ms": 180000,
+      "result": {
+        "completed_at_utc": "2026-11-14T16:34:37.923388+00:00",
+        "fixture_sha256": "bb2f4f3689bc0d1c9329126f3b1f82c5161288ecd9816f4f6faa9d34d3704dab",
+        "observations": [
+          {
+            "check": "remote_ahead_candidate",
+            "result": {
+              "actual": [
+                {
+                  "publication_id": "original"
+                },
+                {
+                  "publication_id": "restated"
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "publication_id": "original"
+                },
+                {
+                  "publication_id": "restated"
+                }
+              ]
+            }
+          },
+          {
+            "check": "failed_task_durable_commit",
+            "result": {
+              "actual": [
+                {
+                  "boundary": "committed_before_task_failure"
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "boundary": "committed_before_task_failure"
+                }
+              ]
+            }
+          },
+          {
+            "check": "current_control_unchanged",
+            "result": {
+              "actual": [
+                {
+                  "acquired_on": "2025-10-01",
+                  "admitted": true,
+                  "company": "acq-aaa",
+                  "crm": "hubspot",
+                  "finance": "quickbooks",
+                  "legal_entity": "SYN-LE-0001",
+                  "mapping_version": 1
+                },
+                {
+                  "acquired_on": "2026-02-01",
+                  "admitted": false,
+                  "company": "acq-aab",
+                  "crm": "salesforce",
+                  "finance": "netsuite",
+                  "legal_entity": "SYN-LE-0002",
+                  "mapping_version": 1
+                },
+                {
+                  "acquired_on": "2026-06-01",
+                  "admitted": true,
+                  "company": "acq-aac",
+                  "crm": "legacy-crm",
+                  "finance": "legacy-finance",
+                  "legal_entity": "SYN-LE-0003",
+                  "mapping_version": 1
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "acquired_on": "2025-10-01",
+                  "admitted": true,
+                  "company": "acq-aaa",
+                  "crm": "hubspot",
+                  "finance": "quickbooks",
+                  "legal_entity": "SYN-LE-0001",
+                  "mapping_version": 1
+                },
+                {
+                  "acquired_on": "2026-02-01",
+                  "admitted": false,
+                  "company": "acq-aab",
+                  "crm": "salesforce",
+                  "finance": "netsuite",
+                  "legal_entity": "SYN-LE-0002",
+                  "mapping_version": 1
+                },
+                {
+                  "acquired_on": "2026-06-01",
+                  "admitted": true,
+                  "company": "acq-aac",
+                  "crm": "legacy-crm",
+                  "finance": "legacy-finance",
+                  "legal_entity": "SYN-LE-0003",
+                  "mapping_version": 1
+                }
+              ]
+            }
+          },
+          {
+            "check": "original_continuation_readback",
+            "result": {
+              "actual": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              },
+              "equal": true,
+              "expected": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              }
+            }
+          },
+          {
+            "check": "restated_continuation_readback",
+            "result": {
+              "actual": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13219502,
+                    "consolidated_invoice_minor": 13269502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13219502,
+                    "gross_invoice_minor": 13527000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13269502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19351362,
+                    "consolidated_invoice_minor": 19401362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19351362,
+                    "gross_invoice_minor": 19784000,
+                    "net_invoice_minor": 19401362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              },
+              "equal": true,
+              "expected": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13219502,
+                    "consolidated_invoice_minor": 13269502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13219502,
+                    "gross_invoice_minor": 13527000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13269502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19351362,
+                    "consolidated_invoice_minor": 19401362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19351362,
+                    "gross_invoice_minor": 19784000,
+                    "net_invoice_minor": 19401362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              }
+            }
+          },
+          {
+            "check": "restated_source_hash_readback",
+            "result": {
+              "actual": "bda95fd419c02d24bb9b9888bc878359d602b0f66cf873fd176317a8f56094a9",
+              "equal": true,
+              "expected": "bda95fd419c02d24bb9b9888bc878359d602b0f66cf873fd176317a8f56094a9"
+            }
+          },
+          {
+            "check": "recovery_single_marker",
+            "result": {
+              "actual": 1,
+              "equal": true,
+              "expected": 1
+            }
+          },
+          {
+            "check": "historical_publication_unchanged",
+            "result": {
+              "actual": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              },
+              "equal": true,
+              "expected": {
+                "legal": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 3372523,
+                    "bookings_minor": 12514000,
+                    "company": "acq-aaa",
+                    "consolidated_erp_minor": 6131860,
+                    "consolidated_invoice_minor": 6131860,
+                    "credits_minor": 125140,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 6131860,
+                    "gross_invoice_minor": 6257000,
+                    "legal_entity": "SYN-LE-0001",
+                    "net_invoice_minor": 6131860,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aab",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0002",
+                    "net_invoice_minor": 0,
+                    "period": "2026-10-01"
+                  },
+                  {
+                    "allocated_cash_minor": 0,
+                    "bookings_minor": 0,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 0,
+                    "consolidated_invoice_minor": 0,
+                    "credits_minor": 0,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 0,
+                    "gross_invoice_minor": 0,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 0,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 7485525,
+                    "bookings_minor": 53560000,
+                    "company": "acq-aac",
+                    "consolidated_erp_minor": 13082502,
+                    "consolidated_invoice_minor": 13132502,
+                    "credits_minor": 257498,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 13082502,
+                    "gross_invoice_minor": 13390000,
+                    "legal_entity": "SYN-LE-0003",
+                    "net_invoice_minor": 13132502,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "totals": [
+                  {
+                    "allocated_cash_minor": 3265801,
+                    "bookings_minor": 12118000,
+                    "consolidated_erp_minor": 5937820,
+                    "consolidated_invoice_minor": 5937820,
+                    "credits_minor": 121180,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 5937820,
+                    "gross_invoice_minor": 6059000,
+                    "net_invoice_minor": 5937820,
+                    "period": "2026-01-01"
+                  },
+                  {
+                    "allocated_cash_minor": 10858048,
+                    "bookings_minor": 66074000,
+                    "consolidated_erp_minor": 19214362,
+                    "consolidated_invoice_minor": 19264362,
+                    "credits_minor": 382638,
+                    "currency": "USD",
+                    "elimination_minor": 0,
+                    "erp_posted_minor": 19214362,
+                    "gross_invoice_minor": 19647000,
+                    "net_invoice_minor": 19264362,
+                    "period": "2026-10-01"
+                  }
+                ],
+                "variances": [
+                  [
+                    "acq-aaa",
+                    "PAY-100-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-01",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aaa",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-100-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-101-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-102-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "I-103-10",
+                    "erp_posting_difference",
+                    12500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-100-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-101-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-102-10",
+                    "unallocated_payment",
+                    2500
+                  ],
+                  [
+                    "acq-aac",
+                    "PAY-103-10",
+                    "unallocated_payment",
+                    2500
+                  ]
+                ]
+              }
+            }
+          },
+          {
+            "check": "conflicting_replay_denied",
+            "result": {
+              "actual": "same_revision_content_conflict",
+              "equal": true,
+              "expected": "same_revision_content_conflict"
+            }
+          },
+          {
+            "check": "entity_authority_rejected",
+            "result": {
+              "actual": 2,
+              "equal": true,
+              "expected": 2
+            }
+          },
+          {
+            "check": "delta_constraint_rejected",
+            "result": "DELTA_VIOLATE_CONSTRAINT_WITH_VALUES"
+          },
+          {
+            "check": "failed_transaction_no_partial_write",
+            "result": {
+              "actual": 165,
+              "equal": true,
+              "expected": 165
+            }
+          },
+          {
+            "check": "stream_first",
+            "result": {
+              "batchId": 0,
+              "durationMs": {
+                "addBatch": 3869,
+                "collectSourceMetrics": 45,
+                "commitBatch": 192,
+                "commitOffsets": 154,
+                "getBatch": 583,
+                "latestOffset": 1180,
+                "queryPlanning": 398,
+                "triggerExecution": 6654,
+                "walCommit": 132
+              },
+              "inputRowsPerSecond": 0.0,
+              "numInputRows": 165,
+              "processedRowsPerSecond": 24.763619990995046
+            }
+          },
+          {
+            "check": "stream_restart",
+            "result": {
+              "batchId": 1,
+              "durationMs": {
+                "latestOffset": 53,
+                "triggerExecution": 56
+              },
+              "inputRowsPerSecond": 0.0,
+              "numInputRows": 0,
+              "processedRowsPerSecond": 0.0
+            }
+          },
+          {
+            "check": "checkpoint_replay_unchanged",
+            "result": {
+              "actual": 165,
+              "equal": true,
+              "expected": 165
+            }
+          },
+          {
+            "check": "native_lineage_tables",
+            "result": [
+              "workspace.acq_lh_20261114b.bronze",
+              "workspace.acq_lh_20261114b.silver",
+              "workspace.acq_lh_20261114b.eligible",
+              "workspace.acq_lh_20261114b.gold"
+            ]
+          },
+          {
+            "check": "view_only_published_versions",
+            "result": {
+              "actual": [
+                {
+                  "publication_id": "original"
+                },
+                {
+                  "publication_id": "restated"
+                }
+              ],
+              "equal": true,
+              "expected": [
+                {
+                  "publication_id": "original"
+                },
+                {
+                  "publication_id": "restated"
+                }
+              ]
+            }
+          },
+          {
+            "check": "native_job_price_rows",
+            "result": [
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_EUROPE_FRANKFURT",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.460000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_SA_BRAZIL",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_SYDNEY",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_EUROPE_FRANCE",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_EUROPE_FRANCE",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_EUROPE_LONDON",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_EUROPE_FRANKFURT",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_SINGAPORE",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_SEOUL",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.450000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_US_EAST_OHIO",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.370000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_MUMBAI",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_SYDNEY",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_SEOUL",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.520000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_JAKARTA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.370000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_CANADA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.470000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_MUMBAI",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_EUROPE_LONDON",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.450000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_US_WEST_OREGON",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.350000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_US_EAST_OHIO",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_TOKYO",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_SINGAPORE",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.390000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_EUROPE_IRELAND",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.400000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_AP_JAKARTA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.350000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_US_EAST_N_VIRGINIA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_EUROPE_IRELAND",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.590000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_SA_BRAZIL",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.370000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_US_WEST_CALIFORNIA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.350000000000000000",
+                "sku_name": "PREMIUM_JOBS_SERVERLESS_COMPUTE_US_WEST_OREGON",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.470000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_US_WEST_CALIFORNIA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.470000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_CANADA",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.500000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_AP_TOKYO",
+                "usage_unit": "DBU"
+              },
+              {
+                "currency_code": "USD",
+                "default_price": "0.450000000000000000",
+                "sku_name": "ENTERPRISE_JOBS_SERVERLESS_COMPUTE_US_EAST_N_VIRGINIA",
+                "usage_unit": "DBU"
+              }
+            ]
+          }
+        ],
+        "phase": "postcheck",
+        "runtime": {
+          "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+          "spark": "4.2.0"
+        },
+        "schema": "lakehouse-native.v1",
+        "source_commit": "971b4a9138f19634c3898a5463ecfb1bf605eb34",
+        "started_at_utc": "2026-11-14T16:31:57.042823+00:00",
+        "status": "passed",
+        "synthetic": true
+      },
+      "run_id": 158170792120889,
+      "setup_duration_ms": 316000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "SUCCESS"
+      },
+      "task_key": "postcheck"
+    }
+  ]
+}

@@ -197,6 +197,8 @@ def validate_schema_retirement(manifest, schema, actor, tables, volumes):
     ns = namespace(manifest["schema"])
     if (
         schema.get("full_name") != ns
+        or not schema.get("owner")
+        or not actor.get("userName")
         or schema.get("comment") != "synthetic acquisition acceptance " + manifest["fixture_sha256"]
         or schema.get("owner", "").casefold() != actor.get("userName", "").casefold()
         or actor.get("active") is not True

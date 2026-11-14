@@ -1,0 +1,59 @@
+{
+  "private_observation_sha256": "7b6c57bdfbb978817799a32ba9680fb864c0df3fa1a7366336f49f64bc59ef05",
+  "run_id": 531633830400363,
+  "source_commit": "259fdb77d2facbd61600a2816b6f95cdd7a4c736",
+  "state": {
+    "life_cycle_state": "INTERNAL_ERROR",
+    "result_state": "FAILED"
+  },
+  "tasks": [
+    {
+      "attempt_number": 0,
+      "execution_duration_ms": 82000,
+      "failure_observation": "AssertionError: unrelated_error_not_transaction_proof",
+      "run_id": 982918493844740,
+      "setup_duration_ms": 2000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "recovery"
+    },
+    {
+      "attempt_number": 1,
+      "execution_duration_ms": 11000,
+      "failure_observation": "AssertionError: remote_ahead_candidate",
+      "run_id": 387956886487096,
+      "setup_duration_ms": 2000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "recovery"
+    },
+    {
+      "attempt_number": 0,
+      "execution_duration_ms": 135000,
+      "failure_observation": "RuntimeError: controlled_task_failure_after_delta_commit",
+      "run_id": 125438846265937,
+      "setup_duration_ms": 186000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "fault"
+    },
+    {
+      "attempt_number": 1,
+      "execution_duration_ms": 14000,
+      "failure_observation": "[TABLE_OR_VIEW_ALREADY_EXISTS] Cannot create table or view `acq_lh_20261114b`.`fault_journal` because it already exists.",
+      "run_id": 334538285424397,
+      "setup_duration_ms": 2000,
+      "state": {
+        "life_cycle_state": "TERMINATED",
+        "result_state": "FAILED"
+      },
+      "task_key": "fault"
+    }
+  ]
+}

@@ -37,7 +37,15 @@ def main():
         ):
             raise ValueError("committed_cleanup_source_required")
     evidence = Path(a.evidence)
-    archived = {json.loads(path.read_bytes())["run_id"] for path in evidence.glob("[0-9]*.json")}
+    archived = set()
+    for path in evidence.glob("[0-9]*.json"):
+        relative = path.resolve().relative_to(ROOT).as_posix()
+        if (
+            subprocess.check_output(["git", "show", revision + ":" + relative], cwd=ROOT)
+            != path.read_bytes()
+        ):
+            raise ValueError("committed_native_evidence_required")
+        archived.add(json.loads(path.read_bytes())["run_id"])
     for entry in ledger["submissions"]:
         if entry["run_id"] not in archived:
             raise ValueError("native_run_not_exported:" + str(entry["run_id"]))
