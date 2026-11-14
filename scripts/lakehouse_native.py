@@ -95,6 +95,7 @@ def main():
     p.add_argument("--config", required=True)
     p.add_argument("--schema")
     p.add_argument("--companies", type=int, default=3)
+    p.add_argument("--from-pilot")
     p.add_argument(
         "--phase",
         choices=["pilot", "fault", "observer", "recovery", "governance", "scale", "cleanup"],
@@ -120,7 +121,7 @@ def main():
             f"import base64\nimport json\nFIXTURE = json.loads(base64.b64decode('{encoded}'))\nimport hashlib",
             1,
         )
-        path = "/Shared/acquisition-lakehouse/" + a.schema + "/acceptance"
+        path = "/Shared/acquisition-lakehouse/" + a.schema + "/acceptance-" + revision[:12]
         write(work / "fixture.json", fixture)
         (work / "notebook.py").write_text(notebook, encoding="utf-8", newline="\n")
         write(
@@ -138,6 +139,21 @@ def main():
                 created_at_utc=datetime.now(UTC).isoformat(),
             ),
         )
+        if a.from_pilot:
+            parent = Path(a.from_pilot).resolve()
+            prior = json.loads((parent / "manifest.json").read_bytes())
+            if prior["schema"] != a.schema or prior["fixture_sha256"] != sha(fixture):
+                raise ValueError("parent_pilot_fixture_mismatch")
+            submission = json.loads((parent / "pilot-submitted.json").read_bytes())
+            observed = json.loads(
+                (parent / f"run-{submission['run_id']}-observation.json").read_bytes()
+            )
+            if observed["state"].get("result_state") != "SUCCESS" or not all(
+                t.get("result", {}).get("fixture_sha256") == sha(fixture) for t in observed["tasks"]
+            ):
+                raise ValueError("parent_pilot_not_accepted")
+            write(work / "pilot-submitted.json", submission)
+            write(work / f"run-{submission['run_id']}-observation.json", observed)
         print(json.dumps(dict(status="prepared", source=revision, namespace=a.schema)))
         return
     m = json.loads((work / "manifest.json").read_bytes())
@@ -268,6 +284,9 @@ def main():
             observation = json.loads((work / f"run-{pilot}-observation.json").read_bytes())
             if observation.get("state", {}).get("result_state") != "SUCCESS":
                 raise ValueError("pilot_acceptance_required_before_expansion")
+            remote = cli.call(["jobs", "get-run", str(pilot)], "verify-parent-pilot")
+            if remote.get("state", {}).get("result_state") != "SUCCESS":
+                raise ValueError("native_parent_pilot_not_successful")
         spec = job_spec(
             m["notebook_path"],
             m["schema"],

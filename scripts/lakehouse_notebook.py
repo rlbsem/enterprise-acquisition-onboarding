@@ -89,6 +89,10 @@ def run(spark, dbutils, fixture):
                 "SELECT sku_name,usage_unit,sum(usage_quantity) quantity FROM system.billing.usage WHERE usage_date >= current_date()-1 GROUP BY sku_name,usage_unit",
             ),
             (
+                "rates",
+                "SELECT sku_name,currency_code,usage_unit,cast(pricing.default as string) default_price,price_start_time,price_end_time FROM system.billing.list_prices WHERE cloud='AWS' AND sku_name LIKE '%SERVERLESS%JOBS%' AND price_end_time IS NULL",
+            ),
+            (
                 "lineage",
                 f"SELECT source_table_full_name,target_table_full_name FROM system.access.table_lineage WHERE target_table_schema='{schema}' OR source_table_schema='{schema}' LIMIT 100",
             ),
