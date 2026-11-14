@@ -68,7 +68,7 @@ def export_fixture(count=3):
 
 def job_spec(path, schema, phase, revision, fixture_hash, seconds=900):
     namespace(schema)
-    if phase not in {"pilot", "recovery", "observer", "governance", "scale", "cleanup"}:
+    if phase not in {"pilot", "fault", "recovery", "observer", "governance", "scale", "cleanup"}:
         raise ValueError("unknown_native_phase")
     if not re.fullmatch("[0-9a-f]{40}", revision) or not re.fullmatch("[0-9a-f]{64}", fixture_hash):
         raise ValueError("exact_source_binding_required")

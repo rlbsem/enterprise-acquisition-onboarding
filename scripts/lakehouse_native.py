@@ -75,9 +75,10 @@ def main():
     p.add_argument("--work", required=True)
     p.add_argument("--config", required=True)
     p.add_argument("--schema")
+    p.add_argument("--companies", type=int, default=3)
     p.add_argument(
         "--phase",
-        choices=["pilot", "observer", "recovery", "governance", "scale", "cleanup"],
+        choices=["pilot", "fault", "observer", "recovery", "governance", "scale", "cleanup"],
         default="pilot",
     )
     p.add_argument("--run-id", type=int)
@@ -92,7 +93,7 @@ def main():
         if (work / "manifest.json").exists():
             raise ValueError("fresh_run_required")
         revision = source_revision()
-        fixture = export_fixture(3)
+        fixture = export_fixture(a.companies)
         notebook = (ROOT / "scripts/lakehouse_notebook.py").read_text(encoding="utf-8")
         encoded = base64.b64encode(json.dumps(fixture).encode()).decode()
         notebook = notebook.replace(

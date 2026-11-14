@@ -4,8 +4,11 @@
 import hashlib
 import json
 import re
+import sys
 import time
-from datetime import UTC, datetime
+from datetime import datetime, timezone
+
+UTC = timezone.utc
 
 
 def canonical(value):
@@ -34,6 +37,7 @@ def run(spark, dbutils, fixture):
         observations=[],
         started_at_utc=datetime.now(UTC).isoformat(),
     )
+    out["runtime"] = dict(python=sys.version, spark=spark.version)
 
     def sql(query):
         return spark.sql(query.replace("{ns}", ns))
@@ -133,6 +137,16 @@ def run(spark, dbutils, fixture):
                 observe(name, dict(denied=True, error_class=code))
             else:
                 raise AssertionError(name + "_unexpectedly_allowed")
+    elif phase == "fault":
+        require(
+            "original_still_published",
+            rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
+            [dict(publication_id="original")],
+        )
+        sql(
+            "CREATE TABLE {ns}.fault_journal USING DELTA AS SELECT 'committed_before_task_failure' boundary"
+        ).collect()
+        raise RuntimeError("controlled_task_failure_after_delta_commit")
     elif phase == "scale":
         metrics = []
         for size in [100_000, 1_000_000]:
@@ -223,9 +237,25 @@ def run(spark, dbutils, fixture):
 
         def project(label):
             cutoff = fixture["cutoffs"][label]
+            require(
+                "frozen_control_unchanged",
+                rows("SELECT * FROM {ns}.controls ORDER BY company"),
+                sorted(fixture["controls"], key=lambda r: r["company"]),
+            )
             sql(
-                f"""CREATE OR REPLACE TABLE {{ns}}.silver USING DELTA AS SELECT * EXCEPT(rn) FROM (SELECT b.*,row_number() OVER(PARTITION BY company,kind,source_id ORDER BY revision DESC) rn FROM {{ns}}.bronze b WHERE observed_at<='{cutoff}') WHERE rn=1"""
+                f"""CREATE OR REPLACE TEMP VIEW latest_snapshot AS SELECT * EXCEPT(rn) FROM (SELECT b.*,row_number() OVER(PARTITION BY company,kind,source_id ORDER BY revision DESC) rn FROM {{ns}}.bronze b WHERE observed_at<='{cutoff}') WHERE rn=1"""
             ).collect()
+            if not spark.catalog.tableExists(ns + ".silver"):
+                sql(
+                    "CREATE TABLE {ns}.silver USING DELTA AS SELECT * FROM latest_snapshot WHERE false"
+                ).collect()
+            sql(
+                "MERGE INTO {ns}.silver t USING latest_snapshot s ON t.company=s.company AND t.kind=s.kind AND t.source_id=s.source_id WHEN MATCHED AND s.revision>t.revision THEN UPDATE SET * WHEN NOT MATCHED THEN INSERT *"
+            ).collect()
+            difference = rows(
+                "SELECT count(*) n FROM ((SELECT * FROM latest_snapshot EXCEPT ALL SELECT * FROM {ns}.silver) UNION ALL (SELECT * FROM {ns}.silver EXCEPT ALL SELECT * FROM latest_snapshot))"
+            )[0]["n"]
+            require(label + "_incremental_full_snapshot_parity", difference, 0)
             sql(
                 """CREATE OR REPLACE TEMP VIEW base AS SELECT b.* FROM {ns}.silver b JOIN {ns}.controls c ON b.company=c.company AND b.legal_entity=c.legal_entity WHERE c.admitted AND b.transaction_date>=c.acquired_on AND substring(b.transaction_date,1,7) IN ('2026-01','2026-10')"""
             ).collect()
@@ -255,6 +285,18 @@ def run(spark, dbutils, fixture):
                 legal=rows("SELECT * FROM {ns}.gold ORDER BY company,period"),
                 totals=totals,
                 variances=sorted([list(v) for v in variances]),
+            )
+            require(
+                "invoice_lines_balance",
+                rows("SELECT count(*) n FROM {ns}.invoices WHERE gross_minor<>lines_minor")[0]["n"],
+                0,
+            )
+            require(
+                "no_payment_overallocation",
+                rows(
+                    "SELECT count(*) n FROM (SELECT p.company,p.source_id,p.amount_minor FROM {ns}.eligible p JOIN {ns}.eligible a ON p.company=a.company AND a.kind='allocation' AND a.payment_id=p.source_id WHERE p.kind='payment' GROUP BY p.company,p.source_id,p.amount_minor HAVING sum(a.amount_minor)>p.amount_minor)"
+                )[0]["n"],
+                0,
             )
             require(label + "_full_financial_oracle", result, fixture["expected"][label])
             result_json = canonical(result)
@@ -324,6 +366,12 @@ def run(spark, dbutils, fixture):
                 rows("SELECT publication_id FROM {ns}.publications ORDER BY publication_id"),
                 [dict(publication_id="original")],
             )
+            if spark.catalog.tableExists(ns + ".fault_journal"):
+                require(
+                    "failed_task_durable_commit",
+                    rows("SELECT * FROM {ns}.fault_journal"),
+                    [dict(boundary="committed_before_task_failure")],
+                )
             ingest(fixture["corrections"])
             project("restated")
             publish("restated")
@@ -358,6 +406,22 @@ def run(spark, dbutils, fixture):
                 dict(fixture["baseline"][0], source="untrusted"),
             ]
             require("entity_authority_rejected", ingest(invalid), 2)
+            count_before = rows("SELECT count(*) n FROM {ns}.bronze")[0]["n"]
+            try:
+                sql(
+                    "INSERT INTO {ns}.bronze SELECT * REPLACE(cast(NULL as bigint) AS amount_minor) FROM {ns}.bronze LIMIT 1"
+                ).collect()
+            except Exception as e:
+                code = e.getErrorClass() if hasattr(e, "getErrorClass") else type(e).__name__
+                assert "CONSTRAINT" in str(e), "unrelated_error_not_transaction_proof"
+                observe("delta_constraint_rejected", code)
+            else:
+                raise AssertionError("null_constraint_accepted")
+            require(
+                "failed_transaction_no_partial_write",
+                rows("SELECT count(*) n FROM {ns}.bronze")[0]["n"],
+                count_before,
+            )
             cdf = (
                 spark.readStream.format("delta")
                 .option("readChangeFeed", "true")
@@ -388,6 +452,10 @@ def run(spark, dbutils, fixture):
                 "native_lineage_tables",
                 [ns + ".bronze", ns + ".silver", ns + ".eligible", ns + ".gold"],
             )
+            company, entity = [fixture["controls"][0][k] for k in ["company", "legal_entity"]]
+            sql(
+                f"CREATE VIEW {{ns}}.company_view AS SELECT * FROM {{ns}}.gold WHERE company='{company}' AND legal_entity='{entity}'"
+            ).collect()
         else:
             raise ValueError("unknown_phase")
 
